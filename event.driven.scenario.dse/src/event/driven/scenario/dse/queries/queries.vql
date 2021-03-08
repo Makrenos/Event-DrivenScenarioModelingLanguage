@@ -1,0 +1,12 @@
+package event.driven.scenario.dse.queries
+
+import "http://www.eventDrivenScenario.org/edsdl"
+
+//Rules
+pattern getCurrentState(actualState: State,stateMachine: StateMachine){
+	StateMachine.actualState(stateMachine,actualState);
+}
+
+//Objectives
+
+//Constraints
