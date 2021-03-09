@@ -45,7 +45,7 @@ public class SceneStateCoder implements IStateCoder {
             int index = 0;
             for (Transition transition : outTransitions) {
             	
-                names[index++] = transition.getPattern()+"(c: Car),Target State:"+transition.getTargetState()+",";
+                names[index++] = transition.getPattern()+"(c: Car),Target State:"+transition.getTargetState().getName()+",";
             }
             index--;
             names[index] = names[index].substring(0,names[index].length() -1 );

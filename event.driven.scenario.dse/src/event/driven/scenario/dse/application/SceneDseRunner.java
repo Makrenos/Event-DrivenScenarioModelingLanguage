@@ -2,6 +2,8 @@ package event.driven.scenario.dse.application;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Scanner;
+import java.util.StringJoiner;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -22,6 +24,7 @@ import org.eclipse.viatra.query.runtime.rete.matcher.ReteEngine;
 
 import event.driven.scenario.dse.queries.GetCurrentState;
 import event.driven.scenario.dse.rules.EdsdlDseRules;
+import event.driven.scenario.dse.statecoder.SceneStateCoderFactory;
 import event.driven.scenario.dl.edsdl.Action;
 import event.driven.scenario.dl.edsdl.EdsdlFactory;
 import event.driven.scenario.dl.edsdl.EdsdlPackage;
@@ -45,10 +48,10 @@ public class SceneDseRunner {
     	sVAcc.setName("Vehicle accelerates");
     	
     	State sVMov = factory.createState();
-    	sVAcc.setName("Vehicle moves");
+    	sVMov.setName("Vehicle moves");
     	
     	State sVSlo = factory.createState();
-    	sVAcc.setName("Vehicle slows");
+    	sVSlo.setName("Vehicle slows");
     	
     	Action vAcc = factory.createAction();
     	vAcc.setName("Accelerate");
@@ -81,19 +84,19 @@ public class SceneDseRunner {
     	vMov_danger.setAction(vSlo);
     	
     	Transition vMov_noDanger = factory.createTransition();
-    	vMov_danger.setTargetState(sVMov);
-    	vMov_danger.setPattern("!danger");
-    	vMov_danger.setAction(vMov);
+    	vMov_noDanger.setTargetState(sVMov);
+    	vMov_noDanger.setPattern("!danger");
+    	vMov_noDanger.setAction(vMov);
     	
     	Transition vSlo_danger = factory.createTransition();
-    	vMov_danger.setTargetState(sVSlo);
-    	vMov_danger.setPattern("danger");
-    	vMov_danger.setAction(vSlo);
+    	vSlo_danger.setTargetState(sVSlo);
+    	vSlo_danger.setPattern("danger");
+    	vSlo_danger.setAction(vSlo);
     	
     	Transition vSlo_noDanger = factory.createTransition();
-    	vMov_danger.setTargetState(sVAcc);
-    	vMov_danger.setPattern("!danger");
-    	vMov_danger.setAction(vAcc);
+    	vSlo_noDanger.setTargetState(sVAcc);
+    	vSlo_noDanger.setPattern("!danger");
+    	vSlo_noDanger.setAction(vAcc);
     	
     	sVAcc.getOutTransitions().add(vAcc_noSpeedLimit);
     	sVAcc.getOutTransitions().add(vAcc_speedLimit);
@@ -118,23 +121,37 @@ public class SceneDseRunner {
     	m.getTransitions().add(vAcc_speedLimit);
     	m.getTransitions().add(vMov_noDanger);
     	m.getTransitions().add(vMov_danger);        
-        
-        //Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-        //Map<String, Object> mo = reg.getExtensionToFactoryMap();
-        //ScenarioDslStandaloneSetup.doSetup();
        
-        //m.put("scene", new XMIResourceFactoryImpl());
-        ResourceSet s = new ResourceSetImpl();
-        
-        Resource r = s.createResource(URI.createFileURI("stateMachine.edsdl"));
-        r.getContents().add(m);
-        try {
-			r.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
+    	/*
+    	for(State s : m.getStates()) {
+    		for(Transition t : s.getOutTransitions()) {
+    			System.out.println(t.getTargetState().getName());
+    		}
+    		
+    	}
+    	*/
+    	Scanner sc= new Scanner(System.in);
+    	while(true) {
+    		System.out.print("Current state: " + m.getActualState().getName()+". Possible transitions: ");
+    		StringJoiner joiner = new StringJoiner(", ");
+        		for(Transition t : m.getActualState().getOutTransitions()) {
+        			joiner.add(t.getPattern());
+        		}
+        	
+        	System.out.println(joiner+". Please type one in.");
+        	String str= sc.nextLine();
+        	for(Transition t : m.getActualState().getOutTransitions()) {
+        		if(t.getPattern().equals(str)) {
+        			m.setActualState(t.getTargetState());
+        		}
+        	}
+        	if(str.equals("exit")) {
+        		break;
+        	}
+    	}
+    	sc.close();
+    	
+        /*
         DesignSpaceExplorer.turnOnLoggingWithBasicConfig(DseLoggingLevel.WARN);
 
         DesignSpaceExplorer dse = new DesignSpaceExplorer();
@@ -142,8 +159,8 @@ public class SceneDseRunner {
         dse.setInitialModel(m);
         dse.addMetaModelPackage(EdsdlPackage.eINSTANCE);
         
-        //dse.setStateCoderFactory(new SceneStateCoderFactory());
-        dse.setStateCoderFactory(new SimpleStateCoderFactory(dse.getMetaModelPackages()));
+        dse.setStateCoderFactory(new SceneStateCoderFactory());
+        //dse.setStateCoderFactory(new SimpleStateCoderFactory(dse.getMetaModelPackages()));
 
         EdsdlDseRules rules = new EdsdlDseRules();
         dse.addTransformationRule(rules.currentState);
@@ -161,6 +178,6 @@ public class SceneDseRunner {
         dse.startExploration(Strategies.createDfsStrategy());
 
         System.out.println(dse.toStringSolutions());
-
+    	 */
     }
 }
