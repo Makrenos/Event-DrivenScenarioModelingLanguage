@@ -3,7 +3,6 @@
  */
 package event.driven.scenario.dse.queries;
 
-import event.driven.scenario.dse.queries.GetCurrentState;
 import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine;
 import org.eclipse.viatra.query.runtime.api.impl.BaseGeneratedPatternGroup;
 

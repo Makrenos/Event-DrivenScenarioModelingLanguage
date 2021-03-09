@@ -1,0 +1,55 @@
+grammar event.driven.SceneDl with org.eclipse.xtext.common.Terminals
+
+generate sceneDl "http://www.driven.event/SceneDl"
+
+Scene:
+	name=ID
+	(elements+=Element)*
+;
+
+Element:
+	StaticEntity | DynamicEntity
+;
+
+StaticEntity:
+	type = 'static_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
+	('{'
+	(attributes+=Attribute | features+=Feature) 
+	(',' attributes+=Attribute | ',' features+=Feature)*
+	'}')?
+;
+
+DynamicEntity:
+	type = 'dynamic_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
+	('{'
+	(attributes+=Attribute | contains+=Contain) 
+	(',' attributes+=Attribute | ',' contains+=Contain)*
+	'}')?
+;
+
+Feature:
+    (many?='many')? name=ID ':' type=[Element];
+    
+Contain:
+	(many?='many')? name=ID ':' type=[DynamicEntity]
+;
+
+Attribute:
+	RegularAttribute | PositionAttribute
+;
+
+RegularAttribute:
+	name=ID ':'  type = (AttributeType)  ('[')? (value += AttributeValue) ('-' value += AttributeValue)? (']')? (isTransient?='transient')?
+;
+
+PositionAttribute:
+	name=ID ':'  type = (AttributeType) '['x = (INT) ';' y = (INT)']'  (isTransient?='transient')?
+;
+
+enum AttributeType:
+	range | value
+;
+
+AttributeValue:
+	INT | STRING | INT'.'INT
+;

@@ -1,7 +1,12 @@
 package event.driven.scenario.dse.application;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.StringJoiner;
 
@@ -9,6 +14,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.viatra.dse.api.DesignSpaceExplorer;
 import org.eclipse.viatra.dse.api.Strategies;
 import org.eclipse.viatra.dse.api.DesignSpaceExplorer.DseLoggingLevel;
@@ -42,86 +49,117 @@ public class SceneDseRunner {
     	EdsdlPackage.eINSTANCE.eClass();
     	EdsdlFactory factory = EdsdlFactory.eINSTANCE;
     	
+    	XMIResourceImpl resource = new XMIResourceImpl();
+    	File source = new File("vehicleMoves.edsdl");
     	StateMachine m = factory.createStateMachine();
-        
-    	State sVAcc = factory.createState();
-    	sVAcc.setName("Vehicle accelerates");
     	
-    	State sVMov = factory.createState();
-    	sVMov.setName("Vehicle moves");
+    	if(source.canRead()) {
+	    	try {
+				resource.load( new FileInputStream(source), new HashMap<Object,Object>());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	m = (StateMachine)resource.getContents().get(0);
+    	}else {
     	
-    	State sVSlo = factory.createState();
-    	sVSlo.setName("Vehicle slows");
+	        
+	    	State sVAcc = factory.createState();
+	    	sVAcc.setName("Vehicle accelerates");
+	    	
+	    	State sVMov = factory.createState();
+	    	sVMov.setName("Vehicle moves");
+	    	
+	    	State sVSlo = factory.createState();
+	    	sVSlo.setName("Vehicle slows");
+	    	
+	    	Action vAcc = factory.createAction();
+	    	vAcc.setName("Accelerate");
+	    	vAcc.setChange("speed");
+	    	vAcc.setBy(1);
+	    	
+	    	Action vMov = factory.createAction();
+	    	vMov.setName("Move");
+	    	vMov.setChange("position");
+	    	vMov.setBy(1);
+	    	
+	    	Action vSlo = factory.createAction();
+	    	vSlo.setName("Slow down");
+	    	vSlo.setChange("speed");
+	    	vSlo.setBy(1);
+	    	
+	    	Transition vAcc_speedLimit = factory.createTransition();
+	    	vAcc_speedLimit.setTargetState(sVMov);
+	    	vAcc_speedLimit.setPattern("speedLimit");
+	    	vAcc_speedLimit.setAction(vMov);
+	    	
+	    	Transition vAcc_noSpeedLimit = factory.createTransition();
+	    	vAcc_noSpeedLimit.setTargetState(sVAcc);
+	    	vAcc_noSpeedLimit.setPattern("!speedLimit");
+	    	vAcc_noSpeedLimit.setAction(vAcc);
+	    	
+	    	Transition vMov_danger = factory.createTransition();
+	    	vMov_danger.setTargetState(sVSlo);
+	    	vMov_danger.setPattern("danger");
+	    	vMov_danger.setAction(vSlo);
+	    	
+	    	Transition vMov_noDanger = factory.createTransition();
+	    	vMov_noDanger.setTargetState(sVMov);
+	    	vMov_noDanger.setPattern("!danger");
+	    	vMov_noDanger.setAction(vMov);
+	    	
+	    	Transition vSlo_danger = factory.createTransition();
+	    	vSlo_danger.setTargetState(sVSlo);
+	    	vSlo_danger.setPattern("danger");
+	    	vSlo_danger.setAction(vSlo);
+	    	
+	    	Transition vSlo_noDanger = factory.createTransition();
+	    	vSlo_noDanger.setTargetState(sVAcc);
+	    	vSlo_noDanger.setPattern("!danger");
+	    	vSlo_noDanger.setAction(vAcc);
+	    	
+	    	sVAcc.getOutTransitions().add(vAcc_noSpeedLimit);
+	    	sVAcc.getOutTransitions().add(vAcc_speedLimit);
+	    	sVMov.getOutTransitions().add(vMov_noDanger);
+	    	sVMov.getOutTransitions().add(vMov_danger);
+	    	sVSlo.getOutTransitions().add(vSlo_noDanger);
+	    	sVSlo.getOutTransitions().add(vSlo_danger);
+	    	
+	    	m.setActualState(sVAcc);
+	    	
+	    	m.getActions().add(vSlo);
+	    	m.getActions().add(vAcc);
+	    	m.getActions().add(vMov);
+	    	
+	    	m.getStates().add(sVSlo);
+	    	m.getStates().add(sVAcc);
+	    	m.getStates().add(sVMov);
+	    	
+	    	m.getTransitions().add(vSlo_noDanger);
+	    	m.getTransitions().add(vSlo_danger);
+	    	m.getTransitions().add(vAcc_noSpeedLimit);
+	    	m.getTransitions().add(vAcc_speedLimit);
+	    	m.getTransitions().add(vMov_noDanger);
+	    	m.getTransitions().add(vMov_danger);        
+	    	
+	    	
+	    	Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+	    	Map<String, Object> mo = reg.getExtensionToFactoryMap();
+	    	mo.put("edsdl", new XMIResourceFactoryImpl());
+	    	ResourceSet resSet = new ResourceSetImpl();
+	    	Resource resourceSave = resSet.createResource(URI.createFileURI("vehicleMoves.edsdl"));
+	    	resource.getContents().add(m);
+	    	try {
+	    		resourceSave.save(Collections.EMPTY_MAP);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	
-    	Action vAcc = factory.createAction();
-    	vAcc.setName("Accelerate");
-    	vAcc.setChange("speed");
-    	vAcc.setBy(1);
-    	
-    	Action vMov = factory.createAction();
-    	vMov.setName("Move");
-    	vMov.setChange("position");
-    	vMov.setBy(1);
-    	
-    	Action vSlo = factory.createAction();
-    	vSlo.setName("Slow down");
-    	vSlo.setChange("speed");
-    	vSlo.setBy(1);
-    	
-    	Transition vAcc_speedLimit = factory.createTransition();
-    	vAcc_speedLimit.setTargetState(sVMov);
-    	vAcc_speedLimit.setPattern("speedLimit");
-    	vAcc_speedLimit.setAction(vMov);
-    	
-    	Transition vAcc_noSpeedLimit = factory.createTransition();
-    	vAcc_noSpeedLimit.setTargetState(sVAcc);
-    	vAcc_noSpeedLimit.setPattern("!speedLimit");
-    	vAcc_noSpeedLimit.setAction(vAcc);
-    	
-    	Transition vMov_danger = factory.createTransition();
-    	vMov_danger.setTargetState(sVSlo);
-    	vMov_danger.setPattern("danger");
-    	vMov_danger.setAction(vSlo);
-    	
-    	Transition vMov_noDanger = factory.createTransition();
-    	vMov_noDanger.setTargetState(sVMov);
-    	vMov_noDanger.setPattern("!danger");
-    	vMov_noDanger.setAction(vMov);
-    	
-    	Transition vSlo_danger = factory.createTransition();
-    	vSlo_danger.setTargetState(sVSlo);
-    	vSlo_danger.setPattern("danger");
-    	vSlo_danger.setAction(vSlo);
-    	
-    	Transition vSlo_noDanger = factory.createTransition();
-    	vSlo_noDanger.setTargetState(sVAcc);
-    	vSlo_noDanger.setPattern("!danger");
-    	vSlo_noDanger.setAction(vAcc);
-    	
-    	sVAcc.getOutTransitions().add(vAcc_noSpeedLimit);
-    	sVAcc.getOutTransitions().add(vAcc_speedLimit);
-    	sVMov.getOutTransitions().add(vMov_noDanger);
-    	sVMov.getOutTransitions().add(vMov_danger);
-    	sVSlo.getOutTransitions().add(vSlo_noDanger);
-    	sVSlo.getOutTransitions().add(vSlo_danger);
-    	
-    	m.setActualState(sVAcc);
-    	
-    	m.getActions().add(vSlo);
-    	m.getActions().add(vAcc);
-    	m.getActions().add(vMov);
-    	
-    	m.getStates().add(sVSlo);
-    	m.getStates().add(sVAcc);
-    	m.getStates().add(sVMov);
-    	
-    	m.getTransitions().add(vSlo_noDanger);
-    	m.getTransitions().add(vSlo_danger);
-    	m.getTransitions().add(vAcc_noSpeedLimit);
-    	m.getTransitions().add(vAcc_speedLimit);
-    	m.getTransitions().add(vMov_noDanger);
-    	m.getTransitions().add(vMov_danger);        
-       
+    	}
     	/*
     	for(State s : m.getStates()) {
     		for(Transition t : s.getOutTransitions()) {
