@@ -3,8 +3,6 @@
  */
 package event.driven.scenario.dse.queries;
 
-import event.driven.scenario.dl.edsdl.State;
-import event.driven.scenario.dl.edsdl.StateMachine;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -38,15 +36,16 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PVisibility;
 import org.eclipse.viatra.query.runtime.matchers.tuple.Tuple;
 import org.eclipse.viatra.query.runtime.matchers.tuple.Tuples;
 import org.eclipse.viatra.query.runtime.util.ViatraQueryLoggingUtil;
+import scenedl.DynamicEntity;
+import scenedl.StaticEntity;
 
 /**
  * A pattern-specific query specification that can instantiate Matcher in a type-safe way.
  * 
  * <p>Original source:
  *         <code><pre>
- *         //Rules
- *         pattern getCurrentState(actualState: State,stateMachine: StateMachine){
- *         	StateMachine.actualState(stateMachine,actualState);
+ *         pattern vehicleOnRoad(de: DynamicEntity,se: StaticEntity){		
+ *         	DynamicEntity.on(de,se);
  *         }
  * </pre></code>
  * 
@@ -55,9 +54,9 @@ import org.eclipse.viatra.query.runtime.util.ViatraQueryLoggingUtil;
  * 
  */
 @SuppressWarnings("all")
-public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<GetCurrentState.Matcher> {
+public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<VehicleOnRoad.Matcher> {
   /**
-   * Pattern-specific match representation of the event.driven.scenario.dse.queries.getCurrentState pattern,
+   * Pattern-specific match representation of the event.driven.scenario.dse.queries.vehicleOnRoad pattern,
    * to be used in conjunction with {@link Matcher}.
    * 
    * <p>Class fields correspond to parameters of the pattern. Fields with value null are considered unassigned.
@@ -69,22 +68,22 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
    * 
    */
   public static abstract class Match extends BasePatternMatch {
-    private State fActualState;
+    private DynamicEntity fDe;
     
-    private StateMachine fStateMachine;
+    private StaticEntity fSe;
     
-    private static List<String> parameterNames = makeImmutableList("actualState", "stateMachine");
+    private static List<String> parameterNames = makeImmutableList("de", "se");
     
-    private Match(final State pActualState, final StateMachine pStateMachine) {
-      this.fActualState = pActualState;
-      this.fStateMachine = pStateMachine;
+    private Match(final DynamicEntity pDe, final StaticEntity pSe) {
+      this.fDe = pDe;
+      this.fSe = pSe;
     }
     
     @Override
     public Object get(final String parameterName) {
       switch(parameterName) {
-          case "actualState": return this.fActualState;
-          case "stateMachine": return this.fStateMachine;
+          case "de": return this.fDe;
+          case "se": return this.fSe;
           default: return null;
       }
     }
@@ -92,75 +91,75 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
     @Override
     public Object get(final int index) {
       switch(index) {
-          case 0: return this.fActualState;
-          case 1: return this.fStateMachine;
+          case 0: return this.fDe;
+          case 1: return this.fSe;
           default: return null;
       }
     }
     
-    public State getActualState() {
-      return this.fActualState;
+    public DynamicEntity getDe() {
+      return this.fDe;
     }
     
-    public StateMachine getStateMachine() {
-      return this.fStateMachine;
+    public StaticEntity getSe() {
+      return this.fSe;
     }
     
     @Override
     public boolean set(final String parameterName, final Object newValue) {
       if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-      if ("actualState".equals(parameterName) ) {
-          this.fActualState = (State) newValue;
+      if ("de".equals(parameterName) ) {
+          this.fDe = (DynamicEntity) newValue;
           return true;
       }
-      if ("stateMachine".equals(parameterName) ) {
-          this.fStateMachine = (StateMachine) newValue;
+      if ("se".equals(parameterName) ) {
+          this.fSe = (StaticEntity) newValue;
           return true;
       }
       return false;
     }
     
-    public void setActualState(final State pActualState) {
+    public void setDe(final DynamicEntity pDe) {
       if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-      this.fActualState = pActualState;
+      this.fDe = pDe;
     }
     
-    public void setStateMachine(final StateMachine pStateMachine) {
+    public void setSe(final StaticEntity pSe) {
       if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-      this.fStateMachine = pStateMachine;
+      this.fSe = pSe;
     }
     
     @Override
     public String patternName() {
-      return "event.driven.scenario.dse.queries.getCurrentState";
+      return "event.driven.scenario.dse.queries.vehicleOnRoad";
     }
     
     @Override
     public List<String> parameterNames() {
-      return GetCurrentState.Match.parameterNames;
+      return VehicleOnRoad.Match.parameterNames;
     }
     
     @Override
     public Object[] toArray() {
-      return new Object[]{fActualState, fStateMachine};
+      return new Object[]{fDe, fSe};
     }
     
     @Override
-    public GetCurrentState.Match toImmutable() {
-      return isMutable() ? newMatch(fActualState, fStateMachine) : this;
+    public VehicleOnRoad.Match toImmutable() {
+      return isMutable() ? newMatch(fDe, fSe) : this;
     }
     
     @Override
     public String prettyPrint() {
       StringBuilder result = new StringBuilder();
-      result.append("\"actualState\"=" + prettyPrintValue(fActualState) + ", ");
-      result.append("\"stateMachine\"=" + prettyPrintValue(fStateMachine));
+      result.append("\"de\"=" + prettyPrintValue(fDe) + ", ");
+      result.append("\"se\"=" + prettyPrintValue(fSe));
       return result.toString();
     }
     
     @Override
     public int hashCode() {
-      return Objects.hash(fActualState, fStateMachine);
+      return Objects.hash(fDe, fSe);
     }
     
     @Override
@@ -170,9 +169,9 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
       if (obj == null) {
           return false;
       }
-      if ((obj instanceof GetCurrentState.Match)) {
-          GetCurrentState.Match other = (GetCurrentState.Match) obj;
-          return Objects.equals(fActualState, other.fActualState) && Objects.equals(fStateMachine, other.fStateMachine);
+      if ((obj instanceof VehicleOnRoad.Match)) {
+          VehicleOnRoad.Match other = (VehicleOnRoad.Match) obj;
+          return Objects.equals(fDe, other.fDe) && Objects.equals(fSe, other.fSe);
       } else {
           // this should be infrequent
           if (!(obj instanceof IPatternMatch)) {
@@ -184,8 +183,8 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
     }
     
     @Override
-    public GetCurrentState specification() {
-      return GetCurrentState.instance();
+    public VehicleOnRoad specification() {
+      return VehicleOnRoad.instance();
     }
     
     /**
@@ -195,7 +194,7 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * @return the empty match.
      * 
      */
-    public static GetCurrentState.Match newEmptyMatch() {
+    public static VehicleOnRoad.Match newEmptyMatch() {
       return new Mutable(null, null);
     }
     
@@ -203,31 +202,31 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * Returns a mutable (partial) match.
      * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
      * 
-     * @param pActualState the fixed value of pattern parameter actualState, or null if not bound.
-     * @param pStateMachine the fixed value of pattern parameter stateMachine, or null if not bound.
+     * @param pDe the fixed value of pattern parameter de, or null if not bound.
+     * @param pSe the fixed value of pattern parameter se, or null if not bound.
      * @return the new, mutable (partial) match object.
      * 
      */
-    public static GetCurrentState.Match newMutableMatch(final State pActualState, final StateMachine pStateMachine) {
-      return new Mutable(pActualState, pStateMachine);
+    public static VehicleOnRoad.Match newMutableMatch(final DynamicEntity pDe, final StaticEntity pSe) {
+      return new Mutable(pDe, pSe);
     }
     
     /**
      * Returns a new (partial) match.
      * This can be used e.g. to call the matcher with a partial match.
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
-     * @param pActualState the fixed value of pattern parameter actualState, or null if not bound.
-     * @param pStateMachine the fixed value of pattern parameter stateMachine, or null if not bound.
+     * @param pDe the fixed value of pattern parameter de, or null if not bound.
+     * @param pSe the fixed value of pattern parameter se, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public static GetCurrentState.Match newMatch(final State pActualState, final StateMachine pStateMachine) {
-      return new Immutable(pActualState, pStateMachine);
+    public static VehicleOnRoad.Match newMatch(final DynamicEntity pDe, final StaticEntity pSe) {
+      return new Immutable(pDe, pSe);
     }
     
-    private static final class Mutable extends GetCurrentState.Match {
-      Mutable(final State pActualState, final StateMachine pStateMachine) {
-        super(pActualState, pStateMachine);
+    private static final class Mutable extends VehicleOnRoad.Match {
+      Mutable(final DynamicEntity pDe, final StaticEntity pSe) {
+        super(pDe, pSe);
       }
       
       @Override
@@ -236,9 +235,9 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
       }
     }
     
-    private static final class Immutable extends GetCurrentState.Match {
-      Immutable(final State pActualState, final StateMachine pStateMachine) {
-        super(pActualState, pStateMachine);
+    private static final class Immutable extends VehicleOnRoad.Match {
+      Immutable(final DynamicEntity pDe, final StaticEntity pSe) {
+        super(pDe, pSe);
       }
       
       @Override
@@ -249,7 +248,7 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
   }
   
   /**
-   * Generated pattern matcher API of the event.driven.scenario.dse.queries.getCurrentState pattern,
+   * Generated pattern matcher API of the event.driven.scenario.dse.queries.vehicleOnRoad pattern,
    * providing pattern-specific query methods.
    * 
    * <p>Use the pattern matcher on a given model via {@link #on(ViatraQueryEngine)},
@@ -259,17 +258,16 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
    * 
    * <p>Original source:
    * <code><pre>
-   * //Rules
-   * pattern getCurrentState(actualState: State,stateMachine: StateMachine){
-   * 	StateMachine.actualState(stateMachine,actualState);
+   * pattern vehicleOnRoad(de: DynamicEntity,se: StaticEntity){		
+   * 	DynamicEntity.on(de,se);
    * }
    * </pre></code>
    * 
    * @see Match
-   * @see GetCurrentState
+   * @see VehicleOnRoad
    * 
    */
-  public static class Matcher extends BaseMatcher<GetCurrentState.Match> {
+  public static class Matcher extends BaseMatcher<VehicleOnRoad.Match> {
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
      * If the pattern matcher is already constructed in the engine, only a light-weight reference is returned.
@@ -278,7 +276,7 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * @throws ViatraQueryRuntimeException if an error occurs during pattern matcher creation
      * 
      */
-    public static GetCurrentState.Matcher on(final ViatraQueryEngine engine) {
+    public static VehicleOnRoad.Matcher on(final ViatraQueryEngine engine) {
       // check if matcher already exists
       Matcher matcher = engine.getExistingMatcher(querySpecification());
       if (matcher == null) {
@@ -293,15 +291,15 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * @noreference This method is for internal matcher initialization by the framework, do not call it manually.
      * 
      */
-    public static GetCurrentState.Matcher create() {
+    public static VehicleOnRoad.Matcher create() {
       return new Matcher();
     }
     
-    private static final int POSITION_ACTUALSTATE = 0;
+    private static final int POSITION_DE = 0;
     
-    private static final int POSITION_STATEMACHINE = 1;
+    private static final int POSITION_SE = 1;
     
-    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(GetCurrentState.Matcher.class);
+    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(VehicleOnRoad.Matcher.class);
     
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
@@ -317,13 +315,13 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
     
     /**
      * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
-     * @param pActualState the fixed value of pattern parameter actualState, or null if not bound.
-     * @param pStateMachine the fixed value of pattern parameter stateMachine, or null if not bound.
+     * @param pDe the fixed value of pattern parameter de, or null if not bound.
+     * @param pSe the fixed value of pattern parameter se, or null if not bound.
      * @return matches represented as a Match object.
      * 
      */
-    public Collection<GetCurrentState.Match> getAllMatches(final State pActualState, final StateMachine pStateMachine) {
-      return rawStreamAllMatches(new Object[]{pActualState, pStateMachine}).collect(Collectors.toSet());
+    public Collection<VehicleOnRoad.Match> getAllMatches(final DynamicEntity pDe, final StaticEntity pSe) {
+      return rawStreamAllMatches(new Object[]{pDe, pSe}).collect(Collectors.toSet());
     }
     
     /**
@@ -332,105 +330,105 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
      * In such cases, either rely on {@link #getAllMatches()} or collect the results of the stream in end-user code.
-     * @param pActualState the fixed value of pattern parameter actualState, or null if not bound.
-     * @param pStateMachine the fixed value of pattern parameter stateMachine, or null if not bound.
+     * @param pDe the fixed value of pattern parameter de, or null if not bound.
+     * @param pSe the fixed value of pattern parameter se, or null if not bound.
      * @return a stream of matches represented as a Match object.
      * 
      */
-    public Stream<GetCurrentState.Match> streamAllMatches(final State pActualState, final StateMachine pStateMachine) {
-      return rawStreamAllMatches(new Object[]{pActualState, pStateMachine});
+    public Stream<VehicleOnRoad.Match> streamAllMatches(final DynamicEntity pDe, final StaticEntity pSe) {
+      return rawStreamAllMatches(new Object[]{pDe, pSe});
     }
     
     /**
      * Returns an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
      * Neither determinism nor randomness of selection is guaranteed.
-     * @param pActualState the fixed value of pattern parameter actualState, or null if not bound.
-     * @param pStateMachine the fixed value of pattern parameter stateMachine, or null if not bound.
+     * @param pDe the fixed value of pattern parameter de, or null if not bound.
+     * @param pSe the fixed value of pattern parameter se, or null if not bound.
      * @return a match represented as a Match object, or null if no match is found.
      * 
      */
-    public Optional<GetCurrentState.Match> getOneArbitraryMatch(final State pActualState, final StateMachine pStateMachine) {
-      return rawGetOneArbitraryMatch(new Object[]{pActualState, pStateMachine});
+    public Optional<VehicleOnRoad.Match> getOneArbitraryMatch(final DynamicEntity pDe, final StaticEntity pSe) {
+      return rawGetOneArbitraryMatch(new Object[]{pDe, pSe});
     }
     
     /**
      * Indicates whether the given combination of specified pattern parameters constitute a valid pattern match,
      * under any possible substitution of the unspecified parameters (if any).
-     * @param pActualState the fixed value of pattern parameter actualState, or null if not bound.
-     * @param pStateMachine the fixed value of pattern parameter stateMachine, or null if not bound.
+     * @param pDe the fixed value of pattern parameter de, or null if not bound.
+     * @param pSe the fixed value of pattern parameter se, or null if not bound.
      * @return true if the input is a valid (partial) match of the pattern.
      * 
      */
-    public boolean hasMatch(final State pActualState, final StateMachine pStateMachine) {
-      return rawHasMatch(new Object[]{pActualState, pStateMachine});
+    public boolean hasMatch(final DynamicEntity pDe, final StaticEntity pSe) {
+      return rawHasMatch(new Object[]{pDe, pSe});
     }
     
     /**
      * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
-     * @param pActualState the fixed value of pattern parameter actualState, or null if not bound.
-     * @param pStateMachine the fixed value of pattern parameter stateMachine, or null if not bound.
+     * @param pDe the fixed value of pattern parameter de, or null if not bound.
+     * @param pSe the fixed value of pattern parameter se, or null if not bound.
      * @return the number of pattern matches found.
      * 
      */
-    public int countMatches(final State pActualState, final StateMachine pStateMachine) {
-      return rawCountMatches(new Object[]{pActualState, pStateMachine});
+    public int countMatches(final DynamicEntity pDe, final StaticEntity pSe) {
+      return rawCountMatches(new Object[]{pDe, pSe});
     }
     
     /**
      * Executes the given processor on an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
      * Neither determinism nor randomness of selection is guaranteed.
-     * @param pActualState the fixed value of pattern parameter actualState, or null if not bound.
-     * @param pStateMachine the fixed value of pattern parameter stateMachine, or null if not bound.
+     * @param pDe the fixed value of pattern parameter de, or null if not bound.
+     * @param pSe the fixed value of pattern parameter se, or null if not bound.
      * @param processor the action that will process the selected match.
      * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
      * 
      */
-    public boolean forOneArbitraryMatch(final State pActualState, final StateMachine pStateMachine, final Consumer<? super GetCurrentState.Match> processor) {
-      return rawForOneArbitraryMatch(new Object[]{pActualState, pStateMachine}, processor);
+    public boolean forOneArbitraryMatch(final DynamicEntity pDe, final StaticEntity pSe, final Consumer<? super VehicleOnRoad.Match> processor) {
+      return rawForOneArbitraryMatch(new Object[]{pDe, pSe}, processor);
     }
     
     /**
      * Returns a new (partial) match.
      * This can be used e.g. to call the matcher with a partial match.
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
-     * @param pActualState the fixed value of pattern parameter actualState, or null if not bound.
-     * @param pStateMachine the fixed value of pattern parameter stateMachine, or null if not bound.
+     * @param pDe the fixed value of pattern parameter de, or null if not bound.
+     * @param pSe the fixed value of pattern parameter se, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public GetCurrentState.Match newMatch(final State pActualState, final StateMachine pStateMachine) {
-      return GetCurrentState.Match.newMatch(pActualState, pStateMachine);
+    public VehicleOnRoad.Match newMatch(final DynamicEntity pDe, final StaticEntity pSe) {
+      return VehicleOnRoad.Match.newMatch(pDe, pSe);
     }
     
     /**
-     * Retrieve the set of values that occur in matches for actualState.
+     * Retrieve the set of values that occur in matches for de.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    protected Stream<State> rawStreamAllValuesOfactualState(final Object[] parameters) {
-      return rawStreamAllValues(POSITION_ACTUALSTATE, parameters).map(State.class::cast);
+    protected Stream<DynamicEntity> rawStreamAllValuesOfde(final Object[] parameters) {
+      return rawStreamAllValues(POSITION_DE, parameters).map(DynamicEntity.class::cast);
     }
     
     /**
-     * Retrieve the set of values that occur in matches for actualState.
+     * Retrieve the set of values that occur in matches for de.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<State> getAllValuesOfactualState() {
-      return rawStreamAllValuesOfactualState(emptyArray()).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfde() {
+      return rawStreamAllValuesOfde(emptyArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for actualState.
+     * Retrieve the set of values that occur in matches for de.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Stream<State> streamAllValuesOfactualState() {
-      return rawStreamAllValuesOfactualState(emptyArray());
+    public Stream<DynamicEntity> streamAllValuesOfde() {
+      return rawStreamAllValuesOfde(emptyArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for actualState.
+     * Retrieve the set of values that occur in matches for de.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -439,12 +437,12 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<State> streamAllValuesOfactualState(final GetCurrentState.Match partialMatch) {
-      return rawStreamAllValuesOfactualState(partialMatch.toArray());
+    public Stream<DynamicEntity> streamAllValuesOfde(final VehicleOnRoad.Match partialMatch) {
+      return rawStreamAllValuesOfde(partialMatch.toArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for actualState.
+     * Retrieve the set of values that occur in matches for de.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -453,57 +451,57 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<State> streamAllValuesOfactualState(final StateMachine pStateMachine) {
-      return rawStreamAllValuesOfactualState(new Object[]{null, pStateMachine});
+    public Stream<DynamicEntity> streamAllValuesOfde(final StaticEntity pSe) {
+      return rawStreamAllValuesOfde(new Object[]{null, pSe});
     }
     
     /**
-     * Retrieve the set of values that occur in matches for actualState.
+     * Retrieve the set of values that occur in matches for de.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<State> getAllValuesOfactualState(final GetCurrentState.Match partialMatch) {
-      return rawStreamAllValuesOfactualState(partialMatch.toArray()).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfde(final VehicleOnRoad.Match partialMatch) {
+      return rawStreamAllValuesOfde(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for actualState.
+     * Retrieve the set of values that occur in matches for de.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<State> getAllValuesOfactualState(final StateMachine pStateMachine) {
-      return rawStreamAllValuesOfactualState(new Object[]{null, pStateMachine}).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfde(final StaticEntity pSe) {
+      return rawStreamAllValuesOfde(new Object[]{null, pSe}).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for stateMachine.
+     * Retrieve the set of values that occur in matches for se.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    protected Stream<StateMachine> rawStreamAllValuesOfstateMachine(final Object[] parameters) {
-      return rawStreamAllValues(POSITION_STATEMACHINE, parameters).map(StateMachine.class::cast);
+    protected Stream<StaticEntity> rawStreamAllValuesOfse(final Object[] parameters) {
+      return rawStreamAllValues(POSITION_SE, parameters).map(StaticEntity.class::cast);
     }
     
     /**
-     * Retrieve the set of values that occur in matches for stateMachine.
+     * Retrieve the set of values that occur in matches for se.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<StateMachine> getAllValuesOfstateMachine() {
-      return rawStreamAllValuesOfstateMachine(emptyArray()).collect(Collectors.toSet());
+    public Set<StaticEntity> getAllValuesOfse() {
+      return rawStreamAllValuesOfse(emptyArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for stateMachine.
+     * Retrieve the set of values that occur in matches for se.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Stream<StateMachine> streamAllValuesOfstateMachine() {
-      return rawStreamAllValuesOfstateMachine(emptyArray());
+    public Stream<StaticEntity> streamAllValuesOfse() {
+      return rawStreamAllValuesOfse(emptyArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for stateMachine.
+     * Retrieve the set of values that occur in matches for se.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -512,12 +510,12 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<StateMachine> streamAllValuesOfstateMachine(final GetCurrentState.Match partialMatch) {
-      return rawStreamAllValuesOfstateMachine(partialMatch.toArray());
+    public Stream<StaticEntity> streamAllValuesOfse(final VehicleOnRoad.Match partialMatch) {
+      return rawStreamAllValuesOfse(partialMatch.toArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for stateMachine.
+     * Retrieve the set of values that occur in matches for se.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -526,32 +524,32 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<StateMachine> streamAllValuesOfstateMachine(final State pActualState) {
-      return rawStreamAllValuesOfstateMachine(new Object[]{pActualState, null});
+    public Stream<StaticEntity> streamAllValuesOfse(final DynamicEntity pDe) {
+      return rawStreamAllValuesOfse(new Object[]{pDe, null});
     }
     
     /**
-     * Retrieve the set of values that occur in matches for stateMachine.
+     * Retrieve the set of values that occur in matches for se.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<StateMachine> getAllValuesOfstateMachine(final GetCurrentState.Match partialMatch) {
-      return rawStreamAllValuesOfstateMachine(partialMatch.toArray()).collect(Collectors.toSet());
+    public Set<StaticEntity> getAllValuesOfse(final VehicleOnRoad.Match partialMatch) {
+      return rawStreamAllValuesOfse(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for stateMachine.
+     * Retrieve the set of values that occur in matches for se.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<StateMachine> getAllValuesOfstateMachine(final State pActualState) {
-      return rawStreamAllValuesOfstateMachine(new Object[]{pActualState, null}).collect(Collectors.toSet());
+    public Set<StaticEntity> getAllValuesOfse(final DynamicEntity pDe) {
+      return rawStreamAllValuesOfse(new Object[]{pDe, null}).collect(Collectors.toSet());
     }
     
     @Override
-    protected GetCurrentState.Match tupleToMatch(final Tuple t) {
+    protected VehicleOnRoad.Match tupleToMatch(final Tuple t) {
       try {
-          return GetCurrentState.Match.newMatch((State) t.get(POSITION_ACTUALSTATE), (StateMachine) t.get(POSITION_STATEMACHINE));
+          return VehicleOnRoad.Match.newMatch((DynamicEntity) t.get(POSITION_DE), (StaticEntity) t.get(POSITION_SE));
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in tuple not properly typed!",e);
           return null;
@@ -559,9 +557,9 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
     }
     
     @Override
-    protected GetCurrentState.Match arrayToMatch(final Object[] match) {
+    protected VehicleOnRoad.Match arrayToMatch(final Object[] match) {
       try {
-          return GetCurrentState.Match.newMatch((State) match[POSITION_ACTUALSTATE], (StateMachine) match[POSITION_STATEMACHINE]);
+          return VehicleOnRoad.Match.newMatch((DynamicEntity) match[POSITION_DE], (StaticEntity) match[POSITION_SE]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -569,9 +567,9 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
     }
     
     @Override
-    protected GetCurrentState.Match arrayToMatchMutable(final Object[] match) {
+    protected VehicleOnRoad.Match arrayToMatchMutable(final Object[] match) {
       try {
-          return GetCurrentState.Match.newMutableMatch((State) match[POSITION_ACTUALSTATE], (StateMachine) match[POSITION_STATEMACHINE]);
+          return VehicleOnRoad.Match.newMutableMatch((DynamicEntity) match[POSITION_DE], (StaticEntity) match[POSITION_SE]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -583,12 +581,12 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
      * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
      * 
      */
-    public static IQuerySpecification<GetCurrentState.Matcher> querySpecification() {
-      return GetCurrentState.instance();
+    public static IQuerySpecification<VehicleOnRoad.Matcher> querySpecification() {
+      return VehicleOnRoad.instance();
     }
   }
   
-  private GetCurrentState() {
+  private VehicleOnRoad() {
     super(GeneratedPQuery.INSTANCE);
   }
   
@@ -597,7 +595,7 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
    * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
    * 
    */
-  public static GetCurrentState instance() {
+  public static VehicleOnRoad instance() {
     try{
         return LazyHolder.INSTANCE;
     } catch (ExceptionInInitializerError err) {
@@ -606,35 +604,35 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
   }
   
   @Override
-  protected GetCurrentState.Matcher instantiate(final ViatraQueryEngine engine) {
-    return GetCurrentState.Matcher.on(engine);
+  protected VehicleOnRoad.Matcher instantiate(final ViatraQueryEngine engine) {
+    return VehicleOnRoad.Matcher.on(engine);
   }
   
   @Override
-  public GetCurrentState.Matcher instantiate() {
-    return GetCurrentState.Matcher.create();
+  public VehicleOnRoad.Matcher instantiate() {
+    return VehicleOnRoad.Matcher.create();
   }
   
   @Override
-  public GetCurrentState.Match newEmptyMatch() {
-    return GetCurrentState.Match.newEmptyMatch();
+  public VehicleOnRoad.Match newEmptyMatch() {
+    return VehicleOnRoad.Match.newEmptyMatch();
   }
   
   @Override
-  public GetCurrentState.Match newMatch(final Object... parameters) {
-    return GetCurrentState.Match.newMatch((event.driven.scenario.dl.edsdl.State) parameters[0], (event.driven.scenario.dl.edsdl.StateMachine) parameters[1]);
+  public VehicleOnRoad.Match newMatch(final Object... parameters) {
+    return VehicleOnRoad.Match.newMatch((scenedl.DynamicEntity) parameters[0], (scenedl.StaticEntity) parameters[1]);
   }
   
   /**
-   * Inner class allowing the singleton instance of {@link GetCurrentState} to be created 
+   * Inner class allowing the singleton instance of {@link VehicleOnRoad} to be created 
    *     <b>not</b> at the class load time of the outer class, 
-   *     but rather at the first call to {@link GetCurrentState#instance()}.
+   *     but rather at the first call to {@link VehicleOnRoad#instance()}.
    * 
    * <p> This workaround is required e.g. to support recursion.
    * 
    */
   private static class LazyHolder {
-    private static final GetCurrentState INSTANCE = new GetCurrentState();
+    private static final VehicleOnRoad INSTANCE = new VehicleOnRoad();
     
     /**
      * Statically initializes the query specification <b>after</b> the field {@link #INSTANCE} is assigned.
@@ -652,13 +650,13 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
   }
   
   private static class GeneratedPQuery extends BaseGeneratedEMFPQuery {
-    private static final GetCurrentState.GeneratedPQuery INSTANCE = new GeneratedPQuery();
+    private static final VehicleOnRoad.GeneratedPQuery INSTANCE = new GeneratedPQuery();
     
-    private final PParameter parameter_actualState = new PParameter("actualState", "event.driven.scenario.dl.edsdl.State", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/edsdl", "State")), PParameterDirection.INOUT);
+    private final PParameter parameter_de = new PParameter("de", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
     
-    private final PParameter parameter_stateMachine = new PParameter("stateMachine", "event.driven.scenario.dl.edsdl.StateMachine", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/edsdl", "StateMachine")), PParameterDirection.INOUT);
+    private final PParameter parameter_se = new PParameter("se", "scenedl.StaticEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "StaticEntity")), PParameterDirection.INOUT);
     
-    private final List<PParameter> parameters = Arrays.asList(parameter_actualState, parameter_stateMachine);
+    private final List<PParameter> parameters = Arrays.asList(parameter_de, parameter_se);
     
     private GeneratedPQuery() {
       super(PVisibility.PUBLIC);
@@ -666,12 +664,12 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
     
     @Override
     public String getFullyQualifiedName() {
-      return "event.driven.scenario.dse.queries.getCurrentState";
+      return "event.driven.scenario.dse.queries.vehicleOnRoad";
     }
     
     @Override
     public List<String> getParameterNames() {
-      return Arrays.asList("actualState","stateMachine");
+      return Arrays.asList("de","se");
     }
     
     @Override
@@ -685,20 +683,20 @@ public final class GetCurrentState extends BaseGeneratedEMFQuerySpecification<Ge
       Set<PBody> bodies = new LinkedHashSet<>();
       {
           PBody body = new PBody(this);
-          PVariable var_actualState = body.getOrCreateVariableByName("actualState");
-          PVariable var_stateMachine = body.getOrCreateVariableByName("stateMachine");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_actualState), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/edsdl", "State")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var_stateMachine), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/edsdl", "StateMachine")));
+          PVariable var_de = body.getOrCreateVariableByName("de");
+          PVariable var_se = body.getOrCreateVariableByName("se");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_de), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_se), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "StaticEntity")));
           body.setSymbolicParameters(Arrays.<ExportedParameter>asList(
-             new ExportedParameter(body, var_actualState, parameter_actualState),
-             new ExportedParameter(body, var_stateMachine, parameter_stateMachine)
+             new ExportedParameter(body, var_de, parameter_de),
+             new ExportedParameter(body, var_se, parameter_se)
           ));
-          // 	StateMachine.actualState(stateMachine,actualState)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_stateMachine), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/edsdl", "StateMachine")));
+          // 			DynamicEntity.on(de,se)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_de), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
           PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_stateMachine, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/edsdl", "StateMachine", "actualState")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_0_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/edsdl", "State")));
-          new Equality(body, var__virtual_0_, var_actualState);
+          new TypeConstraint(body, Tuples.flatTupleOf(var_de, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "on")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_0_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "StaticEntity")));
+          new Equality(body, var__virtual_0_, var_se);
           bodies.add(body);
       }
       return bodies;

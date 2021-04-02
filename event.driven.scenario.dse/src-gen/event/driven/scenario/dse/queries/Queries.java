@@ -14,7 +14,14 @@ import org.eclipse.viatra.query.runtime.api.impl.BaseGeneratedPatternGroup;
  * in order to achieve better performance than one-by-one on-demand matcher initialization.
  * 
  * <p> From package event.driven.scenario.dse.queries, the group contains the definition of the following patterns: <ul>
- * <li>getCurrentState</li>
+ * <li>inScene</li>
+ * <li>vehicleOnRoad</li>
+ * <li>getPossibleTransitions</li>
+ * <li>vehicleSlowsDown</li>
+ * <li>vehicleAccelerates</li>
+ * <li>vehicleMoves</li>
+ * <li>pedestrianMoves</li>
+ * <li>vehicleReachesRoadEndWithPedestrian</li>
  * </ul>
  * 
  * @see IQueryGroup
@@ -39,14 +46,77 @@ public final class Queries extends BaseGeneratedPatternGroup {
   private static Queries INSTANCE;
   
   private Queries() {
-    querySpecifications.add(GetCurrentState.instance());
+    querySpecifications.add(InScene.instance());
+    querySpecifications.add(VehicleOnRoad.instance());
+    querySpecifications.add(GetPossibleTransitions.instance());
+    querySpecifications.add(VehicleSlowsDown.instance());
+    querySpecifications.add(VehicleAccelerates.instance());
+    querySpecifications.add(VehicleMoves.instance());
+    querySpecifications.add(PedestrianMoves.instance());
+    querySpecifications.add(VehicleReachesRoadEndWithPedestrian.instance());
   }
   
-  public GetCurrentState getGetCurrentState() {
-    return GetCurrentState.instance();
+  public InScene getInScene() {
+    return InScene.instance();
   }
   
-  public GetCurrentState.Matcher getGetCurrentState(final ViatraQueryEngine engine) {
-    return GetCurrentState.Matcher.on(engine);
+  public InScene.Matcher getInScene(final ViatraQueryEngine engine) {
+    return InScene.Matcher.on(engine);
+  }
+  
+  public VehicleOnRoad getVehicleOnRoad() {
+    return VehicleOnRoad.instance();
+  }
+  
+  public VehicleOnRoad.Matcher getVehicleOnRoad(final ViatraQueryEngine engine) {
+    return VehicleOnRoad.Matcher.on(engine);
+  }
+  
+  public GetPossibleTransitions getGetPossibleTransitions() {
+    return GetPossibleTransitions.instance();
+  }
+  
+  public GetPossibleTransitions.Matcher getGetPossibleTransitions(final ViatraQueryEngine engine) {
+    return GetPossibleTransitions.Matcher.on(engine);
+  }
+  
+  public VehicleSlowsDown getVehicleSlowsDown() {
+    return VehicleSlowsDown.instance();
+  }
+  
+  public VehicleSlowsDown.Matcher getVehicleSlowsDown(final ViatraQueryEngine engine) {
+    return VehicleSlowsDown.Matcher.on(engine);
+  }
+  
+  public VehicleAccelerates getVehicleAccelerates() {
+    return VehicleAccelerates.instance();
+  }
+  
+  public VehicleAccelerates.Matcher getVehicleAccelerates(final ViatraQueryEngine engine) {
+    return VehicleAccelerates.Matcher.on(engine);
+  }
+  
+  public VehicleMoves getVehicleMoves() {
+    return VehicleMoves.instance();
+  }
+  
+  public VehicleMoves.Matcher getVehicleMoves(final ViatraQueryEngine engine) {
+    return VehicleMoves.Matcher.on(engine);
+  }
+  
+  public PedestrianMoves getPedestrianMoves() {
+    return PedestrianMoves.instance();
+  }
+  
+  public PedestrianMoves.Matcher getPedestrianMoves(final ViatraQueryEngine engine) {
+    return PedestrianMoves.Matcher.on(engine);
+  }
+  
+  public VehicleReachesRoadEndWithPedestrian getVehicleReachesRoadEndWithPedestrian() {
+    return VehicleReachesRoadEndWithPedestrian.instance();
+  }
+  
+  public VehicleReachesRoadEndWithPedestrian.Matcher getVehicleReachesRoadEndWithPedestrian(final ViatraQueryEngine engine) {
+    return VehicleReachesRoadEndWithPedestrian.Matcher.on(engine);
   }
 }

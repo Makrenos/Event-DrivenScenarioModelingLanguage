@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalSceneDlParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'static_entity'", "'key'", "'isA'", "'{'", "','", "'}'", "'dynamic_entity'", "'many'", "':'", "'['", "'-'", "']'", "'transient'", "';'", "'.'", "'range'", "'value'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'static_entity'", "'key'", "'isA'", "'{'", "','", "'}'", "'dynamic_entity'", "':'", "'['", "'-'", "']'", "'transient'", "';'", "'.'", "'range'", "'value'"
     };
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=8;
@@ -40,7 +40,6 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
     public static final int RULE_WS=9;
     public static final int RULE_ANY_OTHER=10;
     public static final int T__26=26;
-    public static final int T__27=27;
     public static final int RULE_INT=5;
     public static final int T__22=22;
     public static final int RULE_ML_COMMENT=7;
@@ -406,7 +405,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStaticEntity"
-    // InternalSceneDl.g:164:1: ruleStaticEntity returns [EObject current=null] : ( ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_features_8_0= ruleFeature ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) ) )* otherlv_13= '}' )? ) ;
+    // InternalSceneDl.g:164:1: ruleStaticEntity returns [EObject current=null] : ( ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (otherlv_8= RULE_ID ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) ) )* otherlv_13= '}' )? ) ;
     public final EObject ruleStaticEntity() throws RecognitionException {
         EObject current = null;
 
@@ -417,27 +416,25 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
         Token otherlv_4=null;
         Token otherlv_5=null;
         Token otherlv_6=null;
+        Token otherlv_8=null;
         Token otherlv_9=null;
         Token otherlv_11=null;
+        Token otherlv_12=null;
         Token otherlv_13=null;
         EObject lv_attributes_7_0 = null;
 
-        EObject lv_features_8_0 = null;
-
         EObject lv_attributes_10_0 = null;
-
-        EObject lv_features_12_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSceneDl.g:170:2: ( ( ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_features_8_0= ruleFeature ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) ) )* otherlv_13= '}' )? ) )
-            // InternalSceneDl.g:171:2: ( ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_features_8_0= ruleFeature ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) ) )* otherlv_13= '}' )? )
+            // InternalSceneDl.g:170:2: ( ( ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (otherlv_8= RULE_ID ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) ) )* otherlv_13= '}' )? ) )
+            // InternalSceneDl.g:171:2: ( ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (otherlv_8= RULE_ID ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) ) )* otherlv_13= '}' )? )
             {
-            // InternalSceneDl.g:171:2: ( ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_features_8_0= ruleFeature ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) ) )* otherlv_13= '}' )? )
-            // InternalSceneDl.g:172:3: ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_features_8_0= ruleFeature ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) ) )* otherlv_13= '}' )?
+            // InternalSceneDl.g:171:2: ( ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (otherlv_8= RULE_ID ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) ) )* otherlv_13= '}' )? )
+            // InternalSceneDl.g:172:3: ( (lv_type_0_0= 'static_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (otherlv_8= RULE_ID ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) ) )* otherlv_13= '}' )?
             {
             // InternalSceneDl.g:172:3: ( (lv_type_0_0= 'static_entity' ) )
             // InternalSceneDl.g:173:4: (lv_type_0_0= 'static_entity' )
@@ -578,7 +575,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // InternalSceneDl.g:242:3: (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_features_8_0= ruleFeature ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) ) )* otherlv_13= '}' )?
+            // InternalSceneDl.g:242:3: (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (otherlv_8= RULE_ID ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) ) )* otherlv_13= '}' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -587,34 +584,24 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
             }
             switch (alt7) {
                 case 1 :
-                    // InternalSceneDl.g:243:4: otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_features_8_0= ruleFeature ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) ) )* otherlv_13= '}'
+                    // InternalSceneDl.g:243:4: otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (otherlv_8= RULE_ID ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) ) )* otherlv_13= '}'
                     {
-                    otherlv_6=(Token)match(input,14,FOLLOW_7); 
+                    otherlv_6=(Token)match(input,14,FOLLOW_4); 
 
                     				newLeafNode(otherlv_6, grammarAccess.getStaticEntityAccess().getLeftCurlyBracketKeyword_4_0());
                     			
-                    // InternalSceneDl.g:247:4: ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_features_8_0= ruleFeature ) ) )
+                    // InternalSceneDl.g:247:4: ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (otherlv_8= RULE_ID ) ) )
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
                     if ( (LA5_0==RULE_ID) ) {
                         int LA5_1 = input.LA(2);
 
-                        if ( (LA5_1==19) ) {
-                            int LA5_3 = input.LA(3);
-
-                            if ( (LA5_3==RULE_ID) ) {
-                                alt5=2;
-                            }
-                            else if ( ((LA5_3>=26 && LA5_3<=27)) ) {
-                                alt5=1;
-                            }
-                            else {
-                                NoViableAltException nvae =
-                                    new NoViableAltException("", 5, 3, input);
-
-                                throw nvae;
-                            }
+                        if ( (LA5_1==18) ) {
+                            alt5=1;
+                        }
+                        else if ( ((LA5_1>=15 && LA5_1<=16)) ) {
+                            alt5=2;
                         }
                         else {
                             NoViableAltException nvae =
@@ -622,9 +609,6 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
                             throw nvae;
                         }
-                    }
-                    else if ( (LA5_0==18) ) {
-                        alt5=2;
                     }
                     else {
                         NoViableAltException nvae =
@@ -645,7 +629,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
                             							newCompositeNode(grammarAccess.getStaticEntityAccess().getAttributesAttributeParserRuleCall_4_1_0_0());
                             						
-                            pushFollow(FOLLOW_8);
+                            pushFollow(FOLLOW_7);
                             lv_attributes_7_0=ruleAttribute();
 
                             state._fsp--;
@@ -671,32 +655,22 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // InternalSceneDl.g:268:5: ( (lv_features_8_0= ruleFeature ) )
+                            // InternalSceneDl.g:268:5: ( (otherlv_8= RULE_ID ) )
                             {
-                            // InternalSceneDl.g:268:5: ( (lv_features_8_0= ruleFeature ) )
-                            // InternalSceneDl.g:269:6: (lv_features_8_0= ruleFeature )
+                            // InternalSceneDl.g:268:5: ( (otherlv_8= RULE_ID ) )
+                            // InternalSceneDl.g:269:6: (otherlv_8= RULE_ID )
                             {
-                            // InternalSceneDl.g:269:6: (lv_features_8_0= ruleFeature )
-                            // InternalSceneDl.g:270:7: lv_features_8_0= ruleFeature
+                            // InternalSceneDl.g:269:6: (otherlv_8= RULE_ID )
+                            // InternalSceneDl.g:270:7: otherlv_8= RULE_ID
                             {
-
-                            							newCompositeNode(grammarAccess.getStaticEntityAccess().getFeaturesFeatureParserRuleCall_4_1_1_0());
-                            						
-                            pushFollow(FOLLOW_8);
-                            lv_features_8_0=ruleFeature();
-
-                            state._fsp--;
-
 
                             							if (current==null) {
-                            								current = createModelElementForParent(grammarAccess.getStaticEntityRule());
+                            								current = createModelElement(grammarAccess.getStaticEntityRule());
                             							}
-                            							add(
-                            								current,
-                            								"features",
-                            								lv_features_8_0,
-                            								"event.driven.SceneDl.Feature");
-                            							afterParserOrEnumRuleCall();
+                            						
+                            otherlv_8=(Token)match(input,RULE_ID,FOLLOW_7); 
+
+                            							newLeafNode(otherlv_8, grammarAccess.getStaticEntityAccess().getFeaturesDynamicEntityCrossReference_4_1_1_0());
                             						
 
                             }
@@ -710,7 +684,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalSceneDl.g:288:4: ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) ) )*
+                    // InternalSceneDl.g:282:4: ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) ) )*
                     loop6:
                     do {
                         int alt6=3;
@@ -719,23 +693,14 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                         if ( (LA6_0==15) ) {
                             int LA6_2 = input.LA(2);
 
-                            if ( (LA6_2==18) ) {
-                                alt6=2;
-                            }
-                            else if ( (LA6_2==RULE_ID) ) {
-                                int LA6_4 = input.LA(3);
+                            if ( (LA6_2==RULE_ID) ) {
+                                int LA6_3 = input.LA(3);
 
-                                if ( (LA6_4==19) ) {
-                                    int LA6_5 = input.LA(4);
-
-                                    if ( ((LA6_5>=26 && LA6_5<=27)) ) {
-                                        alt6=1;
-                                    }
-                                    else if ( (LA6_5==RULE_ID) ) {
-                                        alt6=2;
-                                    }
-
-
+                                if ( ((LA6_3>=15 && LA6_3<=16)) ) {
+                                    alt6=2;
+                                }
+                                else if ( (LA6_3==18) ) {
+                                    alt6=1;
                                 }
 
 
@@ -747,25 +712,25 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // InternalSceneDl.g:289:5: (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) )
+                    	    // InternalSceneDl.g:283:5: (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) )
                     	    {
-                    	    // InternalSceneDl.g:289:5: (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) )
-                    	    // InternalSceneDl.g:290:6: otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) )
+                    	    // InternalSceneDl.g:283:5: (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) )
+                    	    // InternalSceneDl.g:284:6: otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) )
                     	    {
                     	    otherlv_9=(Token)match(input,15,FOLLOW_4); 
 
                     	    						newLeafNode(otherlv_9, grammarAccess.getStaticEntityAccess().getCommaKeyword_4_2_0_0());
                     	    					
-                    	    // InternalSceneDl.g:294:6: ( (lv_attributes_10_0= ruleAttribute ) )
-                    	    // InternalSceneDl.g:295:7: (lv_attributes_10_0= ruleAttribute )
+                    	    // InternalSceneDl.g:288:6: ( (lv_attributes_10_0= ruleAttribute ) )
+                    	    // InternalSceneDl.g:289:7: (lv_attributes_10_0= ruleAttribute )
                     	    {
-                    	    // InternalSceneDl.g:295:7: (lv_attributes_10_0= ruleAttribute )
-                    	    // InternalSceneDl.g:296:8: lv_attributes_10_0= ruleAttribute
+                    	    // InternalSceneDl.g:289:7: (lv_attributes_10_0= ruleAttribute )
+                    	    // InternalSceneDl.g:290:8: lv_attributes_10_0= ruleAttribute
                     	    {
 
                     	    								newCompositeNode(grammarAccess.getStaticEntityAccess().getAttributesAttributeParserRuleCall_4_2_0_1_0());
                     	    							
-                    	    pushFollow(FOLLOW_8);
+                    	    pushFollow(FOLLOW_7);
                     	    lv_attributes_10_0=ruleAttribute();
 
                     	    state._fsp--;
@@ -794,39 +759,29 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalSceneDl.g:315:5: (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) )
+                    	    // InternalSceneDl.g:309:5: (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) )
                     	    {
-                    	    // InternalSceneDl.g:315:5: (otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) ) )
-                    	    // InternalSceneDl.g:316:6: otherlv_11= ',' ( (lv_features_12_0= ruleFeature ) )
+                    	    // InternalSceneDl.g:309:5: (otherlv_11= ',' ( (otherlv_12= RULE_ID ) ) )
+                    	    // InternalSceneDl.g:310:6: otherlv_11= ',' ( (otherlv_12= RULE_ID ) )
                     	    {
-                    	    otherlv_11=(Token)match(input,15,FOLLOW_7); 
+                    	    otherlv_11=(Token)match(input,15,FOLLOW_4); 
 
                     	    						newLeafNode(otherlv_11, grammarAccess.getStaticEntityAccess().getCommaKeyword_4_2_1_0());
                     	    					
-                    	    // InternalSceneDl.g:320:6: ( (lv_features_12_0= ruleFeature ) )
-                    	    // InternalSceneDl.g:321:7: (lv_features_12_0= ruleFeature )
+                    	    // InternalSceneDl.g:314:6: ( (otherlv_12= RULE_ID ) )
+                    	    // InternalSceneDl.g:315:7: (otherlv_12= RULE_ID )
                     	    {
-                    	    // InternalSceneDl.g:321:7: (lv_features_12_0= ruleFeature )
-                    	    // InternalSceneDl.g:322:8: lv_features_12_0= ruleFeature
+                    	    // InternalSceneDl.g:315:7: (otherlv_12= RULE_ID )
+                    	    // InternalSceneDl.g:316:8: otherlv_12= RULE_ID
                     	    {
-
-                    	    								newCompositeNode(grammarAccess.getStaticEntityAccess().getFeaturesFeatureParserRuleCall_4_2_1_1_0());
-                    	    							
-                    	    pushFollow(FOLLOW_8);
-                    	    lv_features_12_0=ruleFeature();
-
-                    	    state._fsp--;
-
 
                     	    								if (current==null) {
-                    	    									current = createModelElementForParent(grammarAccess.getStaticEntityRule());
+                    	    									current = createModelElement(grammarAccess.getStaticEntityRule());
                     	    								}
-                    	    								add(
-                    	    									current,
-                    	    									"features",
-                    	    									lv_features_12_0,
-                    	    									"event.driven.SceneDl.Feature");
-                    	    								afterParserOrEnumRuleCall();
+                    	    							
+                    	    otherlv_12=(Token)match(input,RULE_ID,FOLLOW_7); 
+
+                    	    								newLeafNode(otherlv_12, grammarAccess.getStaticEntityAccess().getFeaturesDynamicEntityCrossReference_4_2_1_1_0());
                     	    							
 
                     	    }
@@ -879,7 +834,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDynamicEntity"
-    // InternalSceneDl.g:350:1: entryRuleDynamicEntity returns [EObject current=null] : iv_ruleDynamicEntity= ruleDynamicEntity EOF ;
+    // InternalSceneDl.g:338:1: entryRuleDynamicEntity returns [EObject current=null] : iv_ruleDynamicEntity= ruleDynamicEntity EOF ;
     public final EObject entryRuleDynamicEntity() throws RecognitionException {
         EObject current = null;
 
@@ -887,8 +842,8 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSceneDl.g:350:54: (iv_ruleDynamicEntity= ruleDynamicEntity EOF )
-            // InternalSceneDl.g:351:2: iv_ruleDynamicEntity= ruleDynamicEntity EOF
+            // InternalSceneDl.g:338:54: (iv_ruleDynamicEntity= ruleDynamicEntity EOF )
+            // InternalSceneDl.g:339:2: iv_ruleDynamicEntity= ruleDynamicEntity EOF
             {
              newCompositeNode(grammarAccess.getDynamicEntityRule()); 
             pushFollow(FOLLOW_1);
@@ -915,7 +870,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDynamicEntity"
-    // InternalSceneDl.g:357:1: ruleDynamicEntity returns [EObject current=null] : ( ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_contains_8_0= ruleContain ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) ) )* otherlv_13= '}' )? ) ;
+    // InternalSceneDl.g:345:1: ruleDynamicEntity returns [EObject current=null] : ( ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( (lv_attributes_7_0= ruleAttribute ) ) (otherlv_8= ',' ( (lv_attributes_9_0= ruleAttribute ) ) )* otherlv_10= '}' )? ) ;
     public final EObject ruleDynamicEntity() throws RecognitionException {
         EObject current = null;
 
@@ -926,33 +881,28 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
         Token otherlv_4=null;
         Token otherlv_5=null;
         Token otherlv_6=null;
-        Token otherlv_9=null;
-        Token otherlv_11=null;
-        Token otherlv_13=null;
+        Token otherlv_8=null;
+        Token otherlv_10=null;
         EObject lv_attributes_7_0 = null;
 
-        EObject lv_contains_8_0 = null;
-
-        EObject lv_attributes_10_0 = null;
-
-        EObject lv_contains_12_0 = null;
+        EObject lv_attributes_9_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSceneDl.g:363:2: ( ( ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_contains_8_0= ruleContain ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) ) )* otherlv_13= '}' )? ) )
-            // InternalSceneDl.g:364:2: ( ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_contains_8_0= ruleContain ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) ) )* otherlv_13= '}' )? )
+            // InternalSceneDl.g:351:2: ( ( ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( (lv_attributes_7_0= ruleAttribute ) ) (otherlv_8= ',' ( (lv_attributes_9_0= ruleAttribute ) ) )* otherlv_10= '}' )? ) )
+            // InternalSceneDl.g:352:2: ( ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( (lv_attributes_7_0= ruleAttribute ) ) (otherlv_8= ',' ( (lv_attributes_9_0= ruleAttribute ) ) )* otherlv_10= '}' )? )
             {
-            // InternalSceneDl.g:364:2: ( ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_contains_8_0= ruleContain ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) ) )* otherlv_13= '}' )? )
-            // InternalSceneDl.g:365:3: ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_contains_8_0= ruleContain ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) ) )* otherlv_13= '}' )?
+            // InternalSceneDl.g:352:2: ( ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( (lv_attributes_7_0= ruleAttribute ) ) (otherlv_8= ',' ( (lv_attributes_9_0= ruleAttribute ) ) )* otherlv_10= '}' )? )
+            // InternalSceneDl.g:353:3: ( (lv_type_0_0= 'dynamic_entity' ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )* (otherlv_6= '{' ( (lv_attributes_7_0= ruleAttribute ) ) (otherlv_8= ',' ( (lv_attributes_9_0= ruleAttribute ) ) )* otherlv_10= '}' )?
             {
-            // InternalSceneDl.g:365:3: ( (lv_type_0_0= 'dynamic_entity' ) )
-            // InternalSceneDl.g:366:4: (lv_type_0_0= 'dynamic_entity' )
+            // InternalSceneDl.g:353:3: ( (lv_type_0_0= 'dynamic_entity' ) )
+            // InternalSceneDl.g:354:4: (lv_type_0_0= 'dynamic_entity' )
             {
-            // InternalSceneDl.g:366:4: (lv_type_0_0= 'dynamic_entity' )
-            // InternalSceneDl.g:367:5: lv_type_0_0= 'dynamic_entity'
+            // InternalSceneDl.g:354:4: (lv_type_0_0= 'dynamic_entity' )
+            // InternalSceneDl.g:355:5: lv_type_0_0= 'dynamic_entity'
             {
             lv_type_0_0=(Token)match(input,17,FOLLOW_4); 
 
@@ -970,11 +920,11 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSceneDl.g:379:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalSceneDl.g:380:4: (lv_name_1_0= RULE_ID )
+            // InternalSceneDl.g:367:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalSceneDl.g:368:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalSceneDl.g:380:4: (lv_name_1_0= RULE_ID )
-            // InternalSceneDl.g:381:5: lv_name_1_0= RULE_ID
+            // InternalSceneDl.g:368:4: (lv_name_1_0= RULE_ID )
+            // InternalSceneDl.g:369:5: lv_name_1_0= RULE_ID
             {
             lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_5); 
 
@@ -996,7 +946,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSceneDl.g:397:3: (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )?
+            // InternalSceneDl.g:385:3: (otherlv_2= 'key' ( (otherlv_3= RULE_ID ) ) )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1005,17 +955,17 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
             }
             switch (alt8) {
                 case 1 :
-                    // InternalSceneDl.g:398:4: otherlv_2= 'key' ( (otherlv_3= RULE_ID ) )
+                    // InternalSceneDl.g:386:4: otherlv_2= 'key' ( (otherlv_3= RULE_ID ) )
                     {
                     otherlv_2=(Token)match(input,12,FOLLOW_4); 
 
                     				newLeafNode(otherlv_2, grammarAccess.getDynamicEntityAccess().getKeyKeyword_2_0());
                     			
-                    // InternalSceneDl.g:402:4: ( (otherlv_3= RULE_ID ) )
-                    // InternalSceneDl.g:403:5: (otherlv_3= RULE_ID )
+                    // InternalSceneDl.g:390:4: ( (otherlv_3= RULE_ID ) )
+                    // InternalSceneDl.g:391:5: (otherlv_3= RULE_ID )
                     {
-                    // InternalSceneDl.g:403:5: (otherlv_3= RULE_ID )
-                    // InternalSceneDl.g:404:6: otherlv_3= RULE_ID
+                    // InternalSceneDl.g:391:5: (otherlv_3= RULE_ID )
+                    // InternalSceneDl.g:392:6: otherlv_3= RULE_ID
                     {
 
                     						if (current==null) {
@@ -1038,7 +988,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSceneDl.g:416:3: (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )*
+            // InternalSceneDl.g:404:3: (otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) ) )*
             loop9:
             do {
                 int alt9=2;
@@ -1051,17 +1001,17 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
                 switch (alt9) {
             	case 1 :
-            	    // InternalSceneDl.g:417:4: otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) )
+            	    // InternalSceneDl.g:405:4: otherlv_4= 'isA' ( (otherlv_5= RULE_ID ) )
             	    {
             	    otherlv_4=(Token)match(input,13,FOLLOW_4); 
 
             	    				newLeafNode(otherlv_4, grammarAccess.getDynamicEntityAccess().getIsAKeyword_3_0());
             	    			
-            	    // InternalSceneDl.g:421:4: ( (otherlv_5= RULE_ID ) )
-            	    // InternalSceneDl.g:422:5: (otherlv_5= RULE_ID )
+            	    // InternalSceneDl.g:409:4: ( (otherlv_5= RULE_ID ) )
+            	    // InternalSceneDl.g:410:5: (otherlv_5= RULE_ID )
             	    {
-            	    // InternalSceneDl.g:422:5: (otherlv_5= RULE_ID )
-            	    // InternalSceneDl.g:423:6: otherlv_5= RULE_ID
+            	    // InternalSceneDl.g:410:5: (otherlv_5= RULE_ID )
+            	    // InternalSceneDl.g:411:6: otherlv_5= RULE_ID
             	    {
 
             	    						if (current==null) {
@@ -1087,259 +1037,96 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // InternalSceneDl.g:435:3: (otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_contains_8_0= ruleContain ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) ) )* otherlv_13= '}' )?
-            int alt12=2;
-            int LA12_0 = input.LA(1);
+            // InternalSceneDl.g:423:3: (otherlv_6= '{' ( (lv_attributes_7_0= ruleAttribute ) ) (otherlv_8= ',' ( (lv_attributes_9_0= ruleAttribute ) ) )* otherlv_10= '}' )?
+            int alt11=2;
+            int LA11_0 = input.LA(1);
 
-            if ( (LA12_0==14) ) {
-                alt12=1;
+            if ( (LA11_0==14) ) {
+                alt11=1;
             }
-            switch (alt12) {
+            switch (alt11) {
                 case 1 :
-                    // InternalSceneDl.g:436:4: otherlv_6= '{' ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_contains_8_0= ruleContain ) ) ) ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) ) )* otherlv_13= '}'
+                    // InternalSceneDl.g:424:4: otherlv_6= '{' ( (lv_attributes_7_0= ruleAttribute ) ) (otherlv_8= ',' ( (lv_attributes_9_0= ruleAttribute ) ) )* otherlv_10= '}'
                     {
-                    otherlv_6=(Token)match(input,14,FOLLOW_7); 
+                    otherlv_6=(Token)match(input,14,FOLLOW_4); 
 
                     				newLeafNode(otherlv_6, grammarAccess.getDynamicEntityAccess().getLeftCurlyBracketKeyword_4_0());
                     			
-                    // InternalSceneDl.g:440:4: ( ( (lv_attributes_7_0= ruleAttribute ) ) | ( (lv_contains_8_0= ruleContain ) ) )
-                    int alt10=2;
-                    int LA10_0 = input.LA(1);
+                    // InternalSceneDl.g:428:4: ( (lv_attributes_7_0= ruleAttribute ) )
+                    // InternalSceneDl.g:429:5: (lv_attributes_7_0= ruleAttribute )
+                    {
+                    // InternalSceneDl.g:429:5: (lv_attributes_7_0= ruleAttribute )
+                    // InternalSceneDl.g:430:6: lv_attributes_7_0= ruleAttribute
+                    {
 
-                    if ( (LA10_0==RULE_ID) ) {
-                        int LA10_1 = input.LA(2);
+                    						newCompositeNode(grammarAccess.getDynamicEntityAccess().getAttributesAttributeParserRuleCall_4_1_0());
+                    					
+                    pushFollow(FOLLOW_7);
+                    lv_attributes_7_0=ruleAttribute();
 
-                        if ( (LA10_1==19) ) {
-                            int LA10_3 = input.LA(3);
-
-                            if ( ((LA10_3>=26 && LA10_3<=27)) ) {
-                                alt10=1;
-                            }
-                            else if ( (LA10_3==RULE_ID) ) {
-                                alt10=2;
-                            }
-                            else {
-                                NoViableAltException nvae =
-                                    new NoViableAltException("", 10, 3, input);
-
-                                throw nvae;
-                            }
-                        }
-                        else {
-                            NoViableAltException nvae =
-                                new NoViableAltException("", 10, 1, input);
-
-                            throw nvae;
-                        }
-                    }
-                    else if ( (LA10_0==18) ) {
-                        alt10=2;
-                    }
-                    else {
-                        NoViableAltException nvae =
-                            new NoViableAltException("", 10, 0, input);
-
-                        throw nvae;
-                    }
-                    switch (alt10) {
-                        case 1 :
-                            // InternalSceneDl.g:441:5: ( (lv_attributes_7_0= ruleAttribute ) )
-                            {
-                            // InternalSceneDl.g:441:5: ( (lv_attributes_7_0= ruleAttribute ) )
-                            // InternalSceneDl.g:442:6: (lv_attributes_7_0= ruleAttribute )
-                            {
-                            // InternalSceneDl.g:442:6: (lv_attributes_7_0= ruleAttribute )
-                            // InternalSceneDl.g:443:7: lv_attributes_7_0= ruleAttribute
-                            {
-
-                            							newCompositeNode(grammarAccess.getDynamicEntityAccess().getAttributesAttributeParserRuleCall_4_1_0_0());
-                            						
-                            pushFollow(FOLLOW_8);
-                            lv_attributes_7_0=ruleAttribute();
-
-                            state._fsp--;
+                    state._fsp--;
 
 
-                            							if (current==null) {
-                            								current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
-                            							}
-                            							add(
-                            								current,
-                            								"attributes",
-                            								lv_attributes_7_0,
-                            								"event.driven.SceneDl.Attribute");
-                            							afterParserOrEnumRuleCall();
-                            						
-
-                            }
-
-
-                            }
-
-
-                            }
-                            break;
-                        case 2 :
-                            // InternalSceneDl.g:461:5: ( (lv_contains_8_0= ruleContain ) )
-                            {
-                            // InternalSceneDl.g:461:5: ( (lv_contains_8_0= ruleContain ) )
-                            // InternalSceneDl.g:462:6: (lv_contains_8_0= ruleContain )
-                            {
-                            // InternalSceneDl.g:462:6: (lv_contains_8_0= ruleContain )
-                            // InternalSceneDl.g:463:7: lv_contains_8_0= ruleContain
-                            {
-
-                            							newCompositeNode(grammarAccess.getDynamicEntityAccess().getContainsContainParserRuleCall_4_1_1_0());
-                            						
-                            pushFollow(FOLLOW_8);
-                            lv_contains_8_0=ruleContain();
-
-                            state._fsp--;
-
-
-                            							if (current==null) {
-                            								current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
-                            							}
-                            							add(
-                            								current,
-                            								"contains",
-                            								lv_contains_8_0,
-                            								"event.driven.SceneDl.Contain");
-                            							afterParserOrEnumRuleCall();
-                            						
-
-                            }
-
-
-                            }
-
-
-                            }
-                            break;
+                    						if (current==null) {
+                    							current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
+                    						}
+                    						add(
+                    							current,
+                    							"attributes",
+                    							lv_attributes_7_0,
+                    							"event.driven.SceneDl.Attribute");
+                    						afterParserOrEnumRuleCall();
+                    					
 
                     }
 
-                    // InternalSceneDl.g:481:4: ( (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) ) | (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) ) )*
-                    loop11:
+
+                    }
+
+                    // InternalSceneDl.g:447:4: (otherlv_8= ',' ( (lv_attributes_9_0= ruleAttribute ) ) )*
+                    loop10:
                     do {
-                        int alt11=3;
-                        int LA11_0 = input.LA(1);
+                        int alt10=2;
+                        int LA10_0 = input.LA(1);
 
-                        if ( (LA11_0==15) ) {
-                            int LA11_2 = input.LA(2);
-
-                            if ( (LA11_2==RULE_ID) ) {
-                                int LA11_3 = input.LA(3);
-
-                                if ( (LA11_3==19) ) {
-                                    int LA11_5 = input.LA(4);
-
-                                    if ( (LA11_5==RULE_ID) ) {
-                                        alt11=2;
-                                    }
-                                    else if ( ((LA11_5>=26 && LA11_5<=27)) ) {
-                                        alt11=1;
-                                    }
-
-
-                                }
-
-
-                            }
-                            else if ( (LA11_2==18) ) {
-                                alt11=2;
-                            }
-
-
+                        if ( (LA10_0==15) ) {
+                            alt10=1;
                         }
 
 
-                        switch (alt11) {
+                        switch (alt10) {
                     	case 1 :
-                    	    // InternalSceneDl.g:482:5: (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) )
+                    	    // InternalSceneDl.g:448:5: otherlv_8= ',' ( (lv_attributes_9_0= ruleAttribute ) )
                     	    {
-                    	    // InternalSceneDl.g:482:5: (otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) ) )
-                    	    // InternalSceneDl.g:483:6: otherlv_9= ',' ( (lv_attributes_10_0= ruleAttribute ) )
-                    	    {
-                    	    otherlv_9=(Token)match(input,15,FOLLOW_4); 
+                    	    otherlv_8=(Token)match(input,15,FOLLOW_4); 
 
-                    	    						newLeafNode(otherlv_9, grammarAccess.getDynamicEntityAccess().getCommaKeyword_4_2_0_0());
-                    	    					
-                    	    // InternalSceneDl.g:487:6: ( (lv_attributes_10_0= ruleAttribute ) )
-                    	    // InternalSceneDl.g:488:7: (lv_attributes_10_0= ruleAttribute )
+                    	    					newLeafNode(otherlv_8, grammarAccess.getDynamicEntityAccess().getCommaKeyword_4_2_0());
+                    	    				
+                    	    // InternalSceneDl.g:452:5: ( (lv_attributes_9_0= ruleAttribute ) )
+                    	    // InternalSceneDl.g:453:6: (lv_attributes_9_0= ruleAttribute )
                     	    {
-                    	    // InternalSceneDl.g:488:7: (lv_attributes_10_0= ruleAttribute )
-                    	    // InternalSceneDl.g:489:8: lv_attributes_10_0= ruleAttribute
+                    	    // InternalSceneDl.g:453:6: (lv_attributes_9_0= ruleAttribute )
+                    	    // InternalSceneDl.g:454:7: lv_attributes_9_0= ruleAttribute
                     	    {
 
-                    	    								newCompositeNode(grammarAccess.getDynamicEntityAccess().getAttributesAttributeParserRuleCall_4_2_0_1_0());
-                    	    							
-                    	    pushFollow(FOLLOW_8);
-                    	    lv_attributes_10_0=ruleAttribute();
+                    	    							newCompositeNode(grammarAccess.getDynamicEntityAccess().getAttributesAttributeParserRuleCall_4_2_1_0());
+                    	    						
+                    	    pushFollow(FOLLOW_7);
+                    	    lv_attributes_9_0=ruleAttribute();
 
                     	    state._fsp--;
 
 
-                    	    								if (current==null) {
-                    	    									current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
-                    	    								}
-                    	    								add(
-                    	    									current,
-                    	    									"attributes",
-                    	    									lv_attributes_10_0,
-                    	    									"event.driven.SceneDl.Attribute");
-                    	    								afterParserOrEnumRuleCall();
-                    	    							
-
-                    	    }
-
-
-                    	    }
-
-
-                    	    }
-
-
-                    	    }
-                    	    break;
-                    	case 2 :
-                    	    // InternalSceneDl.g:508:5: (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) )
-                    	    {
-                    	    // InternalSceneDl.g:508:5: (otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) ) )
-                    	    // InternalSceneDl.g:509:6: otherlv_11= ',' ( (lv_contains_12_0= ruleContain ) )
-                    	    {
-                    	    otherlv_11=(Token)match(input,15,FOLLOW_7); 
-
-                    	    						newLeafNode(otherlv_11, grammarAccess.getDynamicEntityAccess().getCommaKeyword_4_2_1_0());
-                    	    					
-                    	    // InternalSceneDl.g:513:6: ( (lv_contains_12_0= ruleContain ) )
-                    	    // InternalSceneDl.g:514:7: (lv_contains_12_0= ruleContain )
-                    	    {
-                    	    // InternalSceneDl.g:514:7: (lv_contains_12_0= ruleContain )
-                    	    // InternalSceneDl.g:515:8: lv_contains_12_0= ruleContain
-                    	    {
-
-                    	    								newCompositeNode(grammarAccess.getDynamicEntityAccess().getContainsContainParserRuleCall_4_2_1_1_0());
-                    	    							
-                    	    pushFollow(FOLLOW_8);
-                    	    lv_contains_12_0=ruleContain();
-
-                    	    state._fsp--;
-
-
-                    	    								if (current==null) {
-                    	    									current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
-                    	    								}
-                    	    								add(
-                    	    									current,
-                    	    									"contains",
-                    	    									lv_contains_12_0,
-                    	    									"event.driven.SceneDl.Contain");
-                    	    								afterParserOrEnumRuleCall();
-                    	    							
-
-                    	    }
-
+                    	    							if (current==null) {
+                    	    								current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
+                    	    							}
+                    	    							add(
+                    	    								current,
+                    	    								"attributes",
+                    	    								lv_attributes_9_0,
+                    	    								"event.driven.SceneDl.Attribute");
+                    	    							afterParserOrEnumRuleCall();
+                    	    						
 
                     	    }
 
@@ -1351,13 +1138,13 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop11;
+                    	    break loop10;
                         }
                     } while (true);
 
-                    otherlv_13=(Token)match(input,16,FOLLOW_2); 
+                    otherlv_10=(Token)match(input,16,FOLLOW_2); 
 
-                    				newLeafNode(otherlv_13, grammarAccess.getDynamicEntityAccess().getRightCurlyBracketKeyword_4_3());
+                    				newLeafNode(otherlv_10, grammarAccess.getDynamicEntityAccess().getRightCurlyBracketKeyword_4_3());
                     			
 
                     }
@@ -1387,332 +1174,8 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleDynamicEntity"
 
 
-    // $ANTLR start "entryRuleFeature"
-    // InternalSceneDl.g:543:1: entryRuleFeature returns [EObject current=null] : iv_ruleFeature= ruleFeature EOF ;
-    public final EObject entryRuleFeature() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleFeature = null;
-
-
-        try {
-            // InternalSceneDl.g:543:48: (iv_ruleFeature= ruleFeature EOF )
-            // InternalSceneDl.g:544:2: iv_ruleFeature= ruleFeature EOF
-            {
-             newCompositeNode(grammarAccess.getFeatureRule()); 
-            pushFollow(FOLLOW_1);
-            iv_ruleFeature=ruleFeature();
-
-            state._fsp--;
-
-             current =iv_ruleFeature; 
-            match(input,EOF,FOLLOW_2); 
-
-            }
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleFeature"
-
-
-    // $ANTLR start "ruleFeature"
-    // InternalSceneDl.g:550:1: ruleFeature returns [EObject current=null] : ( ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) ) ) ;
-    public final EObject ruleFeature() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_many_0_0=null;
-        Token lv_name_1_0=null;
-        Token otherlv_2=null;
-        Token otherlv_3=null;
-
-
-        	enterRule();
-
-        try {
-            // InternalSceneDl.g:556:2: ( ( ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) ) ) )
-            // InternalSceneDl.g:557:2: ( ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) ) )
-            {
-            // InternalSceneDl.g:557:2: ( ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) ) )
-            // InternalSceneDl.g:558:3: ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) )
-            {
-            // InternalSceneDl.g:558:3: ( (lv_many_0_0= 'many' ) )?
-            int alt13=2;
-            int LA13_0 = input.LA(1);
-
-            if ( (LA13_0==18) ) {
-                alt13=1;
-            }
-            switch (alt13) {
-                case 1 :
-                    // InternalSceneDl.g:559:4: (lv_many_0_0= 'many' )
-                    {
-                    // InternalSceneDl.g:559:4: (lv_many_0_0= 'many' )
-                    // InternalSceneDl.g:560:5: lv_many_0_0= 'many'
-                    {
-                    lv_many_0_0=(Token)match(input,18,FOLLOW_4); 
-
-                    					newLeafNode(lv_many_0_0, grammarAccess.getFeatureAccess().getManyManyKeyword_0_0());
-                    				
-
-                    					if (current==null) {
-                    						current = createModelElement(grammarAccess.getFeatureRule());
-                    					}
-                    					setWithLastConsumed(current, "many", lv_many_0_0 != null, "many");
-                    				
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-            // InternalSceneDl.g:572:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalSceneDl.g:573:4: (lv_name_1_0= RULE_ID )
-            {
-            // InternalSceneDl.g:573:4: (lv_name_1_0= RULE_ID )
-            // InternalSceneDl.g:574:5: lv_name_1_0= RULE_ID
-            {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_9); 
-
-            					newLeafNode(lv_name_1_0, grammarAccess.getFeatureAccess().getNameIDTerminalRuleCall_1_0());
-            				
-
-            					if (current==null) {
-            						current = createModelElement(grammarAccess.getFeatureRule());
-            					}
-            					setWithLastConsumed(
-            						current,
-            						"name",
-            						lv_name_1_0,
-            						"org.eclipse.xtext.common.Terminals.ID");
-            				
-
-            }
-
-
-            }
-
-            otherlv_2=(Token)match(input,19,FOLLOW_4); 
-
-            			newLeafNode(otherlv_2, grammarAccess.getFeatureAccess().getColonKeyword_2());
-            		
-            // InternalSceneDl.g:594:3: ( (otherlv_3= RULE_ID ) )
-            // InternalSceneDl.g:595:4: (otherlv_3= RULE_ID )
-            {
-            // InternalSceneDl.g:595:4: (otherlv_3= RULE_ID )
-            // InternalSceneDl.g:596:5: otherlv_3= RULE_ID
-            {
-
-            					if (current==null) {
-            						current = createModelElement(grammarAccess.getFeatureRule());
-            					}
-            				
-            otherlv_3=(Token)match(input,RULE_ID,FOLLOW_2); 
-
-            					newLeafNode(otherlv_3, grammarAccess.getFeatureAccess().getTypeElementCrossReference_3_0());
-            				
-
-            }
-
-
-            }
-
-
-            }
-
-
-            }
-
-
-            	leaveRule();
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleFeature"
-
-
-    // $ANTLR start "entryRuleContain"
-    // InternalSceneDl.g:611:1: entryRuleContain returns [EObject current=null] : iv_ruleContain= ruleContain EOF ;
-    public final EObject entryRuleContain() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleContain = null;
-
-
-        try {
-            // InternalSceneDl.g:611:48: (iv_ruleContain= ruleContain EOF )
-            // InternalSceneDl.g:612:2: iv_ruleContain= ruleContain EOF
-            {
-             newCompositeNode(grammarAccess.getContainRule()); 
-            pushFollow(FOLLOW_1);
-            iv_ruleContain=ruleContain();
-
-            state._fsp--;
-
-             current =iv_ruleContain; 
-            match(input,EOF,FOLLOW_2); 
-
-            }
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleContain"
-
-
-    // $ANTLR start "ruleContain"
-    // InternalSceneDl.g:618:1: ruleContain returns [EObject current=null] : ( ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) ) ) ;
-    public final EObject ruleContain() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_many_0_0=null;
-        Token lv_name_1_0=null;
-        Token otherlv_2=null;
-        Token otherlv_3=null;
-
-
-        	enterRule();
-
-        try {
-            // InternalSceneDl.g:624:2: ( ( ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) ) ) )
-            // InternalSceneDl.g:625:2: ( ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) ) )
-            {
-            // InternalSceneDl.g:625:2: ( ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) ) )
-            // InternalSceneDl.g:626:3: ( (lv_many_0_0= 'many' ) )? ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( (otherlv_3= RULE_ID ) )
-            {
-            // InternalSceneDl.g:626:3: ( (lv_many_0_0= 'many' ) )?
-            int alt14=2;
-            int LA14_0 = input.LA(1);
-
-            if ( (LA14_0==18) ) {
-                alt14=1;
-            }
-            switch (alt14) {
-                case 1 :
-                    // InternalSceneDl.g:627:4: (lv_many_0_0= 'many' )
-                    {
-                    // InternalSceneDl.g:627:4: (lv_many_0_0= 'many' )
-                    // InternalSceneDl.g:628:5: lv_many_0_0= 'many'
-                    {
-                    lv_many_0_0=(Token)match(input,18,FOLLOW_4); 
-
-                    					newLeafNode(lv_many_0_0, grammarAccess.getContainAccess().getManyManyKeyword_0_0());
-                    				
-
-                    					if (current==null) {
-                    						current = createModelElement(grammarAccess.getContainRule());
-                    					}
-                    					setWithLastConsumed(current, "many", lv_many_0_0 != null, "many");
-                    				
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-            // InternalSceneDl.g:640:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalSceneDl.g:641:4: (lv_name_1_0= RULE_ID )
-            {
-            // InternalSceneDl.g:641:4: (lv_name_1_0= RULE_ID )
-            // InternalSceneDl.g:642:5: lv_name_1_0= RULE_ID
-            {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_9); 
-
-            					newLeafNode(lv_name_1_0, grammarAccess.getContainAccess().getNameIDTerminalRuleCall_1_0());
-            				
-
-            					if (current==null) {
-            						current = createModelElement(grammarAccess.getContainRule());
-            					}
-            					setWithLastConsumed(
-            						current,
-            						"name",
-            						lv_name_1_0,
-            						"org.eclipse.xtext.common.Terminals.ID");
-            				
-
-            }
-
-
-            }
-
-            otherlv_2=(Token)match(input,19,FOLLOW_4); 
-
-            			newLeafNode(otherlv_2, grammarAccess.getContainAccess().getColonKeyword_2());
-            		
-            // InternalSceneDl.g:662:3: ( (otherlv_3= RULE_ID ) )
-            // InternalSceneDl.g:663:4: (otherlv_3= RULE_ID )
-            {
-            // InternalSceneDl.g:663:4: (otherlv_3= RULE_ID )
-            // InternalSceneDl.g:664:5: otherlv_3= RULE_ID
-            {
-
-            					if (current==null) {
-            						current = createModelElement(grammarAccess.getContainRule());
-            					}
-            				
-            otherlv_3=(Token)match(input,RULE_ID,FOLLOW_2); 
-
-            					newLeafNode(otherlv_3, grammarAccess.getContainAccess().getTypeDynamicEntityCrossReference_3_0());
-            				
-
-            }
-
-
-            }
-
-
-            }
-
-
-            }
-
-
-            	leaveRule();
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleContain"
-
-
     // $ANTLR start "entryRuleAttribute"
-    // InternalSceneDl.g:679:1: entryRuleAttribute returns [EObject current=null] : iv_ruleAttribute= ruleAttribute EOF ;
+    // InternalSceneDl.g:481:1: entryRuleAttribute returns [EObject current=null] : iv_ruleAttribute= ruleAttribute EOF ;
     public final EObject entryRuleAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -1720,8 +1183,8 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSceneDl.g:679:50: (iv_ruleAttribute= ruleAttribute EOF )
-            // InternalSceneDl.g:680:2: iv_ruleAttribute= ruleAttribute EOF
+            // InternalSceneDl.g:481:50: (iv_ruleAttribute= ruleAttribute EOF )
+            // InternalSceneDl.g:482:2: iv_ruleAttribute= ruleAttribute EOF
             {
              newCompositeNode(grammarAccess.getAttributeRule()); 
             pushFollow(FOLLOW_1);
@@ -1748,7 +1211,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAttribute"
-    // InternalSceneDl.g:686:1: ruleAttribute returns [EObject current=null] : (this_RegularAttribute_0= ruleRegularAttribute | this_PositionAttribute_1= rulePositionAttribute ) ;
+    // InternalSceneDl.g:488:1: ruleAttribute returns [EObject current=null] : (this_RegularAttribute_0= ruleRegularAttribute | this_PositionAttribute_1= rulePositionAttribute ) ;
     public final EObject ruleAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -1761,126 +1224,126 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSceneDl.g:692:2: ( (this_RegularAttribute_0= ruleRegularAttribute | this_PositionAttribute_1= rulePositionAttribute ) )
-            // InternalSceneDl.g:693:2: (this_RegularAttribute_0= ruleRegularAttribute | this_PositionAttribute_1= rulePositionAttribute )
+            // InternalSceneDl.g:494:2: ( (this_RegularAttribute_0= ruleRegularAttribute | this_PositionAttribute_1= rulePositionAttribute ) )
+            // InternalSceneDl.g:495:2: (this_RegularAttribute_0= ruleRegularAttribute | this_PositionAttribute_1= rulePositionAttribute )
             {
-            // InternalSceneDl.g:693:2: (this_RegularAttribute_0= ruleRegularAttribute | this_PositionAttribute_1= rulePositionAttribute )
-            int alt15=2;
-            int LA15_0 = input.LA(1);
+            // InternalSceneDl.g:495:2: (this_RegularAttribute_0= ruleRegularAttribute | this_PositionAttribute_1= rulePositionAttribute )
+            int alt12=2;
+            int LA12_0 = input.LA(1);
 
-            if ( (LA15_0==RULE_ID) ) {
-                int LA15_1 = input.LA(2);
+            if ( (LA12_0==RULE_ID) ) {
+                int LA12_1 = input.LA(2);
 
-                if ( (LA15_1==19) ) {
-                    int LA15_2 = input.LA(3);
+                if ( (LA12_1==18) ) {
+                    int LA12_2 = input.LA(3);
 
-                    if ( (LA15_2==26) ) {
-                        int LA15_3 = input.LA(4);
+                    if ( (LA12_2==25) ) {
+                        int LA12_3 = input.LA(4);
 
-                        if ( (LA15_3==20) ) {
-                            int LA15_5 = input.LA(5);
+                        if ( (LA12_3==19) ) {
+                            int LA12_5 = input.LA(5);
 
-                            if ( (LA15_5==RULE_INT) ) {
-                                int LA15_7 = input.LA(6);
+                            if ( (LA12_5==RULE_INT) ) {
+                                int LA12_7 = input.LA(6);
 
-                                if ( (LA15_7==24) ) {
-                                    alt15=2;
+                                if ( (LA12_7==EOF||(LA12_7>=15 && LA12_7<=16)||(LA12_7>=20 && LA12_7<=22)||LA12_7==24) ) {
+                                    alt12=1;
                                 }
-                                else if ( (LA15_7==EOF||(LA15_7>=15 && LA15_7<=16)||(LA15_7>=21 && LA15_7<=23)||LA15_7==25) ) {
-                                    alt15=1;
+                                else if ( (LA12_7==23) ) {
+                                    alt12=2;
                                 }
                                 else {
                                     NoViableAltException nvae =
-                                        new NoViableAltException("", 15, 7, input);
+                                        new NoViableAltException("", 12, 7, input);
 
                                     throw nvae;
                                 }
                             }
-                            else if ( (LA15_5==RULE_STRING) ) {
-                                alt15=1;
+                            else if ( (LA12_5==RULE_STRING) ) {
+                                alt12=1;
                             }
                             else {
                                 NoViableAltException nvae =
-                                    new NoViableAltException("", 15, 5, input);
+                                    new NoViableAltException("", 12, 5, input);
 
                                 throw nvae;
                             }
                         }
-                        else if ( ((LA15_3>=RULE_INT && LA15_3<=RULE_STRING)) ) {
-                            alt15=1;
+                        else if ( ((LA12_3>=RULE_INT && LA12_3<=RULE_STRING)) ) {
+                            alt12=1;
                         }
                         else {
                             NoViableAltException nvae =
-                                new NoViableAltException("", 15, 3, input);
+                                new NoViableAltException("", 12, 3, input);
 
                             throw nvae;
                         }
                     }
-                    else if ( (LA15_2==27) ) {
-                        int LA15_4 = input.LA(4);
+                    else if ( (LA12_2==26) ) {
+                        int LA12_4 = input.LA(4);
 
-                        if ( (LA15_4==20) ) {
-                            int LA15_5 = input.LA(5);
+                        if ( (LA12_4==19) ) {
+                            int LA12_5 = input.LA(5);
 
-                            if ( (LA15_5==RULE_INT) ) {
-                                int LA15_7 = input.LA(6);
+                            if ( (LA12_5==RULE_INT) ) {
+                                int LA12_7 = input.LA(6);
 
-                                if ( (LA15_7==24) ) {
-                                    alt15=2;
+                                if ( (LA12_7==EOF||(LA12_7>=15 && LA12_7<=16)||(LA12_7>=20 && LA12_7<=22)||LA12_7==24) ) {
+                                    alt12=1;
                                 }
-                                else if ( (LA15_7==EOF||(LA15_7>=15 && LA15_7<=16)||(LA15_7>=21 && LA15_7<=23)||LA15_7==25) ) {
-                                    alt15=1;
+                                else if ( (LA12_7==23) ) {
+                                    alt12=2;
                                 }
                                 else {
                                     NoViableAltException nvae =
-                                        new NoViableAltException("", 15, 7, input);
+                                        new NoViableAltException("", 12, 7, input);
 
                                     throw nvae;
                                 }
                             }
-                            else if ( (LA15_5==RULE_STRING) ) {
-                                alt15=1;
+                            else if ( (LA12_5==RULE_STRING) ) {
+                                alt12=1;
                             }
                             else {
                                 NoViableAltException nvae =
-                                    new NoViableAltException("", 15, 5, input);
+                                    new NoViableAltException("", 12, 5, input);
 
                                 throw nvae;
                             }
                         }
-                        else if ( ((LA15_4>=RULE_INT && LA15_4<=RULE_STRING)) ) {
-                            alt15=1;
+                        else if ( ((LA12_4>=RULE_INT && LA12_4<=RULE_STRING)) ) {
+                            alt12=1;
                         }
                         else {
                             NoViableAltException nvae =
-                                new NoViableAltException("", 15, 4, input);
+                                new NoViableAltException("", 12, 4, input);
 
                             throw nvae;
                         }
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 15, 2, input);
+                            new NoViableAltException("", 12, 2, input);
 
                         throw nvae;
                     }
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 15, 1, input);
+                        new NoViableAltException("", 12, 1, input);
 
                     throw nvae;
                 }
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 15, 0, input);
+                    new NoViableAltException("", 12, 0, input);
 
                 throw nvae;
             }
-            switch (alt15) {
+            switch (alt12) {
                 case 1 :
-                    // InternalSceneDl.g:694:3: this_RegularAttribute_0= ruleRegularAttribute
+                    // InternalSceneDl.g:496:3: this_RegularAttribute_0= ruleRegularAttribute
                     {
 
                     			newCompositeNode(grammarAccess.getAttributeAccess().getRegularAttributeParserRuleCall_0());
@@ -1898,7 +1361,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSceneDl.g:703:3: this_PositionAttribute_1= rulePositionAttribute
+                    // InternalSceneDl.g:505:3: this_PositionAttribute_1= rulePositionAttribute
                     {
 
                     			newCompositeNode(grammarAccess.getAttributeAccess().getPositionAttributeParserRuleCall_1());
@@ -1938,7 +1401,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleRegularAttribute"
-    // InternalSceneDl.g:715:1: entryRuleRegularAttribute returns [EObject current=null] : iv_ruleRegularAttribute= ruleRegularAttribute EOF ;
+    // InternalSceneDl.g:517:1: entryRuleRegularAttribute returns [EObject current=null] : iv_ruleRegularAttribute= ruleRegularAttribute EOF ;
     public final EObject entryRuleRegularAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -1946,8 +1409,8 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSceneDl.g:715:57: (iv_ruleRegularAttribute= ruleRegularAttribute EOF )
-            // InternalSceneDl.g:716:2: iv_ruleRegularAttribute= ruleRegularAttribute EOF
+            // InternalSceneDl.g:517:57: (iv_ruleRegularAttribute= ruleRegularAttribute EOF )
+            // InternalSceneDl.g:518:2: iv_ruleRegularAttribute= ruleRegularAttribute EOF
             {
              newCompositeNode(grammarAccess.getRegularAttributeRule()); 
             pushFollow(FOLLOW_1);
@@ -1974,7 +1437,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRegularAttribute"
-    // InternalSceneDl.g:722:1: ruleRegularAttribute returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )? ) ;
+    // InternalSceneDl.g:524:1: ruleRegularAttribute returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )? ) ;
     public final EObject ruleRegularAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -1995,19 +1458,19 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSceneDl.g:728:2: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )? ) )
-            // InternalSceneDl.g:729:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )? )
+            // InternalSceneDl.g:530:2: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )? ) )
+            // InternalSceneDl.g:531:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )? )
             {
-            // InternalSceneDl.g:729:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )? )
-            // InternalSceneDl.g:730:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )?
+            // InternalSceneDl.g:531:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )? )
+            // InternalSceneDl.g:532:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) (otherlv_3= '[' )? ( (lv_value_4_0= ruleAttributeValue ) ) (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )? (otherlv_7= ']' )? ( (lv_isTransient_8_0= 'transient' ) )?
             {
-            // InternalSceneDl.g:730:3: ( (lv_name_0_0= RULE_ID ) )
-            // InternalSceneDl.g:731:4: (lv_name_0_0= RULE_ID )
+            // InternalSceneDl.g:532:3: ( (lv_name_0_0= RULE_ID ) )
+            // InternalSceneDl.g:533:4: (lv_name_0_0= RULE_ID )
             {
-            // InternalSceneDl.g:731:4: (lv_name_0_0= RULE_ID )
-            // InternalSceneDl.g:732:5: lv_name_0_0= RULE_ID
+            // InternalSceneDl.g:533:4: (lv_name_0_0= RULE_ID )
+            // InternalSceneDl.g:534:5: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_9); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_8); 
 
             					newLeafNode(lv_name_0_0, grammarAccess.getRegularAttributeAccess().getNameIDTerminalRuleCall_0_0());
             				
@@ -2027,20 +1490,20 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,19,FOLLOW_10); 
+            otherlv_1=(Token)match(input,18,FOLLOW_9); 
 
             			newLeafNode(otherlv_1, grammarAccess.getRegularAttributeAccess().getColonKeyword_1());
             		
-            // InternalSceneDl.g:752:3: ( (lv_type_2_0= ruleAttributeType ) )
-            // InternalSceneDl.g:753:4: (lv_type_2_0= ruleAttributeType )
+            // InternalSceneDl.g:554:3: ( (lv_type_2_0= ruleAttributeType ) )
+            // InternalSceneDl.g:555:4: (lv_type_2_0= ruleAttributeType )
             {
-            // InternalSceneDl.g:753:4: (lv_type_2_0= ruleAttributeType )
-            // InternalSceneDl.g:754:5: lv_type_2_0= ruleAttributeType
+            // InternalSceneDl.g:555:4: (lv_type_2_0= ruleAttributeType )
+            // InternalSceneDl.g:556:5: lv_type_2_0= ruleAttributeType
             {
 
             					newCompositeNode(grammarAccess.getRegularAttributeAccess().getTypeAttributeTypeEnumRuleCall_2_0());
             				
-            pushFollow(FOLLOW_11);
+            pushFollow(FOLLOW_10);
             lv_type_2_0=ruleAttributeType();
 
             state._fsp--;
@@ -2062,18 +1525,18 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSceneDl.g:771:3: (otherlv_3= '[' )?
-            int alt16=2;
-            int LA16_0 = input.LA(1);
+            // InternalSceneDl.g:573:3: (otherlv_3= '[' )?
+            int alt13=2;
+            int LA13_0 = input.LA(1);
 
-            if ( (LA16_0==20) ) {
-                alt16=1;
+            if ( (LA13_0==19) ) {
+                alt13=1;
             }
-            switch (alt16) {
+            switch (alt13) {
                 case 1 :
-                    // InternalSceneDl.g:772:4: otherlv_3= '['
+                    // InternalSceneDl.g:574:4: otherlv_3= '['
                     {
-                    otherlv_3=(Token)match(input,20,FOLLOW_11); 
+                    otherlv_3=(Token)match(input,19,FOLLOW_10); 
 
                     				newLeafNode(otherlv_3, grammarAccess.getRegularAttributeAccess().getLeftSquareBracketKeyword_3());
                     			
@@ -2083,16 +1546,16 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSceneDl.g:777:3: ( (lv_value_4_0= ruleAttributeValue ) )
-            // InternalSceneDl.g:778:4: (lv_value_4_0= ruleAttributeValue )
+            // InternalSceneDl.g:579:3: ( (lv_value_4_0= ruleAttributeValue ) )
+            // InternalSceneDl.g:580:4: (lv_value_4_0= ruleAttributeValue )
             {
-            // InternalSceneDl.g:778:4: (lv_value_4_0= ruleAttributeValue )
-            // InternalSceneDl.g:779:5: lv_value_4_0= ruleAttributeValue
+            // InternalSceneDl.g:580:4: (lv_value_4_0= ruleAttributeValue )
+            // InternalSceneDl.g:581:5: lv_value_4_0= ruleAttributeValue
             {
 
             					newCompositeNode(grammarAccess.getRegularAttributeAccess().getValueAttributeValueParserRuleCall_4_0());
             				
-            pushFollow(FOLLOW_12);
+            pushFollow(FOLLOW_11);
             lv_value_4_0=ruleAttributeValue();
 
             state._fsp--;
@@ -2114,31 +1577,31 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSceneDl.g:796:3: (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )?
-            int alt17=2;
-            int LA17_0 = input.LA(1);
+            // InternalSceneDl.g:598:3: (otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) ) )?
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            if ( (LA17_0==21) ) {
-                alt17=1;
+            if ( (LA14_0==20) ) {
+                alt14=1;
             }
-            switch (alt17) {
+            switch (alt14) {
                 case 1 :
-                    // InternalSceneDl.g:797:4: otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) )
+                    // InternalSceneDl.g:599:4: otherlv_5= '-' ( (lv_value_6_0= ruleAttributeValue ) )
                     {
-                    otherlv_5=(Token)match(input,21,FOLLOW_11); 
+                    otherlv_5=(Token)match(input,20,FOLLOW_10); 
 
                     				newLeafNode(otherlv_5, grammarAccess.getRegularAttributeAccess().getHyphenMinusKeyword_5_0());
                     			
-                    // InternalSceneDl.g:801:4: ( (lv_value_6_0= ruleAttributeValue ) )
-                    // InternalSceneDl.g:802:5: (lv_value_6_0= ruleAttributeValue )
+                    // InternalSceneDl.g:603:4: ( (lv_value_6_0= ruleAttributeValue ) )
+                    // InternalSceneDl.g:604:5: (lv_value_6_0= ruleAttributeValue )
                     {
-                    // InternalSceneDl.g:802:5: (lv_value_6_0= ruleAttributeValue )
-                    // InternalSceneDl.g:803:6: lv_value_6_0= ruleAttributeValue
+                    // InternalSceneDl.g:604:5: (lv_value_6_0= ruleAttributeValue )
+                    // InternalSceneDl.g:605:6: lv_value_6_0= ruleAttributeValue
                     {
 
                     						newCompositeNode(grammarAccess.getRegularAttributeAccess().getValueAttributeValueParserRuleCall_5_1_0());
                     					
-                    pushFollow(FOLLOW_13);
+                    pushFollow(FOLLOW_12);
                     lv_value_6_0=ruleAttributeValue();
 
                     state._fsp--;
@@ -2166,18 +1629,18 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSceneDl.g:821:3: (otherlv_7= ']' )?
-            int alt18=2;
-            int LA18_0 = input.LA(1);
+            // InternalSceneDl.g:623:3: (otherlv_7= ']' )?
+            int alt15=2;
+            int LA15_0 = input.LA(1);
 
-            if ( (LA18_0==22) ) {
-                alt18=1;
+            if ( (LA15_0==21) ) {
+                alt15=1;
             }
-            switch (alt18) {
+            switch (alt15) {
                 case 1 :
-                    // InternalSceneDl.g:822:4: otherlv_7= ']'
+                    // InternalSceneDl.g:624:4: otherlv_7= ']'
                     {
-                    otherlv_7=(Token)match(input,22,FOLLOW_14); 
+                    otherlv_7=(Token)match(input,21,FOLLOW_13); 
 
                     				newLeafNode(otherlv_7, grammarAccess.getRegularAttributeAccess().getRightSquareBracketKeyword_6());
                     			
@@ -2187,21 +1650,21 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSceneDl.g:827:3: ( (lv_isTransient_8_0= 'transient' ) )?
-            int alt19=2;
-            int LA19_0 = input.LA(1);
+            // InternalSceneDl.g:629:3: ( (lv_isTransient_8_0= 'transient' ) )?
+            int alt16=2;
+            int LA16_0 = input.LA(1);
 
-            if ( (LA19_0==23) ) {
-                alt19=1;
+            if ( (LA16_0==22) ) {
+                alt16=1;
             }
-            switch (alt19) {
+            switch (alt16) {
                 case 1 :
-                    // InternalSceneDl.g:828:4: (lv_isTransient_8_0= 'transient' )
+                    // InternalSceneDl.g:630:4: (lv_isTransient_8_0= 'transient' )
                     {
-                    // InternalSceneDl.g:828:4: (lv_isTransient_8_0= 'transient' )
-                    // InternalSceneDl.g:829:5: lv_isTransient_8_0= 'transient'
+                    // InternalSceneDl.g:630:4: (lv_isTransient_8_0= 'transient' )
+                    // InternalSceneDl.g:631:5: lv_isTransient_8_0= 'transient'
                     {
-                    lv_isTransient_8_0=(Token)match(input,23,FOLLOW_2); 
+                    lv_isTransient_8_0=(Token)match(input,22,FOLLOW_2); 
 
                     					newLeafNode(lv_isTransient_8_0, grammarAccess.getRegularAttributeAccess().getIsTransientTransientKeyword_7_0());
                     				
@@ -2243,7 +1706,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePositionAttribute"
-    // InternalSceneDl.g:845:1: entryRulePositionAttribute returns [EObject current=null] : iv_rulePositionAttribute= rulePositionAttribute EOF ;
+    // InternalSceneDl.g:647:1: entryRulePositionAttribute returns [EObject current=null] : iv_rulePositionAttribute= rulePositionAttribute EOF ;
     public final EObject entryRulePositionAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -2251,8 +1714,8 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSceneDl.g:845:58: (iv_rulePositionAttribute= rulePositionAttribute EOF )
-            // InternalSceneDl.g:846:2: iv_rulePositionAttribute= rulePositionAttribute EOF
+            // InternalSceneDl.g:647:58: (iv_rulePositionAttribute= rulePositionAttribute EOF )
+            // InternalSceneDl.g:648:2: iv_rulePositionAttribute= rulePositionAttribute EOF
             {
              newCompositeNode(grammarAccess.getPositionAttributeRule()); 
             pushFollow(FOLLOW_1);
@@ -2279,7 +1742,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePositionAttribute"
-    // InternalSceneDl.g:852:1: rulePositionAttribute returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )? ) ;
+    // InternalSceneDl.g:654:1: rulePositionAttribute returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )? ) ;
     public final EObject rulePositionAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -2298,19 +1761,19 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSceneDl.g:858:2: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )? ) )
-            // InternalSceneDl.g:859:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )? )
+            // InternalSceneDl.g:660:2: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )? ) )
+            // InternalSceneDl.g:661:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )? )
             {
-            // InternalSceneDl.g:859:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )? )
-            // InternalSceneDl.g:860:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )?
+            // InternalSceneDl.g:661:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )? )
+            // InternalSceneDl.g:662:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= ':' ( (lv_type_2_0= ruleAttributeType ) ) otherlv_3= '[' ( (lv_x_4_0= RULE_INT ) ) otherlv_5= ';' ( (lv_y_6_0= RULE_INT ) ) otherlv_7= ']' ( (lv_isTransient_8_0= 'transient' ) )?
             {
-            // InternalSceneDl.g:860:3: ( (lv_name_0_0= RULE_ID ) )
-            // InternalSceneDl.g:861:4: (lv_name_0_0= RULE_ID )
+            // InternalSceneDl.g:662:3: ( (lv_name_0_0= RULE_ID ) )
+            // InternalSceneDl.g:663:4: (lv_name_0_0= RULE_ID )
             {
-            // InternalSceneDl.g:861:4: (lv_name_0_0= RULE_ID )
-            // InternalSceneDl.g:862:5: lv_name_0_0= RULE_ID
+            // InternalSceneDl.g:663:4: (lv_name_0_0= RULE_ID )
+            // InternalSceneDl.g:664:5: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_9); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_8); 
 
             					newLeafNode(lv_name_0_0, grammarAccess.getPositionAttributeAccess().getNameIDTerminalRuleCall_0_0());
             				
@@ -2330,20 +1793,20 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,19,FOLLOW_10); 
+            otherlv_1=(Token)match(input,18,FOLLOW_9); 
 
             			newLeafNode(otherlv_1, grammarAccess.getPositionAttributeAccess().getColonKeyword_1());
             		
-            // InternalSceneDl.g:882:3: ( (lv_type_2_0= ruleAttributeType ) )
-            // InternalSceneDl.g:883:4: (lv_type_2_0= ruleAttributeType )
+            // InternalSceneDl.g:684:3: ( (lv_type_2_0= ruleAttributeType ) )
+            // InternalSceneDl.g:685:4: (lv_type_2_0= ruleAttributeType )
             {
-            // InternalSceneDl.g:883:4: (lv_type_2_0= ruleAttributeType )
-            // InternalSceneDl.g:884:5: lv_type_2_0= ruleAttributeType
+            // InternalSceneDl.g:685:4: (lv_type_2_0= ruleAttributeType )
+            // InternalSceneDl.g:686:5: lv_type_2_0= ruleAttributeType
             {
 
             					newCompositeNode(grammarAccess.getPositionAttributeAccess().getTypeAttributeTypeEnumRuleCall_2_0());
             				
-            pushFollow(FOLLOW_15);
+            pushFollow(FOLLOW_14);
             lv_type_2_0=ruleAttributeType();
 
             state._fsp--;
@@ -2365,17 +1828,17 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,20,FOLLOW_16); 
+            otherlv_3=(Token)match(input,19,FOLLOW_15); 
 
             			newLeafNode(otherlv_3, grammarAccess.getPositionAttributeAccess().getLeftSquareBracketKeyword_3());
             		
-            // InternalSceneDl.g:905:3: ( (lv_x_4_0= RULE_INT ) )
-            // InternalSceneDl.g:906:4: (lv_x_4_0= RULE_INT )
+            // InternalSceneDl.g:707:3: ( (lv_x_4_0= RULE_INT ) )
+            // InternalSceneDl.g:708:4: (lv_x_4_0= RULE_INT )
             {
-            // InternalSceneDl.g:906:4: (lv_x_4_0= RULE_INT )
-            // InternalSceneDl.g:907:5: lv_x_4_0= RULE_INT
+            // InternalSceneDl.g:708:4: (lv_x_4_0= RULE_INT )
+            // InternalSceneDl.g:709:5: lv_x_4_0= RULE_INT
             {
-            lv_x_4_0=(Token)match(input,RULE_INT,FOLLOW_17); 
+            lv_x_4_0=(Token)match(input,RULE_INT,FOLLOW_16); 
 
             					newLeafNode(lv_x_4_0, grammarAccess.getPositionAttributeAccess().getXINTTerminalRuleCall_4_0());
             				
@@ -2395,17 +1858,17 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,24,FOLLOW_16); 
+            otherlv_5=(Token)match(input,23,FOLLOW_15); 
 
             			newLeafNode(otherlv_5, grammarAccess.getPositionAttributeAccess().getSemicolonKeyword_5());
             		
-            // InternalSceneDl.g:927:3: ( (lv_y_6_0= RULE_INT ) )
-            // InternalSceneDl.g:928:4: (lv_y_6_0= RULE_INT )
+            // InternalSceneDl.g:729:3: ( (lv_y_6_0= RULE_INT ) )
+            // InternalSceneDl.g:730:4: (lv_y_6_0= RULE_INT )
             {
-            // InternalSceneDl.g:928:4: (lv_y_6_0= RULE_INT )
-            // InternalSceneDl.g:929:5: lv_y_6_0= RULE_INT
+            // InternalSceneDl.g:730:4: (lv_y_6_0= RULE_INT )
+            // InternalSceneDl.g:731:5: lv_y_6_0= RULE_INT
             {
-            lv_y_6_0=(Token)match(input,RULE_INT,FOLLOW_18); 
+            lv_y_6_0=(Token)match(input,RULE_INT,FOLLOW_17); 
 
             					newLeafNode(lv_y_6_0, grammarAccess.getPositionAttributeAccess().getYINTTerminalRuleCall_6_0());
             				
@@ -2425,25 +1888,25 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,22,FOLLOW_14); 
+            otherlv_7=(Token)match(input,21,FOLLOW_13); 
 
             			newLeafNode(otherlv_7, grammarAccess.getPositionAttributeAccess().getRightSquareBracketKeyword_7());
             		
-            // InternalSceneDl.g:949:3: ( (lv_isTransient_8_0= 'transient' ) )?
-            int alt20=2;
-            int LA20_0 = input.LA(1);
+            // InternalSceneDl.g:751:3: ( (lv_isTransient_8_0= 'transient' ) )?
+            int alt17=2;
+            int LA17_0 = input.LA(1);
 
-            if ( (LA20_0==23) ) {
-                alt20=1;
+            if ( (LA17_0==22) ) {
+                alt17=1;
             }
-            switch (alt20) {
+            switch (alt17) {
                 case 1 :
-                    // InternalSceneDl.g:950:4: (lv_isTransient_8_0= 'transient' )
+                    // InternalSceneDl.g:752:4: (lv_isTransient_8_0= 'transient' )
                     {
-                    // InternalSceneDl.g:950:4: (lv_isTransient_8_0= 'transient' )
-                    // InternalSceneDl.g:951:5: lv_isTransient_8_0= 'transient'
+                    // InternalSceneDl.g:752:4: (lv_isTransient_8_0= 'transient' )
+                    // InternalSceneDl.g:753:5: lv_isTransient_8_0= 'transient'
                     {
-                    lv_isTransient_8_0=(Token)match(input,23,FOLLOW_2); 
+                    lv_isTransient_8_0=(Token)match(input,22,FOLLOW_2); 
 
                     					newLeafNode(lv_isTransient_8_0, grammarAccess.getPositionAttributeAccess().getIsTransientTransientKeyword_8_0());
                     				
@@ -2485,7 +1948,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAttributeValue"
-    // InternalSceneDl.g:967:1: entryRuleAttributeValue returns [String current=null] : iv_ruleAttributeValue= ruleAttributeValue EOF ;
+    // InternalSceneDl.g:769:1: entryRuleAttributeValue returns [String current=null] : iv_ruleAttributeValue= ruleAttributeValue EOF ;
     public final String entryRuleAttributeValue() throws RecognitionException {
         String current = null;
 
@@ -2493,8 +1956,8 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSceneDl.g:967:54: (iv_ruleAttributeValue= ruleAttributeValue EOF )
-            // InternalSceneDl.g:968:2: iv_ruleAttributeValue= ruleAttributeValue EOF
+            // InternalSceneDl.g:769:54: (iv_ruleAttributeValue= ruleAttributeValue EOF )
+            // InternalSceneDl.g:770:2: iv_ruleAttributeValue= ruleAttributeValue EOF
             {
              newCompositeNode(grammarAccess.getAttributeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -2521,7 +1984,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAttributeValue"
-    // InternalSceneDl.g:974:1: ruleAttributeValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING | (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT ) ) ;
+    // InternalSceneDl.g:776:1: ruleAttributeValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING | (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT ) ) ;
     public final AntlrDatatypeRuleToken ruleAttributeValue() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -2535,41 +1998,41 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSceneDl.g:980:2: ( (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING | (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT ) ) )
-            // InternalSceneDl.g:981:2: (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING | (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT ) )
+            // InternalSceneDl.g:782:2: ( (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING | (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT ) ) )
+            // InternalSceneDl.g:783:2: (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING | (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT ) )
             {
-            // InternalSceneDl.g:981:2: (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING | (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT ) )
-            int alt21=3;
-            int LA21_0 = input.LA(1);
+            // InternalSceneDl.g:783:2: (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING | (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT ) )
+            int alt18=3;
+            int LA18_0 = input.LA(1);
 
-            if ( (LA21_0==RULE_INT) ) {
-                int LA21_1 = input.LA(2);
+            if ( (LA18_0==RULE_INT) ) {
+                int LA18_1 = input.LA(2);
 
-                if ( (LA21_1==25) ) {
-                    alt21=3;
+                if ( (LA18_1==EOF||(LA18_1>=15 && LA18_1<=16)||(LA18_1>=20 && LA18_1<=22)) ) {
+                    alt18=1;
                 }
-                else if ( (LA21_1==EOF||(LA21_1>=15 && LA21_1<=16)||(LA21_1>=21 && LA21_1<=23)) ) {
-                    alt21=1;
+                else if ( (LA18_1==24) ) {
+                    alt18=3;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 21, 1, input);
+                        new NoViableAltException("", 18, 1, input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA21_0==RULE_STRING) ) {
-                alt21=2;
+            else if ( (LA18_0==RULE_STRING) ) {
+                alt18=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 21, 0, input);
+                    new NoViableAltException("", 18, 0, input);
 
                 throw nvae;
             }
-            switch (alt21) {
+            switch (alt18) {
                 case 1 :
-                    // InternalSceneDl.g:982:3: this_INT_0= RULE_INT
+                    // InternalSceneDl.g:784:3: this_INT_0= RULE_INT
                     {
                     this_INT_0=(Token)match(input,RULE_INT,FOLLOW_2); 
 
@@ -2582,7 +2045,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSceneDl.g:990:3: this_STRING_1= RULE_STRING
+                    // InternalSceneDl.g:792:3: this_STRING_1= RULE_STRING
                     {
                     this_STRING_1=(Token)match(input,RULE_STRING,FOLLOW_2); 
 
@@ -2595,19 +2058,19 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSceneDl.g:998:3: (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT )
+                    // InternalSceneDl.g:800:3: (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT )
                     {
-                    // InternalSceneDl.g:998:3: (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT )
-                    // InternalSceneDl.g:999:4: this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT
+                    // InternalSceneDl.g:800:3: (this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT )
+                    // InternalSceneDl.g:801:4: this_INT_2= RULE_INT kw= '.' this_INT_4= RULE_INT
                     {
-                    this_INT_2=(Token)match(input,RULE_INT,FOLLOW_19); 
+                    this_INT_2=(Token)match(input,RULE_INT,FOLLOW_18); 
 
                     				current.merge(this_INT_2);
                     			
 
                     				newLeafNode(this_INT_2, grammarAccess.getAttributeValueAccess().getINTTerminalRuleCall_2_0());
                     			
-                    kw=(Token)match(input,25,FOLLOW_16); 
+                    kw=(Token)match(input,24,FOLLOW_15); 
 
                     				current.merge(kw);
                     				newLeafNode(kw, grammarAccess.getAttributeValueAccess().getFullStopKeyword_2_1());
@@ -2648,7 +2111,7 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAttributeType"
-    // InternalSceneDl.g:1023:1: ruleAttributeType returns [Enumerator current=null] : ( (enumLiteral_0= 'range' ) | (enumLiteral_1= 'value' ) ) ;
+    // InternalSceneDl.g:825:1: ruleAttributeType returns [Enumerator current=null] : ( (enumLiteral_0= 'range' ) | (enumLiteral_1= 'value' ) ) ;
     public final Enumerator ruleAttributeType() throws RecognitionException {
         Enumerator current = null;
 
@@ -2659,33 +2122,33 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSceneDl.g:1029:2: ( ( (enumLiteral_0= 'range' ) | (enumLiteral_1= 'value' ) ) )
-            // InternalSceneDl.g:1030:2: ( (enumLiteral_0= 'range' ) | (enumLiteral_1= 'value' ) )
+            // InternalSceneDl.g:831:2: ( ( (enumLiteral_0= 'range' ) | (enumLiteral_1= 'value' ) ) )
+            // InternalSceneDl.g:832:2: ( (enumLiteral_0= 'range' ) | (enumLiteral_1= 'value' ) )
             {
-            // InternalSceneDl.g:1030:2: ( (enumLiteral_0= 'range' ) | (enumLiteral_1= 'value' ) )
-            int alt22=2;
-            int LA22_0 = input.LA(1);
+            // InternalSceneDl.g:832:2: ( (enumLiteral_0= 'range' ) | (enumLiteral_1= 'value' ) )
+            int alt19=2;
+            int LA19_0 = input.LA(1);
 
-            if ( (LA22_0==26) ) {
-                alt22=1;
+            if ( (LA19_0==25) ) {
+                alt19=1;
             }
-            else if ( (LA22_0==27) ) {
-                alt22=2;
+            else if ( (LA19_0==26) ) {
+                alt19=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 22, 0, input);
+                    new NoViableAltException("", 19, 0, input);
 
                 throw nvae;
             }
-            switch (alt22) {
+            switch (alt19) {
                 case 1 :
-                    // InternalSceneDl.g:1031:3: (enumLiteral_0= 'range' )
+                    // InternalSceneDl.g:833:3: (enumLiteral_0= 'range' )
                     {
-                    // InternalSceneDl.g:1031:3: (enumLiteral_0= 'range' )
-                    // InternalSceneDl.g:1032:4: enumLiteral_0= 'range'
+                    // InternalSceneDl.g:833:3: (enumLiteral_0= 'range' )
+                    // InternalSceneDl.g:834:4: enumLiteral_0= 'range'
                     {
-                    enumLiteral_0=(Token)match(input,26,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,25,FOLLOW_2); 
 
                     				current = grammarAccess.getAttributeTypeAccess().getRangeEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getAttributeTypeAccess().getRangeEnumLiteralDeclaration_0());
@@ -2697,12 +2160,12 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSceneDl.g:1039:3: (enumLiteral_1= 'value' )
+                    // InternalSceneDl.g:841:3: (enumLiteral_1= 'value' )
                     {
-                    // InternalSceneDl.g:1039:3: (enumLiteral_1= 'value' )
-                    // InternalSceneDl.g:1040:4: enumLiteral_1= 'value'
+                    // InternalSceneDl.g:841:3: (enumLiteral_1= 'value' )
+                    // InternalSceneDl.g:842:4: enumLiteral_1= 'value'
                     {
-                    enumLiteral_1=(Token)match(input,27,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,26,FOLLOW_2); 
 
                     				current = grammarAccess.getAttributeTypeAccess().getValueEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getAttributeTypeAccess().getValueEnumLiteralDeclaration_1());
@@ -2745,18 +2208,17 @@ public class InternalSceneDlParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000007002L});
     public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000006002L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x000000000C000000L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000100060L});
-    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000E00002L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000018000L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000080060L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000700002L});
+    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000600002L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000400002L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000001000000L});
 
 }

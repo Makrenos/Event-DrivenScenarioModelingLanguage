@@ -60,24 +60,6 @@ public interface SceneDlFactory extends EFactory
   DynamicEntity createDynamicEntity();
 
   /**
-   * Returns a new object of class '<em>Feature</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Feature</em>'.
-   * @generated
-   */
-  Feature createFeature();
-
-  /**
-   * Returns a new object of class '<em>Contain</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Contain</em>'.
-   * @generated
-   */
-  Contain createContain();
-
-  /**
    * Returns a new object of class '<em>Attribute</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -27,13 +27,13 @@ import org.eclipse.emf.ecore.EObject;
 public interface State extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Accepting</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Accepting</em>' attribute.
 	 * @see #setAccepting(boolean)
 	 * @see event.driven.scenario.dl.edsdl.EdsdlPackage#getState_Accepting()
-	 * @model default="false" required="true"
+	 * @model default="true" required="true"
 	 * @generated
 	 */
 	boolean isAccepting();
@@ -71,13 +71,13 @@ public interface State extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Out Transitions</b></em>' reference list.
+	 * Returns the value of the '<em><b>Out Transitions</b></em>' containment reference list.
 	 * The list contents are of type {@link event.driven.scenario.dl.edsdl.Transition}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Out Transitions</em>' reference list.
+	 * @return the value of the '<em>Out Transitions</em>' containment reference list.
 	 * @see event.driven.scenario.dl.edsdl.EdsdlPackage#getState_OutTransitions()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	EList<Transition> getOutTransitions();

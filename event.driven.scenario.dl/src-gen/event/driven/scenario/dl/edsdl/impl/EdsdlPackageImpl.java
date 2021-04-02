@@ -3,8 +3,12 @@
 package event.driven.scenario.dl.edsdl.impl;
 
 import event.driven.scenario.dl.edsdl.Action;
+import event.driven.scenario.dl.edsdl.Condition;
+import event.driven.scenario.dl.edsdl.Dictionary;
+import event.driven.scenario.dl.edsdl.EFeatureBasedAction;
 import event.driven.scenario.dl.edsdl.EdsdlFactory;
 import event.driven.scenario.dl.edsdl.EdsdlPackage;
+import event.driven.scenario.dl.edsdl.RuntimeState;
 import event.driven.scenario.dl.edsdl.State;
 import event.driven.scenario.dl.edsdl.StateMachine;
 import event.driven.scenario.dl.edsdl.Transition;
@@ -43,6 +47,34 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 	 * @generated
 	 */
 	private EClass transitionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass eFeatureBasedActionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass dictionaryEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass conditionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass runtimeStateEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,7 +170,7 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getStateMachine_Transitions() {
+	public EReference getStateMachine_Dictionary() {
 		return (EReference) stateMachineEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -147,17 +179,8 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getStateMachine_Actions() {
+	public EReference getStateMachine_Runtimestate() {
 		return (EReference) stateMachineEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getStateMachine_ActualState() {
-		return (EReference) stateMachineEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -210,8 +233,8 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTransition_Pattern() {
-		return (EAttribute) transitionEClass.getEStructuralFeatures().get(0);
+	public EReference getTransition_TargetState() {
+		return (EReference) transitionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -219,7 +242,7 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTransition_TargetState() {
+	public EReference getTransition_FeatureBasedActions() {
 		return (EReference) transitionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -228,8 +251,125 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTransition_Action() {
+	public EReference getTransition_Condition() {
 		return (EReference) transitionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTransition_Name() {
+		return (EAttribute) transitionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTransition_RuleBasedActions() {
+		return (EReference) transitionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEFeatureBasedAction() {
+		return eFeatureBasedActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEFeatureBasedAction_Change() {
+		return (EAttribute) eFeatureBasedActionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEFeatureBasedAction_By() {
+		return (EAttribute) eFeatureBasedActionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDictionary() {
+		return dictionaryEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDictionary_FeatureBasedActions() {
+		return (EReference) dictionaryEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDictionary_Conditions() {
+		return (EReference) dictionaryEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDictionary_RuleBasedActions() {
+		return (EReference) dictionaryEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCondition() {
+		return conditionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCondition_Pattern() {
+		return (EAttribute) conditionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRuntimeState() {
+		return runtimeStateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRuntimeState_ActualState() {
+		return (EReference) runtimeStateEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -248,24 +388,6 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 	 */
 	public EAttribute getAction_Name() {
 		return (EAttribute) actionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAction_Change() {
-		return (EAttribute) actionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAction_By() {
-		return (EAttribute) actionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -299,9 +421,8 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 		// Create classes and their features
 		stateMachineEClass = createEClass(STATE_MACHINE);
 		createEReference(stateMachineEClass, STATE_MACHINE__STATES);
-		createEReference(stateMachineEClass, STATE_MACHINE__TRANSITIONS);
-		createEReference(stateMachineEClass, STATE_MACHINE__ACTIONS);
-		createEReference(stateMachineEClass, STATE_MACHINE__ACTUAL_STATE);
+		createEReference(stateMachineEClass, STATE_MACHINE__DICTIONARY);
+		createEReference(stateMachineEClass, STATE_MACHINE__RUNTIMESTATE);
 
 		stateEClass = createEClass(STATE);
 		createEAttribute(stateEClass, STATE__ACCEPTING);
@@ -309,14 +430,29 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 		createEReference(stateEClass, STATE__OUT_TRANSITIONS);
 
 		transitionEClass = createEClass(TRANSITION);
-		createEAttribute(transitionEClass, TRANSITION__PATTERN);
 		createEReference(transitionEClass, TRANSITION__TARGET_STATE);
-		createEReference(transitionEClass, TRANSITION__ACTION);
+		createEReference(transitionEClass, TRANSITION__FEATURE_BASED_ACTIONS);
+		createEReference(transitionEClass, TRANSITION__CONDITION);
+		createEAttribute(transitionEClass, TRANSITION__NAME);
+		createEReference(transitionEClass, TRANSITION__RULE_BASED_ACTIONS);
+
+		eFeatureBasedActionEClass = createEClass(EFEATURE_BASED_ACTION);
+		createEAttribute(eFeatureBasedActionEClass, EFEATURE_BASED_ACTION__CHANGE);
+		createEAttribute(eFeatureBasedActionEClass, EFEATURE_BASED_ACTION__BY);
+
+		dictionaryEClass = createEClass(DICTIONARY);
+		createEReference(dictionaryEClass, DICTIONARY__FEATURE_BASED_ACTIONS);
+		createEReference(dictionaryEClass, DICTIONARY__CONDITIONS);
+		createEReference(dictionaryEClass, DICTIONARY__RULE_BASED_ACTIONS);
+
+		conditionEClass = createEClass(CONDITION);
+		createEAttribute(conditionEClass, CONDITION__PATTERN);
+
+		runtimeStateEClass = createEClass(RUNTIME_STATE);
+		createEReference(runtimeStateEClass, RUNTIME_STATE__ACTUAL_STATE);
 
 		actionEClass = createEClass(ACTION);
 		createEAttribute(actionEClass, ACTION__NAME);
-		createEAttribute(actionEClass, ACTION__CHANGE);
-		createEAttribute(actionEClass, ACTION__BY);
 	}
 
 	/**
@@ -348,6 +484,7 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		eFeatureBasedActionEClass.getESuperTypes().add(this.getAction());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(stateMachineEClass, StateMachine.class, "StateMachine", !IS_ABSTRACT, !IS_INTERFACE,
@@ -355,43 +492,73 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 		initEReference(getStateMachine_States(), this.getState(), null, "states", null, 1, -1, StateMachine.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateMachine_Transitions(), this.getTransition(), null, "transitions", null, 1, -1,
+		initEReference(getStateMachine_Dictionary(), this.getDictionary(), null, "dictionary", null, 0, 1,
 				StateMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateMachine_Actions(), this.getAction(), null, "actions", null, 0, -1, StateMachine.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateMachine_ActualState(), this.getState(), null, "actualState", null, 1, 1,
-				StateMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+		initEReference(getStateMachine_Runtimestate(), this.getRuntimeState(), null, "runtimestate", null, 0, -1,
+				StateMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stateEClass, State.class, "State", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getState_Accepting(), ecorePackage.getEBoolean(), "accepting", "false", 1, 1, State.class,
+		initEAttribute(getState_Accepting(), ecorePackage.getEBoolean(), "accepting", "true", 1, 1, State.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getState_Name(), ecorePackage.getEString(), "name", null, 1, 1, State.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getState_OutTransitions(), this.getTransition(), null, "outTransitions", null, 1, -1,
-				State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(transitionEClass, Transition.class, "Transition", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTransition_Pattern(), ecorePackage.getEString(), "pattern", null, 1, 1, Transition.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_TargetState(), this.getState(), null, "targetState", null, 1, 1, Transition.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTransition_Action(), this.getAction(), null, "action", null, 1, 1, Transition.class,
+		initEReference(getTransition_FeatureBasedActions(), this.getEFeatureBasedAction(), null, "featureBasedActions",
+				null, 0, -1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransition_Condition(), this.getCondition(), null, "condition", null, 0, 1, Transition.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTransition_Name(), ecorePackage.getEString(), "name", null, 0, 1, Transition.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransition_RuleBasedActions(), this.getAction(), null, "ruleBasedActions", null, 0, -1,
+				Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(eFeatureBasedActionEClass, EFeatureBasedAction.class, "EFeatureBasedAction", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEFeatureBasedAction_Change(), ecorePackage.getEString(), "change", null, 1, 1,
+				EFeatureBasedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEFeatureBasedAction_By(), ecorePackage.getEInt(), "by", null, 1, 1, EFeatureBasedAction.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(dictionaryEClass, Dictionary.class, "Dictionary", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDictionary_FeatureBasedActions(), this.getEFeatureBasedAction(), null, "featureBasedActions",
+				null, 0, -1, Dictionary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDictionary_Conditions(), this.getCondition(), null, "conditions", null, 0, -1,
+				Dictionary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDictionary_RuleBasedActions(), this.getAction(), null, "ruleBasedActions", null, 0, -1,
+				Dictionary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(conditionEClass, Condition.class, "Condition", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCondition_Pattern(), ecorePackage.getEString(), "pattern", null, 1, 1, Condition.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(runtimeStateEClass, RuntimeState.class, "RuntimeState", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRuntimeState_ActualState(), this.getState(), null, "actualState", null, 1, 1,
+				RuntimeState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(actionEClass, Action.class, "Action", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAction_Name(), ecorePackage.getEString(), "name", null, 1, 1, Action.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAction_Change(), ecorePackage.getEString(), "change", null, 1, 1, Action.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAction_By(), ecorePackage.getEInt(), "by", null, 1, 1, Action.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

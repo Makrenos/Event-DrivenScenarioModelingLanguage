@@ -49,6 +49,42 @@ public interface EdsdlFactory extends EFactory {
 	Transition createTransition();
 
 	/**
+	 * Returns a new object of class '<em>EFeature Based Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>EFeature Based Action</em>'.
+	 * @generated
+	 */
+	EFeatureBasedAction createEFeatureBasedAction();
+
+	/**
+	 * Returns a new object of class '<em>Dictionary</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dictionary</em>'.
+	 * @generated
+	 */
+	Dictionary createDictionary();
+
+	/**
+	 * Returns a new object of class '<em>Condition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Condition</em>'.
+	 * @generated
+	 */
+	Condition createCondition();
+
+	/**
+	 * Returns a new object of class '<em>Runtime State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Runtime State</em>'.
+	 * @generated
+	 */
+	RuntimeState createRuntimeState();
+
+	/**
 	 * Returns a new object of class '<em>Action</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

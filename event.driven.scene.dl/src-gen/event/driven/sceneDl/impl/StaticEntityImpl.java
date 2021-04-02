@@ -3,21 +3,17 @@
  */
 package event.driven.sceneDl.impl;
 
-import event.driven.sceneDl.Feature;
+import event.driven.sceneDl.DynamicEntity;
 import event.driven.sceneDl.SceneDlPackage;
 import event.driven.sceneDl.StaticEntity;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,14 +31,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class StaticEntityImpl extends ElementImpl implements StaticEntity
 {
   /**
-   * The cached value of the '{@link #getFeatures() <em>Features</em>}' containment reference list.
+   * The cached value of the '{@link #getFeatures() <em>Features</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getFeatures()
    * @generated
    * @ordered
    */
-  protected EList<Feature> features;
+  protected EList<DynamicEntity> features;
 
   /**
    * <!-- begin-user-doc -->
@@ -71,29 +67,13 @@ public class StaticEntityImpl extends ElementImpl implements StaticEntity
    * @generated
    */
   @Override
-  public EList<Feature> getFeatures()
+  public EList<DynamicEntity> getFeatures()
   {
     if (features == null)
     {
-      features = new EObjectContainmentEList<Feature>(Feature.class, this, SceneDlPackage.STATIC_ENTITY__FEATURES);
+      features = new EObjectResolvingEList<DynamicEntity>(DynamicEntity.class, this, SceneDlPackage.STATIC_ENTITY__FEATURES);
     }
     return features;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case SceneDlPackage.STATIC_ENTITY__FEATURES:
-        return ((InternalEList<?>)getFeatures()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -125,7 +105,7 @@ public class StaticEntityImpl extends ElementImpl implements StaticEntity
     {
       case SceneDlPackage.STATIC_ENTITY__FEATURES:
         getFeatures().clear();
-        getFeatures().addAll((Collection<? extends Feature>)newValue);
+        getFeatures().addAll((Collection<? extends DynamicEntity>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

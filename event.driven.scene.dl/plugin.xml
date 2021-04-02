@@ -7,4 +7,11 @@
 			class = "event.driven.sceneDl.SceneDlPackage"
 			genModel = "model/generated/SceneDl.genmodel" />
 	</extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated SceneDl -->
+      <package
+            uri="http://www.eventDrivenScenario.org/edsdl"
+            class="edsdl.EdsdlPackage"/>
+   </extension>
 </plugin>

@@ -12,9 +12,7 @@ import event.driven.sceneDl.PositionAttribute
 import java.util.Set
 import event.driven.sceneDl.Attribute
 import event.driven.sceneDl.Element
-import event.driven.sceneDl.Feature
 import event.driven.sceneDl.StaticEntity
-import event.driven.sceneDl.Contain
 import event.driven.sceneDl.DynamicEntity
 import event.driven.sceneDl.Scene
 
@@ -34,8 +32,11 @@ override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorCo
 				«FOR attribute : element.allAttributes.reject[it.isTransient] SEPARATOR ', '»
 					«attribute.name»: «attribute.type» «attribute.valueProvider»
 				«ENDFOR»
-				«FOR containement : element.getAllContainment»
-									,«containement.name»: «containement.type.name»
+				«IF element.type.equals("static_entity")»
+				,features: 
+				«ENDIF»
+				«FOR features : element.allContainment SEPARATOR ', '»
+									«features.name»
 				«ENDFOR»
 			}
 								
@@ -63,37 +64,14 @@ override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorCo
 		return attributes
 	}
 		
-	private dispatch def Set<Feature> getAllContainment(StaticEntity entity) {
+	private  def Set<DynamicEntity> getAllContainment(Element entity) {
 		val features = newHashSet
-		var lanes = 0
-		for (element : entity.attributes) {
-			if(element.name.contains("lane")){
-				var lan = element as RegularAttribute
-				lanes = Integer.parseInt(lan.value.get(0));
+		if(entity.type.equals("static_entity")){
+			val tmp = entity as StaticEntity;
+			for(f : tmp.features){
+				features += f;
 			}
 		}		
 		return features
-	}
-	
-	private dispatch def Set<Contain> getAllContainment(DynamicEntity entity) {
-		val features = newHashSet
-		features += entity.contains
-		return features
-	}
-	
-	private dispatch def String getName(Feature feature) {
-		return feature.name
-	}
-	
-	private dispatch def String getName(Contain contain) {
-		return contain.name
-	}
-	
-	private dispatch def Element getType(Feature feature) {
-		return feature.type
-	}
-
-	private dispatch def Element getType(Contain contain) {
-		return contain.type
 	}
 }

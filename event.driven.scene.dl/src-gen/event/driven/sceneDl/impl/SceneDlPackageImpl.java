@@ -5,10 +5,8 @@ package event.driven.sceneDl.impl;
 
 import event.driven.sceneDl.Attribute;
 import event.driven.sceneDl.AttributeType;
-import event.driven.sceneDl.Contain;
 import event.driven.sceneDl.DynamicEntity;
 import event.driven.sceneDl.Element;
-import event.driven.sceneDl.Feature;
 import event.driven.sceneDl.PositionAttribute;
 import event.driven.sceneDl.RegularAttribute;
 import event.driven.sceneDl.Scene;
@@ -59,20 +57,6 @@ public class SceneDlPackageImpl extends EPackageImpl implements SceneDlPackage
    * @generated
    */
   private EClass dynamicEntityEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass featureEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass containEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -303,105 +287,6 @@ public class SceneDlPackageImpl extends EPackageImpl implements SceneDlPackage
    * @generated
    */
   @Override
-  public EReference getDynamicEntity_Contains()
-  {
-    return (EReference)dynamicEntityEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EClass getFeature()
-  {
-    return featureEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EAttribute getFeature_Many()
-  {
-    return (EAttribute)featureEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EAttribute getFeature_Name()
-  {
-    return (EAttribute)featureEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getFeature_Type()
-  {
-    return (EReference)featureEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EClass getContain()
-  {
-    return containEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EAttribute getContain_Many()
-  {
-    return (EAttribute)containEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EAttribute getContain_Name()
-  {
-    return (EAttribute)containEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getContain_Type()
-  {
-    return (EReference)containEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EClass getAttribute()
   {
     return attributeEClass;
@@ -552,17 +437,6 @@ public class SceneDlPackageImpl extends EPackageImpl implements SceneDlPackage
     createEReference(staticEntityEClass, STATIC_ENTITY__FEATURES);
 
     dynamicEntityEClass = createEClass(DYNAMIC_ENTITY);
-    createEReference(dynamicEntityEClass, DYNAMIC_ENTITY__CONTAINS);
-
-    featureEClass = createEClass(FEATURE);
-    createEAttribute(featureEClass, FEATURE__MANY);
-    createEAttribute(featureEClass, FEATURE__NAME);
-    createEReference(featureEClass, FEATURE__TYPE);
-
-    containEClass = createEClass(CONTAIN);
-    createEAttribute(containEClass, CONTAIN__MANY);
-    createEAttribute(containEClass, CONTAIN__NAME);
-    createEReference(containEClass, CONTAIN__TYPE);
 
     attributeEClass = createEClass(ATTRIBUTE);
     createEAttribute(attributeEClass, ATTRIBUTE__NAME);
@@ -627,20 +501,9 @@ public class SceneDlPackageImpl extends EPackageImpl implements SceneDlPackage
     initEReference(getElement_Attributes(), this.getAttribute(), null, "attributes", null, 0, -1, Element.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(staticEntityEClass, StaticEntity.class, "StaticEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getStaticEntity_Features(), this.getFeature(), null, "features", null, 0, -1, StaticEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStaticEntity_Features(), this.getDynamicEntity(), null, "features", null, 0, -1, StaticEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(dynamicEntityEClass, DynamicEntity.class, "DynamicEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getDynamicEntity_Contains(), this.getContain(), null, "contains", null, 0, -1, DynamicEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(featureEClass, Feature.class, "Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFeature_Many(), ecorePackage.getEBoolean(), "many", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFeature_Type(), this.getElement(), null, "type", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(containEClass, Contain.class, "Contain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getContain_Many(), ecorePackage.getEBoolean(), "many", null, 0, 1, Contain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getContain_Name(), ecorePackage.getEString(), "name", null, 0, 1, Contain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getContain_Type(), this.getDynamicEntity(), null, "type", null, 0, 1, Contain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(attributeEClass, Attribute.class, "Attribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

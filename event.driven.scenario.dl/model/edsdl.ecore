@@ -4,34 +4,52 @@
   <eClassifiers xsi:type="ecore:EClass" name="StateMachine">
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" lowerBound="1"
         upperBound="-1" eType="#//State" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" lowerBound="1"
-        upperBound="-1" eType="#//Transition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
-        eType="#//Action" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="actualState" lowerBound="1"
-        eType="#//State"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dictionary" eType="#//Dictionary"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="runtimestate" upperBound="-1"
+        eType="#//RuntimeState" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="State">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="accepting" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outTransitions" lowerBound="1"
-        upperBound="-1" eType="#//Transition"/>
+        upperBound="-1" eType="#//Transition" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Transition">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" lowerBound="1"
         eType="#//State"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="action" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureBasedActions" upperBound="-1"
+        eType="#//EFeatureBasedAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Condition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleBasedActions" upperBound="-1"
         eType="#//Action"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EFeatureBasedAction" eSuperTypes="#//Action">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="change" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="by" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Dictionary">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureBasedActions" upperBound="-1"
+        eType="#//EFeatureBasedAction" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
+        eType="#//Condition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleBasedActions" upperBound="-1"
+        eType="#//Action" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Condition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RuntimeState">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actualState" lowerBound="1"
+        eType="#//State"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Action">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="change" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="by" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
 </ecore:EPackage>

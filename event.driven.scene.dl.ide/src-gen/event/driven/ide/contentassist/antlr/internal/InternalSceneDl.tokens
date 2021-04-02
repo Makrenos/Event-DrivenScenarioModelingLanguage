@@ -8,10 +8,9 @@
 'dynamic_entity'=25
 'isA'=14
 'key'=13
-'many'=26
 'range'=11
 'static_entity'=24
-'transient'=27
+'transient'=26
 'value'=12
 '{'=15
 '}'=16
@@ -38,4 +37,3 @@ T__23=23
 T__24=24
 T__25=25
 T__26=26
-T__27=27

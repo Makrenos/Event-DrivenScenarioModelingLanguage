@@ -3,19 +3,12 @@
  */
 package event.driven.sceneDl;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Dynamic Entity</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * </p>
- * <ul>
- *   <li>{@link event.driven.sceneDl.DynamicEntity#getContains <em>Contains</em>}</li>
- * </ul>
  *
  * @see event.driven.sceneDl.SceneDlPackage#getDynamicEntity()
  * @model
@@ -23,16 +16,4 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface DynamicEntity extends Element
 {
-  /**
-   * Returns the value of the '<em><b>Contains</b></em>' containment reference list.
-   * The list contents are of type {@link event.driven.sceneDl.Contain}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Contains</em>' containment reference list.
-   * @see event.driven.sceneDl.SceneDlPackage#getDynamicEntity_Contains()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Contain> getContains();
-
 } // DynamicEntity

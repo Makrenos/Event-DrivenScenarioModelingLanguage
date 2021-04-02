@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ASCII"?>
+<edsdl:StateMachine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:edsdl="http://www.eventDrivenScenario.org/edsdl" xsi:schemaLocation="http://www.eventDrivenScenario.org/edsdl file:///../event.driven.scenario.dl/model/edsdl.ecore">
+  <states name="Slows">
+    <outTransitions targetState="Accelerates" featureBasedActions="vehicleAcceleratesFB" condition="!danger" name="NoDanger" ruleBasedActions="vehicleAccelerates"/>
+    <outTransitions targetState="Slows" featureBasedActions="vehicleSlowsDownFB" condition="danger" name="Danger" ruleBasedActions="vehicleSlowsDown"/>
+    <outTransitions targetState="Slows" featureBasedActions="pedestrianMovesFB" condition="pedestrianCanMove" name="pedestrianMovesWhenSlowing" ruleBasedActions="pedestrianMoves"/>
+  </states>
+  <states name="Accelerates">
+    <outTransitions targetState="Accelerates" featureBasedActions="vehicleMovesFB vehicleAcceleratesFB" condition="!speedLimit" name="NoSpeedLimit" ruleBasedActions="vehicleAccelerates"/>
+    <outTransitions targetState="Moves" featureBasedActions="vehicleMovesFB" condition="speedLimit" name="SpeedLimit" ruleBasedActions="vehicleMoves"/>
+    <outTransitions targetState="Accelerates" featureBasedActions="pedestrianMovesFB" condition="pedestrianCanMove" name="pedestrianMovesWhenAccelerates" ruleBasedActions="pedestrianMoves"/>
+  </states>
+  <states name="Moves">
+    <outTransitions targetState="Moves" featureBasedActions="vehicleMovesFB" condition="!danger" name="NoDanger" ruleBasedActions="vehicleMoves"/>
+    <outTransitions targetState="Slows" featureBasedActions="vehicleSlowsDownFB" condition="danger" name="Danger" ruleBasedActions="vehicleSlowsDown"/>
+    <outTransitions targetState="Moves" featureBasedActions="pedestrianMovesFB" condition="pedestrianCanMove" name="pedestrianMovesWhenVehicleMoves" ruleBasedActions="pedestrianMoves"/>
+  </states>
+  <dictionary>
+    <featureBasedActions name="vehicleSlowsDownFB" change="speed" by="-1"/>
+    <featureBasedActions name="vehicleAcceleratesFB" change="speed" by="1"/>
+    <featureBasedActions name="vehicleMovesFB" change="position" by="1"/>
+    <featureBasedActions name="pedestrianMovesFB" change="position" by="1"/>
+    <conditions pattern="!danger"/>
+    <conditions pattern="!speedLimit"/>
+    <conditions pattern="danger"/>
+    <conditions pattern="speedLimit"/>
+    <conditions pattern="pedestrianCanMove"/>
+    <ruleBasedActions name="vehicleSlowsDown"/>
+    <ruleBasedActions name="vehicleAccelerates"/>
+    <ruleBasedActions name="vehicleMoves"/>
+    <ruleBasedActions name="pedestrianMoves"/>
+  </dictionary>
+  <runtimestate actualState="Accelerates"/>
+</edsdl:StateMachine>

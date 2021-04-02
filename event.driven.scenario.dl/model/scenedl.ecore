@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="scenedl" nsURI="http://www.eventDrivenScenario.org/scenedl"
+    nsPrefix="scenedl">
+  <eClassifiers xsi:type="ecore:EClass" name="Scene">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//Element" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" lowerBound="1"
+        eType="ecore:EClass edsdl.ecore#//StateMachine" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="boundry" lowerBound="1"
+        eType="#//PositionAttribute" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Element">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
+        eType="#//RegularAttribute" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containedIn" lowerBound="1"
+        eType="#//Scene"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StaticEntity" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uses" upperBound="-1" eType="#//DynamicEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lanes" upperBound="-1"
+        eType="#//Lane" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DynamicEntity" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="on" lowerBound="1" eType="#//StaticEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="position" lowerBound="1"
+        eType="#//PositionAttribute" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegularAttribute">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PositionAttribute">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Lane">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="startingPosition" lowerBound="1"
+        eType="#//PositionAttribute" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="endingPosition" lowerBound="1"
+        eType="#//PositionAttribute" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

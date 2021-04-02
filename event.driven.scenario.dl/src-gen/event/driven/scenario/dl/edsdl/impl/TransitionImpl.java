@@ -3,17 +3,25 @@
 package event.driven.scenario.dl.edsdl.impl;
 
 import event.driven.scenario.dl.edsdl.Action;
+import event.driven.scenario.dl.edsdl.Condition;
+import event.driven.scenario.dl.edsdl.EFeatureBasedAction;
 import event.driven.scenario.dl.edsdl.EdsdlPackage;
 import event.driven.scenario.dl.edsdl.State;
 import event.driven.scenario.dl.edsdl.Transition;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,34 +31,16 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link event.driven.scenario.dl.edsdl.impl.TransitionImpl#getPattern <em>Pattern</em>}</li>
  *   <li>{@link event.driven.scenario.dl.edsdl.impl.TransitionImpl#getTargetState <em>Target State</em>}</li>
- *   <li>{@link event.driven.scenario.dl.edsdl.impl.TransitionImpl#getAction <em>Action</em>}</li>
+ *   <li>{@link event.driven.scenario.dl.edsdl.impl.TransitionImpl#getFeatureBasedActions <em>Feature Based Actions</em>}</li>
+ *   <li>{@link event.driven.scenario.dl.edsdl.impl.TransitionImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link event.driven.scenario.dl.edsdl.impl.TransitionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link event.driven.scenario.dl.edsdl.impl.TransitionImpl#getRuleBasedActions <em>Rule Based Actions</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class TransitionImpl extends MinimalEObjectImpl.Container implements Transition {
-	/**
-	 * The default value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPattern()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String PATTERN_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPattern()
-	 * @generated
-	 * @ordered
-	 */
-	protected String pattern = PATTERN_EDEFAULT;
-
 	/**
 	 * The cached value of the '{@link #getTargetState() <em>Target State</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -62,14 +52,54 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	protected State targetState;
 
 	/**
-	 * The cached value of the '{@link #getAction() <em>Action</em>}' reference.
+	 * The cached value of the '{@link #getFeatureBasedActions() <em>Feature Based Actions</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAction()
+	 * @see #getFeatureBasedActions()
 	 * @generated
 	 * @ordered
 	 */
-	protected Action action;
+	protected EList<EFeatureBasedAction> featureBasedActions;
+
+	/**
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCondition()
+	 * @generated
+	 * @ordered
+	 */
+	protected Condition condition;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getRuleBasedActions() <em>Rule Based Actions</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRuleBasedActions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Action> ruleBasedActions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -88,28 +118,6 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	@Override
 	protected EClass eStaticClass() {
 		return EdsdlPackage.Literals.TRANSITION;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getPattern() {
-		return pattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPattern(String newPattern) {
-		String oldPattern = pattern;
-		pattern = newPattern;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EdsdlPackage.TRANSITION__PATTERN, oldPattern,
-					pattern));
 	}
 
 	/**
@@ -157,17 +165,30 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Action getAction() {
-		if (action != null && action.eIsProxy()) {
-			InternalEObject oldAction = (InternalEObject) action;
-			action = (Action) eResolveProxy(oldAction);
-			if (action != oldAction) {
+	public EList<EFeatureBasedAction> getFeatureBasedActions() {
+		if (featureBasedActions == null) {
+			featureBasedActions = new EObjectResolvingEList<EFeatureBasedAction>(EFeatureBasedAction.class, this,
+					EdsdlPackage.TRANSITION__FEATURE_BASED_ACTIONS);
+		}
+		return featureBasedActions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Condition getCondition() {
+		if (condition != null && condition.eIsProxy()) {
+			InternalEObject oldCondition = (InternalEObject) condition;
+			condition = (Condition) eResolveProxy(oldCondition);
+			if (condition != oldCondition) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EdsdlPackage.TRANSITION__ACTION,
-							oldAction, action));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EdsdlPackage.TRANSITION__CONDITION,
+							oldCondition, condition));
 			}
 		}
-		return action;
+		return condition;
 	}
 
 	/**
@@ -175,8 +196,8 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Action basicGetAction() {
-		return action;
+	public Condition basicGetCondition() {
+		return condition;
 	}
 
 	/**
@@ -184,11 +205,46 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAction(Action newAction) {
-		Action oldAction = action;
-		action = newAction;
+	public void setCondition(Condition newCondition) {
+		Condition oldCondition = condition;
+		condition = newCondition;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EdsdlPackage.TRANSITION__ACTION, oldAction, action));
+			eNotify(new ENotificationImpl(this, Notification.SET, EdsdlPackage.TRANSITION__CONDITION, oldCondition,
+					condition));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EdsdlPackage.TRANSITION__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Action> getRuleBasedActions() {
+		if (ruleBasedActions == null) {
+			ruleBasedActions = new EObjectResolvingEList<Action>(Action.class, this,
+					EdsdlPackage.TRANSITION__RULE_BASED_ACTIONS);
+		}
+		return ruleBasedActions;
 	}
 
 	/**
@@ -199,16 +255,20 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case EdsdlPackage.TRANSITION__PATTERN:
-			return getPattern();
 		case EdsdlPackage.TRANSITION__TARGET_STATE:
 			if (resolve)
 				return getTargetState();
 			return basicGetTargetState();
-		case EdsdlPackage.TRANSITION__ACTION:
+		case EdsdlPackage.TRANSITION__FEATURE_BASED_ACTIONS:
+			return getFeatureBasedActions();
+		case EdsdlPackage.TRANSITION__CONDITION:
 			if (resolve)
-				return getAction();
-			return basicGetAction();
+				return getCondition();
+			return basicGetCondition();
+		case EdsdlPackage.TRANSITION__NAME:
+			return getName();
+		case EdsdlPackage.TRANSITION__RULE_BASED_ACTIONS:
+			return getRuleBasedActions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -218,17 +278,26 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case EdsdlPackage.TRANSITION__PATTERN:
-			setPattern((String) newValue);
-			return;
 		case EdsdlPackage.TRANSITION__TARGET_STATE:
 			setTargetState((State) newValue);
 			return;
-		case EdsdlPackage.TRANSITION__ACTION:
-			setAction((Action) newValue);
+		case EdsdlPackage.TRANSITION__FEATURE_BASED_ACTIONS:
+			getFeatureBasedActions().clear();
+			getFeatureBasedActions().addAll((Collection<? extends EFeatureBasedAction>) newValue);
+			return;
+		case EdsdlPackage.TRANSITION__CONDITION:
+			setCondition((Condition) newValue);
+			return;
+		case EdsdlPackage.TRANSITION__NAME:
+			setName((String) newValue);
+			return;
+		case EdsdlPackage.TRANSITION__RULE_BASED_ACTIONS:
+			getRuleBasedActions().clear();
+			getRuleBasedActions().addAll((Collection<? extends Action>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -242,14 +311,20 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case EdsdlPackage.TRANSITION__PATTERN:
-			setPattern(PATTERN_EDEFAULT);
-			return;
 		case EdsdlPackage.TRANSITION__TARGET_STATE:
 			setTargetState((State) null);
 			return;
-		case EdsdlPackage.TRANSITION__ACTION:
-			setAction((Action) null);
+		case EdsdlPackage.TRANSITION__FEATURE_BASED_ACTIONS:
+			getFeatureBasedActions().clear();
+			return;
+		case EdsdlPackage.TRANSITION__CONDITION:
+			setCondition((Condition) null);
+			return;
+		case EdsdlPackage.TRANSITION__NAME:
+			setName(NAME_EDEFAULT);
+			return;
+		case EdsdlPackage.TRANSITION__RULE_BASED_ACTIONS:
+			getRuleBasedActions().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -263,12 +338,16 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case EdsdlPackage.TRANSITION__PATTERN:
-			return PATTERN_EDEFAULT == null ? pattern != null : !PATTERN_EDEFAULT.equals(pattern);
 		case EdsdlPackage.TRANSITION__TARGET_STATE:
 			return targetState != null;
-		case EdsdlPackage.TRANSITION__ACTION:
-			return action != null;
+		case EdsdlPackage.TRANSITION__FEATURE_BASED_ACTIONS:
+			return featureBasedActions != null && !featureBasedActions.isEmpty();
+		case EdsdlPackage.TRANSITION__CONDITION:
+			return condition != null;
+		case EdsdlPackage.TRANSITION__NAME:
+			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		case EdsdlPackage.TRANSITION__RULE_BASED_ACTIONS:
+			return ruleBasedActions != null && !ruleBasedActions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -284,8 +363,8 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 			return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (pattern: ");
-		result.append(pattern);
+		result.append(" (name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}

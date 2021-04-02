@@ -96,16 +96,6 @@ public class SceneDlAdapterFactory extends AdapterFactoryImpl
         return createDynamicEntityAdapter();
       }
       @Override
-      public Adapter caseFeature(Feature object)
-      {
-        return createFeatureAdapter();
-      }
-      @Override
-      public Adapter caseContain(Contain object)
-      {
-        return createContainAdapter();
-      }
-      @Override
       public Adapter caseAttribute(Attribute object)
       {
         return createAttributeAdapter();
@@ -198,36 +188,6 @@ public class SceneDlAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDynamicEntityAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link event.driven.sceneDl.Feature <em>Feature</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see event.driven.sceneDl.Feature
-   * @generated
-   */
-  public Adapter createFeatureAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link event.driven.sceneDl.Contain <em>Contain</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see event.driven.sceneDl.Contain
-   * @generated
-   */
-  public Adapter createContainAdapter()
   {
     return null;
   }

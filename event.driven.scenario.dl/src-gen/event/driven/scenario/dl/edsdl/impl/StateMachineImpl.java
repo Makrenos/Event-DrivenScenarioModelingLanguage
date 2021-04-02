@@ -2,12 +2,12 @@
  */
 package event.driven.scenario.dl.edsdl.impl;
 
-import event.driven.scenario.dl.edsdl.Action;
+import event.driven.scenario.dl.edsdl.Dictionary;
 import event.driven.scenario.dl.edsdl.EdsdlPackage;
+import event.driven.scenario.dl.edsdl.RuntimeState;
 import event.driven.scenario.dl.edsdl.State;
 import event.driven.scenario.dl.edsdl.StateMachine;
 
-import event.driven.scenario.dl.edsdl.Transition;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -33,9 +33,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link event.driven.scenario.dl.edsdl.impl.StateMachineImpl#getStates <em>States</em>}</li>
- *   <li>{@link event.driven.scenario.dl.edsdl.impl.StateMachineImpl#getTransitions <em>Transitions</em>}</li>
- *   <li>{@link event.driven.scenario.dl.edsdl.impl.StateMachineImpl#getActions <em>Actions</em>}</li>
- *   <li>{@link event.driven.scenario.dl.edsdl.impl.StateMachineImpl#getActualState <em>Actual State</em>}</li>
+ *   <li>{@link event.driven.scenario.dl.edsdl.impl.StateMachineImpl#getDictionary <em>Dictionary</em>}</li>
+ *   <li>{@link event.driven.scenario.dl.edsdl.impl.StateMachineImpl#getRuntimestate <em>Runtimestate</em>}</li>
  * </ul>
  *
  * @generated
@@ -52,32 +51,24 @@ public class StateMachineImpl extends MinimalEObjectImpl.Container implements St
 	protected EList<State> states;
 
 	/**
-	 * The cached value of the '{@link #getTransitions() <em>Transitions</em>}' containment reference list.
+	 * The cached value of the '{@link #getDictionary() <em>Dictionary</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTransitions()
+	 * @see #getDictionary()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Transition> transitions;
+	protected Dictionary dictionary;
+
 	/**
-	 * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
+	 * The cached value of the '{@link #getRuntimestate() <em>Runtimestate</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getActions()
+	 * @see #getRuntimestate()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Action> actions;
-	/**
-	 * The cached value of the '{@link #getActualState() <em>Actual State</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getActualState()
-	 * @generated
-	 * @ordered
-	 */
-	protected State actualState;
+	protected EList<RuntimeState> runtimestate;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -115,12 +106,27 @@ public class StateMachineImpl extends MinimalEObjectImpl.Container implements St
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Transition> getTransitions() {
-		if (transitions == null) {
-			transitions = new EObjectContainmentEList<Transition>(Transition.class, this,
-					EdsdlPackage.STATE_MACHINE__TRANSITIONS);
+	public Dictionary getDictionary() {
+		return dictionary;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDictionary(Dictionary newDictionary, NotificationChain msgs) {
+		Dictionary oldDictionary = dictionary;
+		dictionary = newDictionary;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					EdsdlPackage.STATE_MACHINE__DICTIONARY, oldDictionary, newDictionary);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
 		}
-		return transitions;
+		return msgs;
 	}
 
 	/**
@@ -128,51 +134,34 @@ public class StateMachineImpl extends MinimalEObjectImpl.Container implements St
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Action> getActions() {
-		if (actions == null) {
-			actions = new EObjectContainmentEList<Action>(Action.class, this, EdsdlPackage.STATE_MACHINE__ACTIONS);
+	public void setDictionary(Dictionary newDictionary) {
+		if (newDictionary != dictionary) {
+			NotificationChain msgs = null;
+			if (dictionary != null)
+				msgs = ((InternalEObject) dictionary).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - EdsdlPackage.STATE_MACHINE__DICTIONARY, null, msgs);
+			if (newDictionary != null)
+				msgs = ((InternalEObject) newDictionary).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - EdsdlPackage.STATE_MACHINE__DICTIONARY, null, msgs);
+			msgs = basicSetDictionary(newDictionary, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EdsdlPackage.STATE_MACHINE__DICTIONARY, newDictionary,
+					newDictionary));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<RuntimeState> getRuntimestate() {
+		if (runtimestate == null) {
+			runtimestate = new EObjectContainmentEList<RuntimeState>(RuntimeState.class, this,
+					EdsdlPackage.STATE_MACHINE__RUNTIMESTATE);
 		}
-		return actions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public State getActualState() {
-		if (actualState != null && actualState.eIsProxy()) {
-			InternalEObject oldActualState = (InternalEObject) actualState;
-			actualState = (State) eResolveProxy(oldActualState);
-			if (actualState != oldActualState) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EdsdlPackage.STATE_MACHINE__ACTUAL_STATE,
-							oldActualState, actualState));
-			}
-		}
-		return actualState;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public State basicGetActualState() {
-		return actualState;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setActualState(State newActualState) {
-		State oldActualState = actualState;
-		actualState = newActualState;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EdsdlPackage.STATE_MACHINE__ACTUAL_STATE,
-					oldActualState, actualState));
+		return runtimestate;
 	}
 
 	/**
@@ -185,10 +174,10 @@ public class StateMachineImpl extends MinimalEObjectImpl.Container implements St
 		switch (featureID) {
 		case EdsdlPackage.STATE_MACHINE__STATES:
 			return ((InternalEList<?>) getStates()).basicRemove(otherEnd, msgs);
-		case EdsdlPackage.STATE_MACHINE__TRANSITIONS:
-			return ((InternalEList<?>) getTransitions()).basicRemove(otherEnd, msgs);
-		case EdsdlPackage.STATE_MACHINE__ACTIONS:
-			return ((InternalEList<?>) getActions()).basicRemove(otherEnd, msgs);
+		case EdsdlPackage.STATE_MACHINE__DICTIONARY:
+			return basicSetDictionary(null, msgs);
+		case EdsdlPackage.STATE_MACHINE__RUNTIMESTATE:
+			return ((InternalEList<?>) getRuntimestate()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -203,14 +192,10 @@ public class StateMachineImpl extends MinimalEObjectImpl.Container implements St
 		switch (featureID) {
 		case EdsdlPackage.STATE_MACHINE__STATES:
 			return getStates();
-		case EdsdlPackage.STATE_MACHINE__TRANSITIONS:
-			return getTransitions();
-		case EdsdlPackage.STATE_MACHINE__ACTIONS:
-			return getActions();
-		case EdsdlPackage.STATE_MACHINE__ACTUAL_STATE:
-			if (resolve)
-				return getActualState();
-			return basicGetActualState();
+		case EdsdlPackage.STATE_MACHINE__DICTIONARY:
+			return getDictionary();
+		case EdsdlPackage.STATE_MACHINE__RUNTIMESTATE:
+			return getRuntimestate();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -228,16 +213,12 @@ public class StateMachineImpl extends MinimalEObjectImpl.Container implements St
 			getStates().clear();
 			getStates().addAll((Collection<? extends State>) newValue);
 			return;
-		case EdsdlPackage.STATE_MACHINE__TRANSITIONS:
-			getTransitions().clear();
-			getTransitions().addAll((Collection<? extends Transition>) newValue);
+		case EdsdlPackage.STATE_MACHINE__DICTIONARY:
+			setDictionary((Dictionary) newValue);
 			return;
-		case EdsdlPackage.STATE_MACHINE__ACTIONS:
-			getActions().clear();
-			getActions().addAll((Collection<? extends Action>) newValue);
-			return;
-		case EdsdlPackage.STATE_MACHINE__ACTUAL_STATE:
-			setActualState((State) newValue);
+		case EdsdlPackage.STATE_MACHINE__RUNTIMESTATE:
+			getRuntimestate().clear();
+			getRuntimestate().addAll((Collection<? extends RuntimeState>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -254,14 +235,11 @@ public class StateMachineImpl extends MinimalEObjectImpl.Container implements St
 		case EdsdlPackage.STATE_MACHINE__STATES:
 			getStates().clear();
 			return;
-		case EdsdlPackage.STATE_MACHINE__TRANSITIONS:
-			getTransitions().clear();
+		case EdsdlPackage.STATE_MACHINE__DICTIONARY:
+			setDictionary((Dictionary) null);
 			return;
-		case EdsdlPackage.STATE_MACHINE__ACTIONS:
-			getActions().clear();
-			return;
-		case EdsdlPackage.STATE_MACHINE__ACTUAL_STATE:
-			setActualState((State) null);
+		case EdsdlPackage.STATE_MACHINE__RUNTIMESTATE:
+			getRuntimestate().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -277,12 +255,10 @@ public class StateMachineImpl extends MinimalEObjectImpl.Container implements St
 		switch (featureID) {
 		case EdsdlPackage.STATE_MACHINE__STATES:
 			return states != null && !states.isEmpty();
-		case EdsdlPackage.STATE_MACHINE__TRANSITIONS:
-			return transitions != null && !transitions.isEmpty();
-		case EdsdlPackage.STATE_MACHINE__ACTIONS:
-			return actions != null && !actions.isEmpty();
-		case EdsdlPackage.STATE_MACHINE__ACTUAL_STATE:
-			return actualState != null;
+		case EdsdlPackage.STATE_MACHINE__DICTIONARY:
+			return dictionary != null;
+		case EdsdlPackage.STATE_MACHINE__RUNTIMESTATE:
+			return runtimestate != null && !runtimestate.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

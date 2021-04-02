@@ -268,19 +268,13 @@ ruleStaticEntity returns [EObject current=null]
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getStaticEntityAccess().getFeaturesFeatureParserRuleCall_4_1_1_0());
-						}
-						lv_features_8_0=ruleFeature
-						{
 							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getStaticEntityRule());
+								$current = createModelElement(grammarAccess.getStaticEntityRule());
 							}
-							add(
-								$current,
-								"features",
-								lv_features_8_0,
-								"event.driven.SceneDl.Feature");
-							afterParserOrEnumRuleCall();
+						}
+						otherlv_8=RULE_ID
+						{
+							newLeafNode(otherlv_8, grammarAccess.getStaticEntityAccess().getFeaturesDynamicEntityCrossReference_4_1_1_0());
 						}
 					)
 				)
@@ -320,19 +314,13 @@ ruleStaticEntity returns [EObject current=null]
 					(
 						(
 							{
-								newCompositeNode(grammarAccess.getStaticEntityAccess().getFeaturesFeatureParserRuleCall_4_2_1_1_0());
-							}
-							lv_features_12_0=ruleFeature
-							{
 								if ($current==null) {
-									$current = createModelElementForParent(grammarAccess.getStaticEntityRule());
+									$current = createModelElement(grammarAccess.getStaticEntityRule());
 								}
-								add(
-									$current,
-									"features",
-									lv_features_12_0,
-									"event.driven.SceneDl.Feature");
-								afterParserOrEnumRuleCall();
+							}
+							otherlv_12=RULE_ID
+							{
+								newLeafNode(otherlv_12, grammarAccess.getStaticEntityAccess().getFeaturesDynamicEntityCrossReference_4_2_1_1_0());
 							}
 						)
 					)
@@ -439,11 +427,34 @@ ruleDynamicEntity returns [EObject current=null]
 			}
 			(
 				(
+					{
+						newCompositeNode(grammarAccess.getDynamicEntityAccess().getAttributesAttributeParserRuleCall_4_1_0());
+					}
+					lv_attributes_7_0=ruleAttribute
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
+						}
+						add(
+							$current,
+							"attributes",
+							lv_attributes_7_0,
+							"event.driven.SceneDl.Attribute");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			(
+				otherlv_8=','
+				{
+					newLeafNode(otherlv_8, grammarAccess.getDynamicEntityAccess().getCommaKeyword_4_2_0());
+				}
+				(
 					(
 						{
-							newCompositeNode(grammarAccess.getDynamicEntityAccess().getAttributesAttributeParserRuleCall_4_1_0_0());
+							newCompositeNode(grammarAccess.getDynamicEntityAccess().getAttributesAttributeParserRuleCall_4_2_1_0());
 						}
-						lv_attributes_7_0=ruleAttribute
+						lv_attributes_9_0=ruleAttribute
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
@@ -451,227 +462,18 @@ ruleDynamicEntity returns [EObject current=null]
 							add(
 								$current,
 								"attributes",
-								lv_attributes_7_0,
+								lv_attributes_9_0,
 								"event.driven.SceneDl.Attribute");
 							afterParserOrEnumRuleCall();
 						}
 					)
 				)
-				    |
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getDynamicEntityAccess().getContainsContainParserRuleCall_4_1_1_0());
-						}
-						lv_contains_8_0=ruleContain
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
-							}
-							add(
-								$current,
-								"contains",
-								lv_contains_8_0,
-								"event.driven.SceneDl.Contain");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)
-			)
-			(
-				(
-					otherlv_9=','
-					{
-						newLeafNode(otherlv_9, grammarAccess.getDynamicEntityAccess().getCommaKeyword_4_2_0_0());
-					}
-					(
-						(
-							{
-								newCompositeNode(grammarAccess.getDynamicEntityAccess().getAttributesAttributeParserRuleCall_4_2_0_1_0());
-							}
-							lv_attributes_10_0=ruleAttribute
-							{
-								if ($current==null) {
-									$current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
-								}
-								add(
-									$current,
-									"attributes",
-									lv_attributes_10_0,
-									"event.driven.SceneDl.Attribute");
-								afterParserOrEnumRuleCall();
-							}
-						)
-					)
-				)
-				    |
-				(
-					otherlv_11=','
-					{
-						newLeafNode(otherlv_11, grammarAccess.getDynamicEntityAccess().getCommaKeyword_4_2_1_0());
-					}
-					(
-						(
-							{
-								newCompositeNode(grammarAccess.getDynamicEntityAccess().getContainsContainParserRuleCall_4_2_1_1_0());
-							}
-							lv_contains_12_0=ruleContain
-							{
-								if ($current==null) {
-									$current = createModelElementForParent(grammarAccess.getDynamicEntityRule());
-								}
-								add(
-									$current,
-									"contains",
-									lv_contains_12_0,
-									"event.driven.SceneDl.Contain");
-								afterParserOrEnumRuleCall();
-							}
-						)
-					)
-				)
 			)*
-			otherlv_13='}'
+			otherlv_10='}'
 			{
-				newLeafNode(otherlv_13, grammarAccess.getDynamicEntityAccess().getRightCurlyBracketKeyword_4_3());
+				newLeafNode(otherlv_10, grammarAccess.getDynamicEntityAccess().getRightCurlyBracketKeyword_4_3());
 			}
 		)?
-	)
-;
-
-// Entry rule entryRuleFeature
-entryRuleFeature returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getFeatureRule()); }
-	iv_ruleFeature=ruleFeature
-	{ $current=$iv_ruleFeature.current; }
-	EOF;
-
-// Rule Feature
-ruleFeature returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				lv_many_0_0='many'
-				{
-					newLeafNode(lv_many_0_0, grammarAccess.getFeatureAccess().getManyManyKeyword_0_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getFeatureRule());
-					}
-					setWithLastConsumed($current, "many", lv_many_0_0 != null, "many");
-				}
-			)
-		)?
-		(
-			(
-				lv_name_1_0=RULE_ID
-				{
-					newLeafNode(lv_name_1_0, grammarAccess.getFeatureAccess().getNameIDTerminalRuleCall_1_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getFeatureRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		otherlv_2=':'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getFeatureAccess().getColonKeyword_2());
-		}
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getFeatureRule());
-					}
-				}
-				otherlv_3=RULE_ID
-				{
-					newLeafNode(otherlv_3, grammarAccess.getFeatureAccess().getTypeElementCrossReference_3_0());
-				}
-			)
-		)
-	)
-;
-
-// Entry rule entryRuleContain
-entryRuleContain returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getContainRule()); }
-	iv_ruleContain=ruleContain
-	{ $current=$iv_ruleContain.current; }
-	EOF;
-
-// Rule Contain
-ruleContain returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				lv_many_0_0='many'
-				{
-					newLeafNode(lv_many_0_0, grammarAccess.getContainAccess().getManyManyKeyword_0_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getContainRule());
-					}
-					setWithLastConsumed($current, "many", lv_many_0_0 != null, "many");
-				}
-			)
-		)?
-		(
-			(
-				lv_name_1_0=RULE_ID
-				{
-					newLeafNode(lv_name_1_0, grammarAccess.getContainAccess().getNameIDTerminalRuleCall_1_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getContainRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		otherlv_2=':'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getContainAccess().getColonKeyword_2());
-		}
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getContainRule());
-					}
-				}
-				otherlv_3=RULE_ID
-				{
-					newLeafNode(otherlv_3, grammarAccess.getContainAccess().getTypeDynamicEntityCrossReference_3_0());
-				}
-			)
-		)
 	)
 ;
 

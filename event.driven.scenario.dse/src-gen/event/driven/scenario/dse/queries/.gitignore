@@ -1,4 +1,9 @@
-/.GetCurrentState.java._trace
+/.GetPossibleTransitions.java._trace
+/.InScene.java._trace
+/.PedestrianMoves.java._trace
 /.Queries.java._trace
-/GetCurrentState.java
-/Queries.java
+/.VehicleAccelerates.java._trace
+/.VehicleMoves.java._trace
+/.VehicleOnRoad.java._trace
+/.VehicleReachesRoadEndWithPedestrian.java._trace
+/.VehicleSlowsDown.java._trace

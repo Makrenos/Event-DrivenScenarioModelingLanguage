@@ -1,12 +1,94 @@
 package event.driven.scenario.dse.queries
 
 import "http://www.eventDrivenScenario.org/edsdl"
+import "http://www.eventDrivenScenario.org/scenedl"
 
-//Rules
-pattern getCurrentState(actualState: State,stateMachine: StateMachine){
-	StateMachine.actualState(stateMachine,actualState);
+pattern inScene(entity: DynamicEntity,scene : Scene){
+	Scene.elements(scene,entity);
+	
+	Scene.boundry(scene,boundryPos);
+	PositionAttribute.x(boundryPos,boundryPosX);
+	PositionAttribute.y(boundryPos,boundryPosY);
+	
+	DynamicEntity.position(entity,entityPos);
+	PositionAttribute.x(entityPos,posX);
+	PositionAttribute.y(entityPos,posY);
+	
+	check(posX <= boundryPosX && posY <= boundryPosY);
 }
 
+pattern vehicleOnRoad(de: DynamicEntity,se: StaticEntity){		
+	DynamicEntity.on(de,se);
+}
+
+//Rules
+pattern getPossibleTransitions(stateMachine : StateMachine,actualState: State,t : Transition){
+	StateMachine.runtimestate(stateMachine,r);
+	RuntimeState.actualState(r,actualState);
+	State.outTransitions(actualState,t);
+}
+
+pattern vehicleSlowsDown(scene: Scene, vehicle: DynamicEntity, vehiclePos: PositionAttribute, by : java Integer){
+	Scene.elements(scene,vehicle);
+	DynamicEntity.name(vehicle,"car");
+	by == -1;
+	DynamicEntity.position(vehicle,vehiclePos);
+}
+
+pattern vehicleAccelerates(scene: Scene, vehicle: DynamicEntity, vehiclePos: PositionAttribute, by : java Integer){
+	Scene.elements(scene,vehicle);
+	DynamicEntity.name(vehicle,"car");
+	by == 1;
+	DynamicEntity.position(vehicle,vehiclePos);
+}
+
+pattern vehicleMoves(scene: Scene, vehicle: DynamicEntity, vehiclePos: PositionAttribute){
+	
+	Scene.elements(scene,vehicle);
+	DynamicEntity.name(vehicle,"car");
+	find inScene(vehicle,scene);
+	DynamicEntity.position(vehicle,vehiclePos);
+}
+
+pattern pedestrianMoves(scene: Scene, pedestrian: DynamicEntity, pedestrianPos: PositionAttribute){
+	Scene.elements(scene,pedestrian);
+	DynamicEntity.name(pedestrian,"pedestrian");
+	find inScene(pedestrian,scene);
+	DynamicEntity.position(pedestrian,pedestrianPos);
+}
+
+
+
 //Objectives
+pattern vehicleReachesRoadEndWithPedestrian(scene: Scene, vehicle: DynamicEntity, pedestrian: DynamicEntity,crosswalk: StaticEntity){
+	Scene.elements(scene,vehicle);
+	Scene.elements(scene,road);
+	Scene.elements(scene,pedestrian);
+	Scene.elements(scene,crosswalk);
+	
+	StaticEntity.name(crosswalk,"crosswalk");
+	DynamicEntity.name(pedestrian,"pedestrian");
+	StaticEntity.name(road,"road");
+	
+	StaticEntity.lanes(crosswalk,crosswalkLanes);
+	Lane.endingPosition(crosswalkLanes,crosswalkPos);
+	PositionAttribute.y(crosswalkPos,crosswalkPosY);
+	PositionAttribute.x(crosswalkPos,crosswalkPosX);
+	
+	DynamicEntity.position(pedestrian,pedestrianePos);
+	PositionAttribute.y(pedestrianePos,pedestrianPosY);
+	
+	DynamicEntity.name(vehicle,"car");
+	
+	DynamicEntity.position(vehicle,vehiclePos);
+	PositionAttribute.x(vehiclePos,vehiclePosX);
+	
+	find inScene(pedestrian,scene);
+	find inScene(vehicle,scene);
+	
+	//find vehicleOnRoad(vehicle,road);	
+	
+	check(vehiclePosX > crosswalkPosX && pedestrianPosY > crosswalkPosY);
+}
 
 //Constraints

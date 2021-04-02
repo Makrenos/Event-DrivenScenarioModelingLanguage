@@ -4,19 +4,23 @@ package event.driven.scenario.dl.edsdl.impl;
 
 import event.driven.scenario.dl.edsdl.EdsdlPackage;
 import event.driven.scenario.dl.edsdl.State;
-
 import event.driven.scenario.dl.edsdl.Transition;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,7 +46,7 @@ public class StateImpl extends MinimalEObjectImpl.Container implements State {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean ACCEPTING_EDEFAULT = false;
+	protected static final boolean ACCEPTING_EDEFAULT = true;
 
 	/**
 	 * The cached value of the '{@link #isAccepting() <em>Accepting</em>}' attribute.
@@ -75,7 +79,7 @@ public class StateImpl extends MinimalEObjectImpl.Container implements State {
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getOutTransitions() <em>Out Transitions</em>}' reference list.
+	 * The cached value of the '{@link #getOutTransitions() <em>Out Transitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOutTransitions()
@@ -153,10 +157,24 @@ public class StateImpl extends MinimalEObjectImpl.Container implements State {
 	 */
 	public EList<Transition> getOutTransitions() {
 		if (outTransitions == null) {
-			outTransitions = new EObjectResolvingEList<Transition>(Transition.class, this,
+			outTransitions = new EObjectContainmentEList<Transition>(Transition.class, this,
 					EdsdlPackage.STATE__OUT_TRANSITIONS);
 		}
 		return outTransitions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case EdsdlPackage.STATE__OUT_TRANSITIONS:
+			return ((InternalEList<?>) getOutTransitions()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

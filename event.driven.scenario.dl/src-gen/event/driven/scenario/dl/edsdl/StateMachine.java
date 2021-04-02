@@ -16,9 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link event.driven.scenario.dl.edsdl.StateMachine#getStates <em>States</em>}</li>
- *   <li>{@link event.driven.scenario.dl.edsdl.StateMachine#getTransitions <em>Transitions</em>}</li>
- *   <li>{@link event.driven.scenario.dl.edsdl.StateMachine#getActions <em>Actions</em>}</li>
- *   <li>{@link event.driven.scenario.dl.edsdl.StateMachine#getActualState <em>Actual State</em>}</li>
+ *   <li>{@link event.driven.scenario.dl.edsdl.StateMachine#getDictionary <em>Dictionary</em>}</li>
+ *   <li>{@link event.driven.scenario.dl.edsdl.StateMachine#getRuntimestate <em>Runtimestate</em>}</li>
  * </ul>
  *
  * @see event.driven.scenario.dl.edsdl.EdsdlPackage#getStateMachine()
@@ -39,49 +38,37 @@ public interface StateMachine extends EObject {
 	EList<State> getStates();
 
 	/**
-	 * Returns the value of the '<em><b>Transitions</b></em>' containment reference list.
-	 * The list contents are of type {@link event.driven.scenario.dl.edsdl.Transition}.
+	 * Returns the value of the '<em><b>Dictionary</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Transitions</em>' containment reference list.
-	 * @see event.driven.scenario.dl.edsdl.EdsdlPackage#getStateMachine_Transitions()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	EList<Transition> getTransitions();
-
-	/**
-	 * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
-	 * The list contents are of type {@link event.driven.scenario.dl.edsdl.Action}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Actions</em>' containment reference list.
-	 * @see event.driven.scenario.dl.edsdl.EdsdlPackage#getStateMachine_Actions()
+	 * @return the value of the '<em>Dictionary</em>' containment reference.
+	 * @see #setDictionary(Dictionary)
+	 * @see event.driven.scenario.dl.edsdl.EdsdlPackage#getStateMachine_Dictionary()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Action> getActions();
+	Dictionary getDictionary();
 
 	/**
-	 * Returns the value of the '<em><b>Actual State</b></em>' reference.
+	 * Sets the value of the '{@link event.driven.scenario.dl.edsdl.StateMachine#getDictionary <em>Dictionary</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Actual State</em>' reference.
-	 * @see #setActualState(State)
-	 * @see event.driven.scenario.dl.edsdl.EdsdlPackage#getStateMachine_ActualState()
-	 * @model required="true"
+	 * @param value the new value of the '<em>Dictionary</em>' containment reference.
+	 * @see #getDictionary()
 	 * @generated
 	 */
-	State getActualState();
+	void setDictionary(Dictionary value);
 
 	/**
-	 * Sets the value of the '{@link event.driven.scenario.dl.edsdl.StateMachine#getActualState <em>Actual State</em>}' reference.
+	 * Returns the value of the '<em><b>Runtimestate</b></em>' containment reference list.
+	 * The list contents are of type {@link event.driven.scenario.dl.edsdl.RuntimeState}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Actual State</em>' reference.
-	 * @see #getActualState()
+	 * @return the value of the '<em>Runtimestate</em>' containment reference list.
+	 * @see event.driven.scenario.dl.edsdl.EdsdlPackage#getStateMachine_Runtimestate()
+	 * @model containment="true"
 	 * @generated
 	 */
-	void setActualState(State value);
+	EList<RuntimeState> getRuntimestate();
 
 } // StateMachine

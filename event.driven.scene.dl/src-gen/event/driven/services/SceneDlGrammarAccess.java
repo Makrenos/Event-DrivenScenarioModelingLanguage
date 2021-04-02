@@ -98,7 +98,8 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 		private final Assignment cAttributesAssignment_4_1_0 = (Assignment)cAlternatives_4_1.eContents().get(0);
 		private final RuleCall cAttributesAttributeParserRuleCall_4_1_0_0 = (RuleCall)cAttributesAssignment_4_1_0.eContents().get(0);
 		private final Assignment cFeaturesAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
-		private final RuleCall cFeaturesFeatureParserRuleCall_4_1_1_0 = (RuleCall)cFeaturesAssignment_4_1_1.eContents().get(0);
+		private final CrossReference cFeaturesDynamicEntityCrossReference_4_1_1_0 = (CrossReference)cFeaturesAssignment_4_1_1.eContents().get(0);
+		private final RuleCall cFeaturesDynamicEntityIDTerminalRuleCall_4_1_1_0_1 = (RuleCall)cFeaturesDynamicEntityCrossReference_4_1_1_0.eContents().get(1);
 		private final Alternatives cAlternatives_4_2 = (Alternatives)cGroup_4.eContents().get(2);
 		private final Group cGroup_4_2_0 = (Group)cAlternatives_4_2.eContents().get(0);
 		private final Keyword cCommaKeyword_4_2_0_0 = (Keyword)cGroup_4_2_0.eContents().get(0);
@@ -107,22 +108,23 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 		private final Group cGroup_4_2_1 = (Group)cAlternatives_4_2.eContents().get(1);
 		private final Keyword cCommaKeyword_4_2_1_0 = (Keyword)cGroup_4_2_1.eContents().get(0);
 		private final Assignment cFeaturesAssignment_4_2_1_1 = (Assignment)cGroup_4_2_1.eContents().get(1);
-		private final RuleCall cFeaturesFeatureParserRuleCall_4_2_1_1_0 = (RuleCall)cFeaturesAssignment_4_2_1_1.eContents().get(0);
+		private final CrossReference cFeaturesDynamicEntityCrossReference_4_2_1_1_0 = (CrossReference)cFeaturesAssignment_4_2_1_1.eContents().get(0);
+		private final RuleCall cFeaturesDynamicEntityIDTerminalRuleCall_4_2_1_1_0_1 = (RuleCall)cFeaturesDynamicEntityCrossReference_4_2_1_1_0.eContents().get(1);
 		private final Keyword cRightCurlyBracketKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
 		
 		//StaticEntity:
 		//    type = 'static_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
 		//    ('{'
-		//    (attributes+=Attribute | features+=Feature)
-		//    (',' attributes+=Attribute | ',' features+=Feature)*
+		//    (attributes+=Attribute | features+=[DynamicEntity] )
+		//    (',' attributes+=Attribute | ',' features+=[DynamicEntity] )*
 		//    '}')?
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//type = 'static_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
 		//('{'
-		//(attributes+=Attribute | features+=Feature)
-		//(',' attributes+=Attribute | ',' features+=Feature)*
+		//(attributes+=Attribute | features+=[DynamicEntity] )
+		//(',' attributes+=Attribute | ',' features+=[DynamicEntity] )*
 		//'}')?
 		public Group getGroup() { return cGroup; }
 		
@@ -169,15 +171,15 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 		public RuleCall getIsAElementIDTerminalRuleCall_3_1_0_1() { return cIsAElementIDTerminalRuleCall_3_1_0_1; }
 		
 		//('{'
-		//(attributes+=Attribute | features+=Feature)
-		//(',' attributes+=Attribute | ',' features+=Feature)*
+		//(attributes+=Attribute | features+=[DynamicEntity] )
+		//(',' attributes+=Attribute | ',' features+=[DynamicEntity] )*
 		//'}')?
 		public Group getGroup_4() { return cGroup_4; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 		
-		//(attributes+=Attribute | features+=Feature)
+		//(attributes+=Attribute | features+=[DynamicEntity] )
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 		
 		//attributes+=Attribute
@@ -186,13 +188,16 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 		//Attribute
 		public RuleCall getAttributesAttributeParserRuleCall_4_1_0_0() { return cAttributesAttributeParserRuleCall_4_1_0_0; }
 		
-		//features+=Feature
+		//features+=[DynamicEntity]
 		public Assignment getFeaturesAssignment_4_1_1() { return cFeaturesAssignment_4_1_1; }
 		
-		//Feature
-		public RuleCall getFeaturesFeatureParserRuleCall_4_1_1_0() { return cFeaturesFeatureParserRuleCall_4_1_1_0; }
+		//[DynamicEntity]
+		public CrossReference getFeaturesDynamicEntityCrossReference_4_1_1_0() { return cFeaturesDynamicEntityCrossReference_4_1_1_0; }
 		
-		//(',' attributes+=Attribute | ',' features+=Feature)*
+		//ID
+		public RuleCall getFeaturesDynamicEntityIDTerminalRuleCall_4_1_1_0_1() { return cFeaturesDynamicEntityIDTerminalRuleCall_4_1_1_0_1; }
+		
+		//(',' attributes+=Attribute | ',' features+=[DynamicEntity] )*
 		public Alternatives getAlternatives_4_2() { return cAlternatives_4_2; }
 		
 		//',' attributes+=Attribute
@@ -207,17 +212,20 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 		//Attribute
 		public RuleCall getAttributesAttributeParserRuleCall_4_2_0_1_0() { return cAttributesAttributeParserRuleCall_4_2_0_1_0; }
 		
-		//',' features+=Feature
+		//',' features+=[DynamicEntity]
 		public Group getGroup_4_2_1() { return cGroup_4_2_1; }
 		
 		//','
 		public Keyword getCommaKeyword_4_2_1_0() { return cCommaKeyword_4_2_1_0; }
 		
-		//features+=Feature
+		//features+=[DynamicEntity]
 		public Assignment getFeaturesAssignment_4_2_1_1() { return cFeaturesAssignment_4_2_1_1; }
 		
-		//Feature
-		public RuleCall getFeaturesFeatureParserRuleCall_4_2_1_1_0() { return cFeaturesFeatureParserRuleCall_4_2_1_1_0; }
+		//[DynamicEntity]
+		public CrossReference getFeaturesDynamicEntityCrossReference_4_2_1_1_0() { return cFeaturesDynamicEntityCrossReference_4_2_1_1_0; }
+		
+		//ID
+		public RuleCall getFeaturesDynamicEntityIDTerminalRuleCall_4_2_1_1_0_1() { return cFeaturesDynamicEntityIDTerminalRuleCall_4_2_1_1_0_1; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_3() { return cRightCurlyBracketKeyword_4_3; }
@@ -241,35 +249,27 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 		private final RuleCall cIsAElementIDTerminalRuleCall_3_1_0_1 = (RuleCall)cIsAElementCrossReference_3_1_0.eContents().get(1);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
-		private final Assignment cAttributesAssignment_4_1_0 = (Assignment)cAlternatives_4_1.eContents().get(0);
-		private final RuleCall cAttributesAttributeParserRuleCall_4_1_0_0 = (RuleCall)cAttributesAssignment_4_1_0.eContents().get(0);
-		private final Assignment cContainsAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
-		private final RuleCall cContainsContainParserRuleCall_4_1_1_0 = (RuleCall)cContainsAssignment_4_1_1.eContents().get(0);
-		private final Alternatives cAlternatives_4_2 = (Alternatives)cGroup_4.eContents().get(2);
-		private final Group cGroup_4_2_0 = (Group)cAlternatives_4_2.eContents().get(0);
-		private final Keyword cCommaKeyword_4_2_0_0 = (Keyword)cGroup_4_2_0.eContents().get(0);
-		private final Assignment cAttributesAssignment_4_2_0_1 = (Assignment)cGroup_4_2_0.eContents().get(1);
-		private final RuleCall cAttributesAttributeParserRuleCall_4_2_0_1_0 = (RuleCall)cAttributesAssignment_4_2_0_1.eContents().get(0);
-		private final Group cGroup_4_2_1 = (Group)cAlternatives_4_2.eContents().get(1);
-		private final Keyword cCommaKeyword_4_2_1_0 = (Keyword)cGroup_4_2_1.eContents().get(0);
-		private final Assignment cContainsAssignment_4_2_1_1 = (Assignment)cGroup_4_2_1.eContents().get(1);
-		private final RuleCall cContainsContainParserRuleCall_4_2_1_1_0 = (RuleCall)cContainsAssignment_4_2_1_1.eContents().get(0);
+		private final Assignment cAttributesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cAttributesAttributeParserRuleCall_4_1_0 = (RuleCall)cAttributesAssignment_4_1.eContents().get(0);
+		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
+		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
+		private final Assignment cAttributesAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
+		private final RuleCall cAttributesAttributeParserRuleCall_4_2_1_0 = (RuleCall)cAttributesAssignment_4_2_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
 		
 		//DynamicEntity:
 		//    type = 'dynamic_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
 		//    ('{'
-		//    (attributes+=Attribute | contains+=Contain)
-		//    (',' attributes+=Attribute | ',' contains+=Contain)*
+		//    (attributes+=Attribute )
+		//    (',' attributes+=Attribute)*
 		//    '}')?
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//type = 'dynamic_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
 		//('{'
-		//(attributes+=Attribute | contains+=Contain)
-		//(',' attributes+=Attribute | ',' contains+=Contain)*
+		//(attributes+=Attribute )
+		//(',' attributes+=Attribute)*
 		//'}')?
 		public Group getGroup() { return cGroup; }
 		
@@ -316,145 +316,34 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 		public RuleCall getIsAElementIDTerminalRuleCall_3_1_0_1() { return cIsAElementIDTerminalRuleCall_3_1_0_1; }
 		
 		//('{'
-		//(attributes+=Attribute | contains+=Contain)
-		//(',' attributes+=Attribute | ',' contains+=Contain)*
+		//(attributes+=Attribute )
+		//(',' attributes+=Attribute)*
 		//'}')?
 		public Group getGroup_4() { return cGroup_4; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 		
-		//(attributes+=Attribute | contains+=Contain)
-		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
-		
-		//attributes+=Attribute
-		public Assignment getAttributesAssignment_4_1_0() { return cAttributesAssignment_4_1_0; }
+		//(attributes+=Attribute )
+		public Assignment getAttributesAssignment_4_1() { return cAttributesAssignment_4_1; }
 		
 		//Attribute
-		public RuleCall getAttributesAttributeParserRuleCall_4_1_0_0() { return cAttributesAttributeParserRuleCall_4_1_0_0; }
+		public RuleCall getAttributesAttributeParserRuleCall_4_1_0() { return cAttributesAttributeParserRuleCall_4_1_0; }
 		
-		//contains+=Contain
-		public Assignment getContainsAssignment_4_1_1() { return cContainsAssignment_4_1_1; }
-		
-		//Contain
-		public RuleCall getContainsContainParserRuleCall_4_1_1_0() { return cContainsContainParserRuleCall_4_1_1_0; }
-		
-		//(',' attributes+=Attribute | ',' contains+=Contain)*
-		public Alternatives getAlternatives_4_2() { return cAlternatives_4_2; }
-		
-		//',' attributes+=Attribute
-		public Group getGroup_4_2_0() { return cGroup_4_2_0; }
+		//(',' attributes+=Attribute)*
+		public Group getGroup_4_2() { return cGroup_4_2; }
 		
 		//','
-		public Keyword getCommaKeyword_4_2_0_0() { return cCommaKeyword_4_2_0_0; }
+		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
 		
 		//attributes+=Attribute
-		public Assignment getAttributesAssignment_4_2_0_1() { return cAttributesAssignment_4_2_0_1; }
+		public Assignment getAttributesAssignment_4_2_1() { return cAttributesAssignment_4_2_1; }
 		
 		//Attribute
-		public RuleCall getAttributesAttributeParserRuleCall_4_2_0_1_0() { return cAttributesAttributeParserRuleCall_4_2_0_1_0; }
-		
-		//',' contains+=Contain
-		public Group getGroup_4_2_1() { return cGroup_4_2_1; }
-		
-		//','
-		public Keyword getCommaKeyword_4_2_1_0() { return cCommaKeyword_4_2_1_0; }
-		
-		//contains+=Contain
-		public Assignment getContainsAssignment_4_2_1_1() { return cContainsAssignment_4_2_1_1; }
-		
-		//Contain
-		public RuleCall getContainsContainParserRuleCall_4_2_1_1_0() { return cContainsContainParserRuleCall_4_2_1_1_0; }
+		public RuleCall getAttributesAttributeParserRuleCall_4_2_1_0() { return cAttributesAttributeParserRuleCall_4_2_1_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_3() { return cRightCurlyBracketKeyword_4_3; }
-	}
-	public class FeatureElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "event.driven.SceneDl.Feature");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cManyAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cManyManyKeyword_0_0 = (Keyword)cManyAssignment_0.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cTypeElementCrossReference_3_0 = (CrossReference)cTypeAssignment_3.eContents().get(0);
-		private final RuleCall cTypeElementIDTerminalRuleCall_3_0_1 = (RuleCall)cTypeElementCrossReference_3_0.eContents().get(1);
-		
-		//Feature:
-		//    (many?='many')? name=ID ':' type=[Element];
-		@Override public ParserRule getRule() { return rule; }
-		
-		//(many?='many')? name=ID ':' type=[Element]
-		public Group getGroup() { return cGroup; }
-		
-		//(many?='many')?
-		public Assignment getManyAssignment_0() { return cManyAssignment_0; }
-		
-		//'many'
-		public Keyword getManyManyKeyword_0_0() { return cManyManyKeyword_0_0; }
-		
-		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-		
-		//':'
-		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
-		
-		//type=[Element]
-		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
-		
-		//[Element]
-		public CrossReference getTypeElementCrossReference_3_0() { return cTypeElementCrossReference_3_0; }
-		
-		//ID
-		public RuleCall getTypeElementIDTerminalRuleCall_3_0_1() { return cTypeElementIDTerminalRuleCall_3_0_1; }
-	}
-	public class ContainElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "event.driven.SceneDl.Contain");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cManyAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cManyManyKeyword_0_0 = (Keyword)cManyAssignment_0.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cTypeDynamicEntityCrossReference_3_0 = (CrossReference)cTypeAssignment_3.eContents().get(0);
-		private final RuleCall cTypeDynamicEntityIDTerminalRuleCall_3_0_1 = (RuleCall)cTypeDynamicEntityCrossReference_3_0.eContents().get(1);
-		
-		//Contain:
-		//    (many?='many')? name=ID ':' type=[DynamicEntity]
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//(many?='many')? name=ID ':' type=[DynamicEntity]
-		public Group getGroup() { return cGroup; }
-		
-		//(many?='many')?
-		public Assignment getManyAssignment_0() { return cManyAssignment_0; }
-		
-		//'many'
-		public Keyword getManyManyKeyword_0_0() { return cManyManyKeyword_0_0; }
-		
-		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-		
-		//':'
-		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
-		
-		//type=[DynamicEntity]
-		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
-		
-		//[DynamicEntity]
-		public CrossReference getTypeDynamicEntityCrossReference_3_0() { return cTypeDynamicEntityCrossReference_3_0; }
-		
-		//ID
-		public RuleCall getTypeDynamicEntityIDTerminalRuleCall_3_0_1() { return cTypeDynamicEntityIDTerminalRuleCall_3_0_1; }
 	}
 	public class AttributeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "event.driven.SceneDl.Attribute");
@@ -684,8 +573,6 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 	private final ElementElements pElement;
 	private final StaticEntityElements pStaticEntity;
 	private final DynamicEntityElements pDynamicEntity;
-	private final FeatureElements pFeature;
-	private final ContainElements pContain;
 	private final AttributeElements pAttribute;
 	private final RegularAttributeElements pRegularAttribute;
 	private final PositionAttributeElements pPositionAttribute;
@@ -705,8 +592,6 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 		this.pElement = new ElementElements();
 		this.pStaticEntity = new StaticEntityElements();
 		this.pDynamicEntity = new DynamicEntityElements();
-		this.pFeature = new FeatureElements();
-		this.pContain = new ContainElements();
 		this.pAttribute = new AttributeElements();
 		this.pRegularAttribute = new RegularAttributeElements();
 		this.pPositionAttribute = new PositionAttributeElements();
@@ -767,8 +652,8 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 	//StaticEntity:
 	//    type = 'static_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
 	//    ('{'
-	//    (attributes+=Attribute | features+=Feature)
-	//    (',' attributes+=Attribute | ',' features+=Feature)*
+	//    (attributes+=Attribute | features+=[DynamicEntity] )
+	//    (',' attributes+=Attribute | ',' features+=[DynamicEntity] )*
 	//    '}')?
 	//;
 	public StaticEntityElements getStaticEntityAccess() {
@@ -782,8 +667,8 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 	//DynamicEntity:
 	//    type = 'dynamic_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
 	//    ('{'
-	//    (attributes+=Attribute | contains+=Contain)
-	//    (',' attributes+=Attribute | ',' contains+=Contain)*
+	//    (attributes+=Attribute )
+	//    (',' attributes+=Attribute)*
 	//    '}')?
 	//;
 	public DynamicEntityElements getDynamicEntityAccess() {
@@ -792,27 +677,6 @@ public class SceneDlGrammarAccess extends AbstractElementFinder.AbstractGrammarE
 	
 	public ParserRule getDynamicEntityRule() {
 		return getDynamicEntityAccess().getRule();
-	}
-	
-	//Feature:
-	//    (many?='many')? name=ID ':' type=[Element];
-	public FeatureElements getFeatureAccess() {
-		return pFeature;
-	}
-	
-	public ParserRule getFeatureRule() {
-		return getFeatureAccess().getRule();
-	}
-	
-	//Contain:
-	//    (many?='many')? name=ID ':' type=[DynamicEntity]
-	//;
-	public ContainElements getContainAccess() {
-		return pContain;
-	}
-	
-	public ParserRule getContainRule() {
-		return getContainAccess().getRule();
 	}
 	
 	//Attribute:

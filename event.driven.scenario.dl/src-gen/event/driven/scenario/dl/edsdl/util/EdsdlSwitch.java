@@ -87,6 +87,36 @@ public class EdsdlSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case EdsdlPackage.EFEATURE_BASED_ACTION: {
+			EFeatureBasedAction eFeatureBasedAction = (EFeatureBasedAction) theEObject;
+			T result = caseEFeatureBasedAction(eFeatureBasedAction);
+			if (result == null)
+				result = caseAction(eFeatureBasedAction);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case EdsdlPackage.DICTIONARY: {
+			Dictionary dictionary = (Dictionary) theEObject;
+			T result = caseDictionary(dictionary);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case EdsdlPackage.CONDITION: {
+			Condition condition = (Condition) theEObject;
+			T result = caseCondition(condition);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case EdsdlPackage.RUNTIME_STATE: {
+			RuntimeState runtimeState = (RuntimeState) theEObject;
+			T result = caseRuntimeState(runtimeState);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case EdsdlPackage.ACTION: {
 			Action action = (Action) theEObject;
 			T result = caseAction(action);
@@ -141,6 +171,66 @@ public class EdsdlSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTransition(Transition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EFeature Based Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EFeature Based Action</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEFeatureBasedAction(EFeatureBasedAction object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Dictionary</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Dictionary</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDictionary(Dictionary object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Condition</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Condition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCondition(Condition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Runtime State</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Runtime State</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRuntimeState(RuntimeState object) {
 		return null;
 	}
 

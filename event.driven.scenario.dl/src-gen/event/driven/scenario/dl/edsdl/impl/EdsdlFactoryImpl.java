@@ -61,6 +61,14 @@ public class EdsdlFactoryImpl extends EFactoryImpl implements EdsdlFactory {
 			return createState();
 		case EdsdlPackage.TRANSITION:
 			return createTransition();
+		case EdsdlPackage.EFEATURE_BASED_ACTION:
+			return createEFeatureBasedAction();
+		case EdsdlPackage.DICTIONARY:
+			return createDictionary();
+		case EdsdlPackage.CONDITION:
+			return createCondition();
+		case EdsdlPackage.RUNTIME_STATE:
+			return createRuntimeState();
 		case EdsdlPackage.ACTION:
 			return createAction();
 		default:
@@ -96,6 +104,46 @@ public class EdsdlFactoryImpl extends EFactoryImpl implements EdsdlFactory {
 	public Transition createTransition() {
 		TransitionImpl transition = new TransitionImpl();
 		return transition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EFeatureBasedAction createEFeatureBasedAction() {
+		EFeatureBasedActionImpl eFeatureBasedAction = new EFeatureBasedActionImpl();
+		return eFeatureBasedAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Dictionary createDictionary() {
+		DictionaryImpl dictionary = new DictionaryImpl();
+		return dictionary;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Condition createCondition() {
+		ConditionImpl condition = new ConditionImpl();
+		return condition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RuntimeState createRuntimeState() {
+		RuntimeStateImpl runtimeState = new RuntimeStateImpl();
+		return runtimeState;
 	}
 
 	/**

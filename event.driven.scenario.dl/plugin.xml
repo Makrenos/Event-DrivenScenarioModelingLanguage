@@ -6,6 +6,23 @@
 
 <plugin>
 
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated scenedl -->
+      <package
+            uri="http://www.eventDrivenScenario.org/scenedl"
+            class="scenedl.ScenedlPackage"
+            genModel="model/scenedl.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated scenedl -->
+      <package
+            uri="http://www.eventDrivenScenario.org/edsdl"
+            class="edsdl.EdsdlPackage"
+            genModel="model/scenedl.genmodel"/>
+   </extension>
+
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated edsdl -->
       <package

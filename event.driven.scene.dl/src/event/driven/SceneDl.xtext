@@ -7,6 +7,7 @@ Scene:
 	(elements+=Element)*
 ;
 
+
 Element:
 	StaticEntity | DynamicEntity
 ;
@@ -14,24 +15,17 @@ Element:
 StaticEntity:
 	type = 'static_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
 	('{'
-	(attributes+=Attribute | features+=Feature) 
-	(',' attributes+=Attribute | ',' features+=Feature)*
+	(attributes+=Attribute | features+=[DynamicEntity] ) 
+	(',' attributes+=Attribute | ',' features+=[DynamicEntity] )*
 	'}')?
 ;
 
 DynamicEntity:
 	type = 'dynamic_entity' name=ID ('key' key=[Attribute])? ('isA' isA+=[Element])*
 	('{'
-	(attributes+=Attribute | contains+=Contain) 
-	(',' attributes+=Attribute | ',' contains+=Contain)*
+	(attributes+=Attribute ) 
+	(',' attributes+=Attribute)*
 	'}')?
-;
-
-Feature:
-    (many?='many')? name=ID ':' type=[Element];
-    
-Contain:
-	(many?='many')? name=ID ':' type=[DynamicEntity]
 ;
 
 Attribute:

@@ -70,8 +70,6 @@ public class SceneDlFactoryImpl extends EFactoryImpl implements SceneDlFactory
       case SceneDlPackage.ELEMENT: return createElement();
       case SceneDlPackage.STATIC_ENTITY: return createStaticEntity();
       case SceneDlPackage.DYNAMIC_ENTITY: return createDynamicEntity();
-      case SceneDlPackage.FEATURE: return createFeature();
-      case SceneDlPackage.CONTAIN: return createContain();
       case SceneDlPackage.ATTRIBUTE: return createAttribute();
       case SceneDlPackage.REGULAR_ATTRIBUTE: return createRegularAttribute();
       case SceneDlPackage.POSITION_ATTRIBUTE: return createPositionAttribute();
@@ -160,30 +158,6 @@ public class SceneDlFactoryImpl extends EFactoryImpl implements SceneDlFactory
   {
     DynamicEntityImpl dynamicEntity = new DynamicEntityImpl();
     return dynamicEntity;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Feature createFeature()
-  {
-    FeatureImpl feature = new FeatureImpl();
-    return feature;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Contain createContain()
-  {
-    ContainImpl contain = new ContainImpl();
-    return contain;
   }
 
   /**

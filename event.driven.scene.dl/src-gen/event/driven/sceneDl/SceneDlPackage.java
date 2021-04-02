@@ -215,7 +215,7 @@ public interface SceneDlPackage extends EPackage
   int STATIC_ENTITY__ATTRIBUTES = ELEMENT__ATTRIBUTES;
 
   /**
-   * The feature id for the '<em><b>Features</b></em>' containment reference list.
+   * The feature id for the '<em><b>Features</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -288,114 +288,13 @@ public interface SceneDlPackage extends EPackage
   int DYNAMIC_ENTITY__ATTRIBUTES = ELEMENT__ATTRIBUTES;
 
   /**
-   * The feature id for the '<em><b>Contains</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DYNAMIC_ENTITY__CONTAINS = ELEMENT_FEATURE_COUNT + 0;
-
-  /**
    * The number of structural features of the '<em>Dynamic Entity</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DYNAMIC_ENTITY_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link event.driven.sceneDl.impl.FeatureImpl <em>Feature</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see event.driven.sceneDl.impl.FeatureImpl
-   * @see event.driven.sceneDl.impl.SceneDlPackageImpl#getFeature()
-   * @generated
-   */
-  int FEATURE = 4;
-
-  /**
-   * The feature id for the '<em><b>Many</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FEATURE__MANY = 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FEATURE__NAME = 1;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FEATURE__TYPE = 2;
-
-  /**
-   * The number of structural features of the '<em>Feature</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FEATURE_FEATURE_COUNT = 3;
-
-  /**
-   * The meta object id for the '{@link event.driven.sceneDl.impl.ContainImpl <em>Contain</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see event.driven.sceneDl.impl.ContainImpl
-   * @see event.driven.sceneDl.impl.SceneDlPackageImpl#getContain()
-   * @generated
-   */
-  int CONTAIN = 5;
-
-  /**
-   * The feature id for the '<em><b>Many</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTAIN__MANY = 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTAIN__NAME = 1;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTAIN__TYPE = 2;
-
-  /**
-   * The number of structural features of the '<em>Contain</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTAIN_FEATURE_COUNT = 3;
+  int DYNAMIC_ENTITY_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link event.driven.sceneDl.impl.AttributeImpl <em>Attribute</em>}' class.
@@ -405,7 +304,7 @@ public interface SceneDlPackage extends EPackage
    * @see event.driven.sceneDl.impl.SceneDlPackageImpl#getAttribute()
    * @generated
    */
-  int ATTRIBUTE = 6;
+  int ATTRIBUTE = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -451,7 +350,7 @@ public interface SceneDlPackage extends EPackage
    * @see event.driven.sceneDl.impl.SceneDlPackageImpl#getRegularAttribute()
    * @generated
    */
-  int REGULAR_ATTRIBUTE = 7;
+  int REGULAR_ATTRIBUTE = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -506,7 +405,7 @@ public interface SceneDlPackage extends EPackage
    * @see event.driven.sceneDl.impl.SceneDlPackageImpl#getPositionAttribute()
    * @generated
    */
-  int POSITION_ATTRIBUTE = 8;
+  int POSITION_ATTRIBUTE = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -570,7 +469,7 @@ public interface SceneDlPackage extends EPackage
    * @see event.driven.sceneDl.impl.SceneDlPackageImpl#getAttributeType()
    * @generated
    */
-  int ATTRIBUTE_TYPE = 9;
+  int ATTRIBUTE_TYPE = 7;
 
 
   /**
@@ -681,10 +580,10 @@ public interface SceneDlPackage extends EPackage
   EClass getStaticEntity();
 
   /**
-   * Returns the meta object for the containment reference list '{@link event.driven.sceneDl.StaticEntity#getFeatures <em>Features</em>}'.
+   * Returns the meta object for the reference list '{@link event.driven.sceneDl.StaticEntity#getFeatures <em>Features</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Features</em>'.
+   * @return the meta object for the reference list '<em>Features</em>'.
    * @see event.driven.sceneDl.StaticEntity#getFeatures()
    * @see #getStaticEntity()
    * @generated
@@ -700,103 +599,6 @@ public interface SceneDlPackage extends EPackage
    * @generated
    */
   EClass getDynamicEntity();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link event.driven.sceneDl.DynamicEntity#getContains <em>Contains</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Contains</em>'.
-   * @see event.driven.sceneDl.DynamicEntity#getContains()
-   * @see #getDynamicEntity()
-   * @generated
-   */
-  EReference getDynamicEntity_Contains();
-
-  /**
-   * Returns the meta object for class '{@link event.driven.sceneDl.Feature <em>Feature</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Feature</em>'.
-   * @see event.driven.sceneDl.Feature
-   * @generated
-   */
-  EClass getFeature();
-
-  /**
-   * Returns the meta object for the attribute '{@link event.driven.sceneDl.Feature#isMany <em>Many</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Many</em>'.
-   * @see event.driven.sceneDl.Feature#isMany()
-   * @see #getFeature()
-   * @generated
-   */
-  EAttribute getFeature_Many();
-
-  /**
-   * Returns the meta object for the attribute '{@link event.driven.sceneDl.Feature#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see event.driven.sceneDl.Feature#getName()
-   * @see #getFeature()
-   * @generated
-   */
-  EAttribute getFeature_Name();
-
-  /**
-   * Returns the meta object for the reference '{@link event.driven.sceneDl.Feature#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type</em>'.
-   * @see event.driven.sceneDl.Feature#getType()
-   * @see #getFeature()
-   * @generated
-   */
-  EReference getFeature_Type();
-
-  /**
-   * Returns the meta object for class '{@link event.driven.sceneDl.Contain <em>Contain</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Contain</em>'.
-   * @see event.driven.sceneDl.Contain
-   * @generated
-   */
-  EClass getContain();
-
-  /**
-   * Returns the meta object for the attribute '{@link event.driven.sceneDl.Contain#isMany <em>Many</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Many</em>'.
-   * @see event.driven.sceneDl.Contain#isMany()
-   * @see #getContain()
-   * @generated
-   */
-  EAttribute getContain_Many();
-
-  /**
-   * Returns the meta object for the attribute '{@link event.driven.sceneDl.Contain#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see event.driven.sceneDl.Contain#getName()
-   * @see #getContain()
-   * @generated
-   */
-  EAttribute getContain_Name();
-
-  /**
-   * Returns the meta object for the reference '{@link event.driven.sceneDl.Contain#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type</em>'.
-   * @see event.driven.sceneDl.Contain#getType()
-   * @see #getContain()
-   * @generated
-   */
-  EReference getContain_Type();
 
   /**
    * Returns the meta object for class '{@link event.driven.sceneDl.Attribute <em>Attribute</em>}'.
@@ -1014,7 +816,7 @@ public interface SceneDlPackage extends EPackage
     EClass STATIC_ENTITY = eINSTANCE.getStaticEntity();
 
     /**
-     * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Features</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1030,82 +832,6 @@ public interface SceneDlPackage extends EPackage
      * @generated
      */
     EClass DYNAMIC_ENTITY = eINSTANCE.getDynamicEntity();
-
-    /**
-     * The meta object literal for the '<em><b>Contains</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DYNAMIC_ENTITY__CONTAINS = eINSTANCE.getDynamicEntity_Contains();
-
-    /**
-     * The meta object literal for the '{@link event.driven.sceneDl.impl.FeatureImpl <em>Feature</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see event.driven.sceneDl.impl.FeatureImpl
-     * @see event.driven.sceneDl.impl.SceneDlPackageImpl#getFeature()
-     * @generated
-     */
-    EClass FEATURE = eINSTANCE.getFeature();
-
-    /**
-     * The meta object literal for the '<em><b>Many</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FEATURE__MANY = eINSTANCE.getFeature_Many();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FEATURE__NAME = eINSTANCE.getFeature_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FEATURE__TYPE = eINSTANCE.getFeature_Type();
-
-    /**
-     * The meta object literal for the '{@link event.driven.sceneDl.impl.ContainImpl <em>Contain</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see event.driven.sceneDl.impl.ContainImpl
-     * @see event.driven.sceneDl.impl.SceneDlPackageImpl#getContain()
-     * @generated
-     */
-    EClass CONTAIN = eINSTANCE.getContain();
-
-    /**
-     * The meta object literal for the '<em><b>Many</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CONTAIN__MANY = eINSTANCE.getContain_Many();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CONTAIN__NAME = eINSTANCE.getContain_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONTAIN__TYPE = eINSTANCE.getContain_Type();
 
     /**
      * The meta object literal for the '{@link event.driven.sceneDl.impl.AttributeImpl <em>Attribute</em>}' class.

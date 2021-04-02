@@ -4,9 +4,7 @@
 package event.driven.serializer;
 
 import com.google.inject.Inject;
-import event.driven.sceneDl.Contain;
 import event.driven.sceneDl.DynamicEntity;
-import event.driven.sceneDl.Feature;
 import event.driven.sceneDl.PositionAttribute;
 import event.driven.sceneDl.RegularAttribute;
 import event.driven.sceneDl.Scene;
@@ -36,14 +34,8 @@ public class SceneDlSemanticSequencer extends AbstractDelegatingSemanticSequence
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == SceneDlPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
-			case SceneDlPackage.CONTAIN:
-				sequence_Contain(context, (Contain) semanticObject); 
-				return; 
 			case SceneDlPackage.DYNAMIC_ENTITY:
 				sequence_DynamicEntity(context, (DynamicEntity) semanticObject); 
-				return; 
-			case SceneDlPackage.FEATURE:
-				sequence_Feature(context, (Feature) semanticObject); 
 				return; 
 			case SceneDlPackage.POSITION_ATTRIBUTE:
 				sequence_PositionAttribute(context, (PositionAttribute) semanticObject); 
@@ -64,43 +56,13 @@ public class SceneDlSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
-	 *     Contain returns Contain
-	 *
-	 * Constraint:
-	 *     (many?='many'? name=ID type=[DynamicEntity|ID])
-	 */
-	protected void sequence_Contain(ISerializationContext context, Contain semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     Element returns DynamicEntity
 	 *     DynamicEntity returns DynamicEntity
 	 *
 	 * Constraint:
-	 *     (
-	 *         type='dynamic_entity' 
-	 *         name=ID 
-	 *         key=[Attribute|ID]? 
-	 *         isA+=[Element|ID]* 
-	 *         ((attributes+=Attribute | contains+=Contain) contains+=Contain? (attributes+=Attribute? contains+=Contain?)*)?
-	 *     )
+	 *     (type='dynamic_entity' name=ID key=[Attribute|ID]? isA+=[Element|ID]* (attributes+=Attribute attributes+=Attribute*)?)
 	 */
 	protected void sequence_DynamicEntity(ISerializationContext context, DynamicEntity semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Feature returns Feature
-	 *
-	 * Constraint:
-	 *     (many?='many'? name=ID type=[Element|ID])
-	 */
-	protected void sequence_Feature(ISerializationContext context, Feature semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -154,7 +116,7 @@ public class SceneDlSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         name=ID 
 	 *         key=[Attribute|ID]? 
 	 *         isA+=[Element|ID]* 
-	 *         ((attributes+=Attribute | features+=Feature) features+=Feature? (attributes+=Attribute? features+=Feature?)*)?
+	 *         ((attributes+=Attribute | features+=[DynamicEntity|ID]) features+=[DynamicEntity|ID]? (attributes+=Attribute? features+=[DynamicEntity|ID]?)*)?
 	 *     )
 	 */
 	protected void sequence_StaticEntity(ISerializationContext context, StaticEntity semanticObject) {

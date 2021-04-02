@@ -7,7 +7,13 @@ Bundle-Version: 0.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: event.driven.scenario.dl.edsdl,
+Export-Package: edsdl,
+ edsdl.impl,
+ edsdl.util,
+ scenedl,
+ scenedl.impl,
+ scenedl.util,
+ event.driven.scenario.dl.edsdl,
  event.driven.scenario.dl.edsdl.impl,
  event.driven.scenario.dl.edsdl.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,

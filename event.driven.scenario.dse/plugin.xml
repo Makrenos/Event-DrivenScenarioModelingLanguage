@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><plugin>
   <extension id="event.driven.scenario.dse.queries.Queries" point="org.eclipse.viatra.query.runtime.queryspecification">
     <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:event.driven.scenario.dse.queries.Queries" id="event.driven.scenario.dse.queries.Queries">
-      <query-specification fqn="event.driven.scenario.dse.queries.getCurrentState"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.inScene"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleOnRoad"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.getPossibleTransitions"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleSlowsDown"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleAccelerates"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleMoves"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.pedestrianMoves"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleReachesRoadEndWithPedestrian"/>
     </group>
   </extension>
 </plugin>
