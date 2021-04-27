@@ -10,6 +10,8 @@ import org.eclipse.viatra.dse.api.DSEException;
 import org.eclipse.viatra.dse.api.strategy.interfaces.IStrategy;
 import org.eclipse.viatra.dse.objectives.Fitness;
 
+import scenedl.Scene;
+
 
 public class StateTransitionBasedDfsStrategy implements StateTransitionBasedIStrategy{
 	
@@ -121,7 +123,11 @@ public class StateTransitionBasedDfsStrategy implements StateTransitionBasedIStr
             Collection<Object> activationIds;
             
             do {
+            	//Scene s = (Scene)context.getModel();
+            	System.out.println("Statemachine-based filtering start:" + System.nanoTime());
+            	//activationIds = context.getUntraversedActivationIds(s.getStateMachine());
             	activationIds = context.getUntraversedActivationIds();
+            	System.out.println("Statemachine-based filtering end:" + System.nanoTime());
                 if (activationIds.isEmpty()) {
                     boolean isSuccessfulUndo = context.backtrack();
                     if (!isSuccessfulUndo) {

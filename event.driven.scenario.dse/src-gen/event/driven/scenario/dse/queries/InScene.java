@@ -49,6 +49,7 @@ import scenedl.Scene;
  * 
  * <p>Original source:
  *         <code><pre>
+ *         //Constraints
  *         pattern inScene(entity: DynamicEntity,scene : Scene){
  *         	Scene.elements(scene,entity);
  *         	
@@ -60,7 +61,7 @@ import scenedl.Scene;
  *         	PositionAttribute.x(entityPos,posX);
  *         	PositionAttribute.y(entityPos,posY);
  *         	
- *         	check(posX {@literal <}= boundryPosX && posY {@literal <}= boundryPosY);
+ *         	check(posX {@literal <}= boundryPosX && posY {@literal <}= boundryPosY && posX {@literal >}= 0 && posY {@literal >}= 0);
  *         }
  * </pre></code>
  * 
@@ -273,6 +274,7 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
    * 
    * <p>Original source:
    * <code><pre>
+   * //Constraints
    * pattern inScene(entity: DynamicEntity,scene : Scene){
    * 	Scene.elements(scene,entity);
    * 	
@@ -284,7 +286,7 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
    * 	PositionAttribute.x(entityPos,posX);
    * 	PositionAttribute.y(entityPos,posY);
    * 	
-   * 	check(posX {@literal <}= boundryPosX && posY {@literal <}= boundryPosY);
+   * 	check(posX {@literal <}= boundryPosX && posY {@literal <}= boundryPosY && posX {@literal >}= 0 && posY {@literal >}= 0);
    * }
    * </pre></code>
    * 
@@ -764,7 +766,7 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
           new TypeConstraint(body, Tuples.flatTupleOf(var_entityPos, var__virtual_6_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_6_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
           new Equality(body, var__virtual_6_, var_posY);
-          // 		check(posX <= boundryPosX && posY <= boundryPosY)
+          // 		check(posX <= boundryPosX && posY <= boundryPosY && posX >= 0 && posY >= 0)
           new ExpressionEvaluation(body, new IExpressionEvaluator() {
           
               @Override
@@ -792,6 +794,6 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
   }
   
   private static boolean evaluateExpression_1_1(final Integer boundryPosX, final Integer boundryPosY, final Integer posX, final Integer posY) {
-    return ((posX.compareTo(boundryPosX) <= 0) && (posY.compareTo(boundryPosY) <= 0));
+    return ((((posX.compareTo(boundryPosX) <= 0) && (posY.compareTo(boundryPosY) <= 0)) && ((posX).intValue() >= 0)) && ((posY).intValue() >= 0));
   }
 }

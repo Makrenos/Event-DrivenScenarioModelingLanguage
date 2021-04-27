@@ -36,6 +36,7 @@ import org.eclipse.viatra.transformation.evm.specific.RuleEngines;
 import org.eclipse.viatra.transformation.runtime.emf.rules.batch.BatchTransformationRule;
 
 import edsdl.Action;
+import edsdl.StateMachine;
 import edsdl.Transition;
 import scenedl.Scene;
 
@@ -528,12 +529,37 @@ public class StateTransitionBasedThreadContext implements StateTransitionBasedID
     	Collection<Object> notFilteredActivationIds;
     	Collection<Object> activationIds = new ArrayList<Object>();
     	notFilteredActivationIds = designSpaceManager.getUntraversedTransitionsFromCurrentState();
+    	//It would be more elegant, to extend the Notifier interface with a getStateMachine function, and the model has to implement the extended Notifier. (getModel().getStateMachine())
     	Scene s = (Scene)getModel();
     	boolean found = false;
     	
         for(Object o : notFilteredActivationIds) {
         	found = false;
         	for(Transition t : s.getStateMachine().getRuntimestate().get(0).getActualState().getOutTransitions()) {	
+        		for(Action a : t.getRuleBasedActions()) {
+                	if (o.toString().contains(a.getName())) {
+                		found = true;
+                	}
+        		}
+        	}
+        	if(found) {
+        		activationIds.add(o);
+        	}
+        }
+        
+        return activationIds;
+    }
+    
+    public Collection<Object> getUntraversedActivationIds(StateMachine s) {
+    	Collection<Object> notFilteredActivationIds;
+    	Collection<Object> activationIds = new ArrayList<Object>();
+    	notFilteredActivationIds = designSpaceManager.getUntraversedTransitionsFromCurrentState();
+    	
+    	boolean found = false;
+    	
+        for(Object o : notFilteredActivationIds) {
+        	found = false;
+        	for(Transition t : s.getRuntimestate().get(0).getActualState().getOutTransitions()) {	
         		for(Action a : t.getRuleBasedActions()) {
                 	if (o.toString().contains(a.getName())) {
                 		found = true;

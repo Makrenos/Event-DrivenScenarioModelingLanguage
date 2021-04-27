@@ -69,8 +69,8 @@ public class InitInstanceModels {
 		Scene s = sceneFactory.createScene();
 		
 		PositionAttribute sceneBoundry = sceneFactory.createPositionAttribute();
-		sceneBoundry.setX(5);
-		sceneBoundry.setY(3);
+		sceneBoundry.setX(8);
+		sceneBoundry.setY(4);
 		
 		s.setBoundry(sceneBoundry);
 		
@@ -79,13 +79,13 @@ public class InitInstanceModels {
 		PositionAttribute carPos = sceneFactory.createPositionAttribute();
 		RegularAttribute carSpeed = sceneFactory.createRegularAttribute();
 		    		
-		car.setName("car");
+		car.setName("ego");
 		car.setType("dynamic_entity");
 		carSpeed.setValue(1);
 		carSpeed.setName("speed");
 		
 		carPos.setX(1);
-		carPos.setY(1);
+		carPos.setY(2);
 		
 		car.setPosition(carPos);
 		car.getAttributes().add(carSpeed);
@@ -95,11 +95,11 @@ public class InitInstanceModels {
 		Lane roadLane1 = sceneFactory.createLane();
 		PositionAttribute roadLane1StartingPos = sceneFactory.createPositionAttribute();
 		roadLane1StartingPos.setX(1);
-		roadLane1StartingPos.setY(1);
+		roadLane1StartingPos.setY(2);
 		
 		PositionAttribute roadLane1EndingPos = sceneFactory.createPositionAttribute();
-		roadLane1EndingPos.setX(4);
-		roadLane1EndingPos.setY(1);
+		roadLane1EndingPos.setX(7);
+		roadLane1EndingPos.setY(2);
 		
 		roadLane1.setEndingPosition(roadLane1EndingPos);
 		roadLane1.setStartingPosition(roadLane1StartingPos);
@@ -107,11 +107,11 @@ public class InitInstanceModels {
 		Lane roadLane2 = sceneFactory.createLane();
 		PositionAttribute roadLane2StartingPos = sceneFactory.createPositionAttribute();
 		roadLane2StartingPos.setX(1);
-		roadLane2StartingPos.setY(2);
+		roadLane2StartingPos.setY(3);
 		
 		PositionAttribute roadLane2EndingPos = sceneFactory.createPositionAttribute();
-		roadLane2EndingPos.setX(4);
-		roadLane2EndingPos.setY(2);
+		roadLane2EndingPos.setX(7);
+		roadLane2EndingPos.setY(3);
 		
 		roadLane2.setEndingPosition(roadLane2EndingPos);
 		roadLane2.setStartingPosition(roadLane2StartingPos);
@@ -136,12 +136,12 @@ public class InitInstanceModels {
 
         Lane crosswalkLane = sceneFactory.createLane();
 		PositionAttribute crosswalkLaneStartingPos = sceneFactory.createPositionAttribute();
-		crosswalkLaneStartingPos.setX(3);
-		crosswalkLaneStartingPos.setY(1);
+		crosswalkLaneStartingPos.setX(4);
+		crosswalkLaneStartingPos.setY(2);
 		
 		PositionAttribute crosswalkLaneEndingPos = sceneFactory.createPositionAttribute();
-		crosswalkLaneEndingPos.setX(3);
-		crosswalkLaneEndingPos.setY(2);
+		crosswalkLaneEndingPos.setX(4);
+		crosswalkLaneEndingPos.setY(3);
 		
 		crosswalkLane.setEndingPosition(crosswalkLaneEndingPos);
 		crosswalkLane.setStartingPosition(crosswalkLaneStartingPos);
@@ -160,8 +160,8 @@ public class InitInstanceModels {
 		pedestrianSpeed.setValue(1);
 		pedestrianSpeed.setName("speed");
 		
-		pedestrianPos.setX(3);
-		pedestrianPos.setY(0);
+		pedestrianPos.setX(4);
+		pedestrianPos.setY(4);
 		
 		pedestrian.setPosition(pedestrianPos);
 		pedestrian.getAttributes().add(pedestrianSpeed);

@@ -21,7 +21,7 @@ import org.eclipse.viatra.query.runtime.rete.matcher.ReteEngine;
 import edsdl.EdsdlFactory;
 import edsdl.EdsdlPackage;
 import edsdl.StateMachine;
-import event.driven.scenario.dse.queries.VehicleReachesRoadEndWithPedestrian;
+import event.driven.scenario.dse.queries.EgoReachesRoadEndWithPedestrian;
 import event.driven.scenario.dse.rules.EdsdlDseRules;
 import event.driven.scenario.dse.source.StateTransitionBasedDfsStrategy;
 import event.driven.scenario.dse.source.StateTransitionBasedConstraintsObjective;
@@ -126,13 +126,15 @@ public class SceneDseRunner_vehicle_with_pedestrian {
         
         dse.addObjective(
                 new StateTransitionBasedConstraintsObjective()
-                        .withHardConstraint(VehicleReachesRoadEndWithPedestrian.instance(),ModelQueryType.MUST_HAVE_MATCH)
+                		//.withHardConstraint(NoCollision.instance())
+                        .withHardConstraint(EgoReachesRoadEndWithPedestrian.instance(),ModelQueryType.MUST_HAVE_MATCH)
                         .withComparator(Comparators.HIGHER_IS_BETTER));
         //global constraint -> eldobja ha illeszkedés van
 
         //save found instance models
-        dse.setSolutionStore(new StateTransitionBasedSolutionStore(10).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrian/vehicleReachesRoadEndWithPedestrian","scenedl"));
+        dse.setSolutionStore(new StateTransitionBasedSolutionStore(20).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrian/vehicleReachesRoadEndWithPedestrian","scenedl"));
 
+        
         dse.startExploration(new StateTransitionBasedDfsStrategy(100));
 
         System.out.println(dse.toStringSolutions());

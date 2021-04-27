@@ -83,44 +83,40 @@ class EdsdlDseRules {
 	
     new() {
         try {
-			vehicleMoves = createRule
+			vehicleMoves = createRule(VehicleMoves.instance())
                 .name("vehicleMoves")
-                .precondition(VehicleMoves.instance())
                 .action[						
-					vehiclePos.x = vehiclePos.x + vehicle.getSpeed
-					vehicle.actuateModel("vehicleMoves") 	    
+					vehicle.position.x = vehicle.position.x + vehicle.getSpeed
+					vehicle.actuateModel(vehicleMoves.name) 	    
                 ]
                 .build
                 
-            vehicleSlowsDown = createRule
+            vehicleSlowsDown = createRule(VehicleSlowsDown.instance())
                 .name("vehicleSlowsDown")
-                .precondition(VehicleSlowsDown.instance())
                 .action[                	
                 	//val featureX = vehiclePos.eClass.EAllStructuralFeatures.filter[it.name.equals("x")].head
                 	//map a by megszerzéséhez
                 	//vehiclePos.eSet(featureX,1);
-                	
-					vehiclePos.x = vehiclePos.x + vehicle.setSpeed(by)
-                	vehicle.actuateModel("vehicleSlowsDown")                	    
+                	//vehicle.position.x
+					vehicle.position.x = vehicle.position.x + vehicle.setSpeed(by)
+                	vehicle.actuateModel(vehicleSlowsDown.name)                	    
                 ]
                 .build
                 
-            vehicleAccelerates = createRule
+            vehicleAccelerates = createRule(VehicleAccelerates.instance())
                 .name("vehicleAccelerates")
-                .precondition(VehicleAccelerates.instance())
                 .action[            	
-					vehiclePos.x = vehiclePos.x + vehicle.setSpeed(by)
-                	vehicle.actuateModel("vehicleAccelerates")                	    
+					vehicle.position.x = vehicle.position.x + vehicle.setSpeed(by)
+                	vehicle.actuateModel(vehicleAccelerates.name)                	    
                 ]
                 .build
 
 
-			pedestrianMoves = createRule
+			pedestrianMoves = createRule(PedestrianMoves.instance())
                 .name("pedestrianMoves")
-                .precondition(PedestrianMoves.instance())
                 .action[
-					pedestrianPos.y = pedestrianPos.y + pedestrian.getSpeed
-					pedestrian.actuateModel("pedestrianMoves")
+					pedestrian.position.y = pedestrian.position.y - pedestrian.getSpeed
+					pedestrian.actuateModel(pedestrianMoves.name)
                 ]
                 .build    
 			

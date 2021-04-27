@@ -44,7 +44,7 @@ import scenedl.StaticEntity;
  * 
  * <p>Original source:
  *         <code><pre>
- *         pattern vehicleOnRoad(de: DynamicEntity,se: StaticEntity){		
+ *         pattern egoOnRoad(de: DynamicEntity,se: StaticEntity){		
  *         	DynamicEntity.on(de,se);
  *         }
  * </pre></code>
@@ -54,9 +54,9 @@ import scenedl.StaticEntity;
  * 
  */
 @SuppressWarnings("all")
-public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<VehicleOnRoad.Matcher> {
+public final class EgoOnRoad extends BaseGeneratedEMFQuerySpecification<EgoOnRoad.Matcher> {
   /**
-   * Pattern-specific match representation of the event.driven.scenario.dse.queries.vehicleOnRoad pattern,
+   * Pattern-specific match representation of the event.driven.scenario.dse.queries.egoOnRoad pattern,
    * to be used in conjunction with {@link Matcher}.
    * 
    * <p>Class fields correspond to parameters of the pattern. Fields with value null are considered unassigned.
@@ -131,12 +131,12 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
     
     @Override
     public String patternName() {
-      return "event.driven.scenario.dse.queries.vehicleOnRoad";
+      return "event.driven.scenario.dse.queries.egoOnRoad";
     }
     
     @Override
     public List<String> parameterNames() {
-      return VehicleOnRoad.Match.parameterNames;
+      return EgoOnRoad.Match.parameterNames;
     }
     
     @Override
@@ -145,7 +145,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
     }
     
     @Override
-    public VehicleOnRoad.Match toImmutable() {
+    public EgoOnRoad.Match toImmutable() {
       return isMutable() ? newMatch(fDe, fSe) : this;
     }
     
@@ -169,8 +169,8 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
       if (obj == null) {
           return false;
       }
-      if ((obj instanceof VehicleOnRoad.Match)) {
-          VehicleOnRoad.Match other = (VehicleOnRoad.Match) obj;
+      if ((obj instanceof EgoOnRoad.Match)) {
+          EgoOnRoad.Match other = (EgoOnRoad.Match) obj;
           return Objects.equals(fDe, other.fDe) && Objects.equals(fSe, other.fSe);
       } else {
           // this should be infrequent
@@ -183,8 +183,8 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
     }
     
     @Override
-    public VehicleOnRoad specification() {
-      return VehicleOnRoad.instance();
+    public EgoOnRoad specification() {
+      return EgoOnRoad.instance();
     }
     
     /**
@@ -194,7 +194,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return the empty match.
      * 
      */
-    public static VehicleOnRoad.Match newEmptyMatch() {
+    public static EgoOnRoad.Match newEmptyMatch() {
       return new Mutable(null, null);
     }
     
@@ -207,7 +207,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return the new, mutable (partial) match object.
      * 
      */
-    public static VehicleOnRoad.Match newMutableMatch(final DynamicEntity pDe, final StaticEntity pSe) {
+    public static EgoOnRoad.Match newMutableMatch(final DynamicEntity pDe, final StaticEntity pSe) {
       return new Mutable(pDe, pSe);
     }
     
@@ -220,11 +220,11 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return the (partial) match object.
      * 
      */
-    public static VehicleOnRoad.Match newMatch(final DynamicEntity pDe, final StaticEntity pSe) {
+    public static EgoOnRoad.Match newMatch(final DynamicEntity pDe, final StaticEntity pSe) {
       return new Immutable(pDe, pSe);
     }
     
-    private static final class Mutable extends VehicleOnRoad.Match {
+    private static final class Mutable extends EgoOnRoad.Match {
       Mutable(final DynamicEntity pDe, final StaticEntity pSe) {
         super(pDe, pSe);
       }
@@ -235,7 +235,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
       }
     }
     
-    private static final class Immutable extends VehicleOnRoad.Match {
+    private static final class Immutable extends EgoOnRoad.Match {
       Immutable(final DynamicEntity pDe, final StaticEntity pSe) {
         super(pDe, pSe);
       }
@@ -248,7 +248,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
   }
   
   /**
-   * Generated pattern matcher API of the event.driven.scenario.dse.queries.vehicleOnRoad pattern,
+   * Generated pattern matcher API of the event.driven.scenario.dse.queries.egoOnRoad pattern,
    * providing pattern-specific query methods.
    * 
    * <p>Use the pattern matcher on a given model via {@link #on(ViatraQueryEngine)},
@@ -258,16 +258,16 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
    * 
    * <p>Original source:
    * <code><pre>
-   * pattern vehicleOnRoad(de: DynamicEntity,se: StaticEntity){		
+   * pattern egoOnRoad(de: DynamicEntity,se: StaticEntity){		
    * 	DynamicEntity.on(de,se);
    * }
    * </pre></code>
    * 
    * @see Match
-   * @see VehicleOnRoad
+   * @see EgoOnRoad
    * 
    */
-  public static class Matcher extends BaseMatcher<VehicleOnRoad.Match> {
+  public static class Matcher extends BaseMatcher<EgoOnRoad.Match> {
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
      * If the pattern matcher is already constructed in the engine, only a light-weight reference is returned.
@@ -276,7 +276,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @throws ViatraQueryRuntimeException if an error occurs during pattern matcher creation
      * 
      */
-    public static VehicleOnRoad.Matcher on(final ViatraQueryEngine engine) {
+    public static EgoOnRoad.Matcher on(final ViatraQueryEngine engine) {
       // check if matcher already exists
       Matcher matcher = engine.getExistingMatcher(querySpecification());
       if (matcher == null) {
@@ -291,7 +291,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @noreference This method is for internal matcher initialization by the framework, do not call it manually.
      * 
      */
-    public static VehicleOnRoad.Matcher create() {
+    public static EgoOnRoad.Matcher create() {
       return new Matcher();
     }
     
@@ -299,7 +299,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
     
     private static final int POSITION_SE = 1;
     
-    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(VehicleOnRoad.Matcher.class);
+    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(EgoOnRoad.Matcher.class);
     
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
@@ -320,7 +320,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return matches represented as a Match object.
      * 
      */
-    public Collection<VehicleOnRoad.Match> getAllMatches(final DynamicEntity pDe, final StaticEntity pSe) {
+    public Collection<EgoOnRoad.Match> getAllMatches(final DynamicEntity pDe, final StaticEntity pSe) {
       return rawStreamAllMatches(new Object[]{pDe, pSe}).collect(Collectors.toSet());
     }
     
@@ -335,7 +335,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return a stream of matches represented as a Match object.
      * 
      */
-    public Stream<VehicleOnRoad.Match> streamAllMatches(final DynamicEntity pDe, final StaticEntity pSe) {
+    public Stream<EgoOnRoad.Match> streamAllMatches(final DynamicEntity pDe, final StaticEntity pSe) {
       return rawStreamAllMatches(new Object[]{pDe, pSe});
     }
     
@@ -347,7 +347,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return a match represented as a Match object, or null if no match is found.
      * 
      */
-    public Optional<VehicleOnRoad.Match> getOneArbitraryMatch(final DynamicEntity pDe, final StaticEntity pSe) {
+    public Optional<EgoOnRoad.Match> getOneArbitraryMatch(final DynamicEntity pDe, final StaticEntity pSe) {
       return rawGetOneArbitraryMatch(new Object[]{pDe, pSe});
     }
     
@@ -383,7 +383,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
      * 
      */
-    public boolean forOneArbitraryMatch(final DynamicEntity pDe, final StaticEntity pSe, final Consumer<? super VehicleOnRoad.Match> processor) {
+    public boolean forOneArbitraryMatch(final DynamicEntity pDe, final StaticEntity pSe, final Consumer<? super EgoOnRoad.Match> processor) {
       return rawForOneArbitraryMatch(new Object[]{pDe, pSe}, processor);
     }
     
@@ -396,8 +396,8 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return the (partial) match object.
      * 
      */
-    public VehicleOnRoad.Match newMatch(final DynamicEntity pDe, final StaticEntity pSe) {
-      return VehicleOnRoad.Match.newMatch(pDe, pSe);
+    public EgoOnRoad.Match newMatch(final DynamicEntity pDe, final StaticEntity pSe) {
+      return EgoOnRoad.Match.newMatch(pDe, pSe);
     }
     
     /**
@@ -437,7 +437,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfde(final VehicleOnRoad.Match partialMatch) {
+    public Stream<DynamicEntity> streamAllValuesOfde(final EgoOnRoad.Match partialMatch) {
       return rawStreamAllValuesOfde(partialMatch.toArray());
     }
     
@@ -460,7 +460,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfde(final VehicleOnRoad.Match partialMatch) {
+    public Set<DynamicEntity> getAllValuesOfde(final EgoOnRoad.Match partialMatch) {
       return rawStreamAllValuesOfde(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
@@ -510,7 +510,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<StaticEntity> streamAllValuesOfse(final VehicleOnRoad.Match partialMatch) {
+    public Stream<StaticEntity> streamAllValuesOfse(final EgoOnRoad.Match partialMatch) {
       return rawStreamAllValuesOfse(partialMatch.toArray());
     }
     
@@ -533,7 +533,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<StaticEntity> getAllValuesOfse(final VehicleOnRoad.Match partialMatch) {
+    public Set<StaticEntity> getAllValuesOfse(final EgoOnRoad.Match partialMatch) {
       return rawStreamAllValuesOfse(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
@@ -547,9 +547,9 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
     }
     
     @Override
-    protected VehicleOnRoad.Match tupleToMatch(final Tuple t) {
+    protected EgoOnRoad.Match tupleToMatch(final Tuple t) {
       try {
-          return VehicleOnRoad.Match.newMatch((DynamicEntity) t.get(POSITION_DE), (StaticEntity) t.get(POSITION_SE));
+          return EgoOnRoad.Match.newMatch((DynamicEntity) t.get(POSITION_DE), (StaticEntity) t.get(POSITION_SE));
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in tuple not properly typed!",e);
           return null;
@@ -557,9 +557,9 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
     }
     
     @Override
-    protected VehicleOnRoad.Match arrayToMatch(final Object[] match) {
+    protected EgoOnRoad.Match arrayToMatch(final Object[] match) {
       try {
-          return VehicleOnRoad.Match.newMatch((DynamicEntity) match[POSITION_DE], (StaticEntity) match[POSITION_SE]);
+          return EgoOnRoad.Match.newMatch((DynamicEntity) match[POSITION_DE], (StaticEntity) match[POSITION_SE]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -567,9 +567,9 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
     }
     
     @Override
-    protected VehicleOnRoad.Match arrayToMatchMutable(final Object[] match) {
+    protected EgoOnRoad.Match arrayToMatchMutable(final Object[] match) {
       try {
-          return VehicleOnRoad.Match.newMutableMatch((DynamicEntity) match[POSITION_DE], (StaticEntity) match[POSITION_SE]);
+          return EgoOnRoad.Match.newMutableMatch((DynamicEntity) match[POSITION_DE], (StaticEntity) match[POSITION_SE]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -581,12 +581,12 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
      * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
      * 
      */
-    public static IQuerySpecification<VehicleOnRoad.Matcher> querySpecification() {
-      return VehicleOnRoad.instance();
+    public static IQuerySpecification<EgoOnRoad.Matcher> querySpecification() {
+      return EgoOnRoad.instance();
     }
   }
   
-  private VehicleOnRoad() {
+  private EgoOnRoad() {
     super(GeneratedPQuery.INSTANCE);
   }
   
@@ -595,7 +595,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
    * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
    * 
    */
-  public static VehicleOnRoad instance() {
+  public static EgoOnRoad instance() {
     try{
         return LazyHolder.INSTANCE;
     } catch (ExceptionInInitializerError err) {
@@ -604,35 +604,35 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
   }
   
   @Override
-  protected VehicleOnRoad.Matcher instantiate(final ViatraQueryEngine engine) {
-    return VehicleOnRoad.Matcher.on(engine);
+  protected EgoOnRoad.Matcher instantiate(final ViatraQueryEngine engine) {
+    return EgoOnRoad.Matcher.on(engine);
   }
   
   @Override
-  public VehicleOnRoad.Matcher instantiate() {
-    return VehicleOnRoad.Matcher.create();
+  public EgoOnRoad.Matcher instantiate() {
+    return EgoOnRoad.Matcher.create();
   }
   
   @Override
-  public VehicleOnRoad.Match newEmptyMatch() {
-    return VehicleOnRoad.Match.newEmptyMatch();
+  public EgoOnRoad.Match newEmptyMatch() {
+    return EgoOnRoad.Match.newEmptyMatch();
   }
   
   @Override
-  public VehicleOnRoad.Match newMatch(final Object... parameters) {
-    return VehicleOnRoad.Match.newMatch((scenedl.DynamicEntity) parameters[0], (scenedl.StaticEntity) parameters[1]);
+  public EgoOnRoad.Match newMatch(final Object... parameters) {
+    return EgoOnRoad.Match.newMatch((scenedl.DynamicEntity) parameters[0], (scenedl.StaticEntity) parameters[1]);
   }
   
   /**
-   * Inner class allowing the singleton instance of {@link VehicleOnRoad} to be created 
+   * Inner class allowing the singleton instance of {@link EgoOnRoad} to be created 
    *     <b>not</b> at the class load time of the outer class, 
-   *     but rather at the first call to {@link VehicleOnRoad#instance()}.
+   *     but rather at the first call to {@link EgoOnRoad#instance()}.
    * 
    * <p> This workaround is required e.g. to support recursion.
    * 
    */
   private static class LazyHolder {
-    private static final VehicleOnRoad INSTANCE = new VehicleOnRoad();
+    private static final EgoOnRoad INSTANCE = new EgoOnRoad();
     
     /**
      * Statically initializes the query specification <b>after</b> the field {@link #INSTANCE} is assigned.
@@ -650,7 +650,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
   }
   
   private static class GeneratedPQuery extends BaseGeneratedEMFPQuery {
-    private static final VehicleOnRoad.GeneratedPQuery INSTANCE = new GeneratedPQuery();
+    private static final EgoOnRoad.GeneratedPQuery INSTANCE = new GeneratedPQuery();
     
     private final PParameter parameter_de = new PParameter("de", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
     
@@ -664,7 +664,7 @@ public final class VehicleOnRoad extends BaseGeneratedEMFQuerySpecification<Vehi
     
     @Override
     public String getFullyQualifiedName() {
-      return "event.driven.scenario.dse.queries.vehicleOnRoad";
+      return "event.driven.scenario.dse.queries.egoOnRoad";
     }
     
     @Override

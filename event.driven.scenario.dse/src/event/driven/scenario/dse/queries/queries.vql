@@ -3,6 +3,7 @@ package event.driven.scenario.dse.queries
 import "http://www.eventDrivenScenario.org/edsdl"
 import "http://www.eventDrivenScenario.org/scenedl"
 
+//Constraints
 pattern inScene(entity: DynamicEntity,scene : Scene){
 	Scene.elements(scene,entity);
 	
@@ -14,11 +15,66 @@ pattern inScene(entity: DynamicEntity,scene : Scene){
 	PositionAttribute.x(entityPos,posX);
 	PositionAttribute.y(entityPos,posY);
 	
-	check(posX <= boundryPosX && posY <= boundryPosY);
+	check(posX <= boundryPosX && posY <= boundryPosY && posX >= 0 && posY >= 0);
 }
 
-pattern vehicleOnRoad(de: DynamicEntity,se: StaticEntity){		
+pattern egoOnRoad(de: DynamicEntity,se: StaticEntity){		
 	DynamicEntity.on(de,se);
+}
+
+pattern noCollision4(e: DynamicEntity,p: DynamicEntity,c1: DynamicEntity,c2: DynamicEntity){
+	//DynamicEntity.name(p,"pedestrian");
+	DynamicEntity.position(p,pedestrianePos);
+	PositionAttribute.y(pedestrianePos,pedestrianPosY);
+	PositionAttribute.x(pedestrianePos,pedestrianPosX);
+	
+	//DynamicEntity.name(c,"ego");
+	DynamicEntity.position(e,egoPos);
+	PositionAttribute.x(egoPos,egoPosX);
+	PositionAttribute.y(egoPos,egoPosY);
+	
+	DynamicEntity.position(c1,car1Pos);
+	PositionAttribute.x(car1Pos,car1PosX);
+	PositionAttribute.y(car1Pos,car1PosY);
+	
+	DynamicEntity.position(c2,car2Pos);
+	PositionAttribute.x(car2Pos,car2PosX);
+	PositionAttribute.y(car2Pos,car2PosY);
+	
+	check(egoPosX != pedestrianPosX && pedestrianPosY != egoPosY);
+}
+
+pattern noCollision3(e: DynamicEntity,p: DynamicEntity,c1: DynamicEntity){
+	//DynamicEntity.name(p,"pedestrian");
+	DynamicEntity.position(p,pedestrianePos);
+	PositionAttribute.y(pedestrianePos,pedestrianPosY);
+	PositionAttribute.x(pedestrianePos,pedestrianPosX);
+	
+	//DynamicEntity.name(c,"ego");
+	DynamicEntity.position(e,egoPos);
+	PositionAttribute.x(egoPos,egoPosX);
+	PositionAttribute.y(egoPos,egoPosY);
+	
+	DynamicEntity.position(c1,car1Pos);
+	PositionAttribute.x(car1Pos,car1PosX);
+	PositionAttribute.y(car1Pos,car1PosY);
+	
+	check(egoPosX != pedestrianPosX && pedestrianPosY != egoPosY);
+}
+
+pattern collision2(e: DynamicEntity,p: DynamicEntity){
+	//DynamicEntity.name(p,"pedestrian");
+	DynamicEntity.position(p,pedestrianePos);
+	PositionAttribute.y(pedestrianePos,pedestrianPosY);
+	PositionAttribute.x(pedestrianePos,pedestrianPosX);
+	
+	//DynamicEntity.name(e,"ego");
+	DynamicEntity.position(e,egoPos);
+	PositionAttribute.x(egoPos,egoPosX);
+	PositionAttribute.y(egoPos,egoPosY);
+	egoPosX == pedestrianPosX;
+	pedestrianPosY == egoPosY;
+	//check(egoPosX == pedestrianPosX && pedestrianPosY == egoPosY);
 }
 
 //Rules
@@ -28,40 +84,34 @@ pattern getPossibleTransitions(stateMachine : StateMachine,actualState: State,t 
 	State.outTransitions(actualState,t);
 }
 
-pattern vehicleSlowsDown(scene: Scene, vehicle: DynamicEntity, vehiclePos: PositionAttribute, by : java Integer){
+pattern vehicleSlowsDown(scene: Scene, vehicle: DynamicEntity, by : java Integer){
 	Scene.elements(scene,vehicle);
-	DynamicEntity.name(vehicle,"car");
+	DynamicEntity.name(vehicle,"ego");
 	by == -1;
-	DynamicEntity.position(vehicle,vehiclePos);
 }
 
-pattern vehicleAccelerates(scene: Scene, vehicle: DynamicEntity, vehiclePos: PositionAttribute, by : java Integer){
+pattern vehicleAccelerates(scene: Scene, vehicle: DynamicEntity, by : java Integer){
 	Scene.elements(scene,vehicle);
-	DynamicEntity.name(vehicle,"car");
+	DynamicEntity.name(vehicle,"ego");
 	by == 1;
-	DynamicEntity.position(vehicle,vehiclePos);
 }
 
-pattern vehicleMoves(scene: Scene, vehicle: DynamicEntity, vehiclePos: PositionAttribute){
-	
+pattern vehicleMoves(scene: Scene, vehicle: DynamicEntity){
 	Scene.elements(scene,vehicle);
-	DynamicEntity.name(vehicle,"car");
-	find inScene(vehicle,scene);
-	DynamicEntity.position(vehicle,vehiclePos);
+	DynamicEntity.name(vehicle,"ego");
 }
 
-pattern pedestrianMoves(scene: Scene, pedestrian: DynamicEntity, pedestrianPos: PositionAttribute){
+pattern pedestrianMoves(scene: Scene, pedestrian: DynamicEntity){
 	Scene.elements(scene,pedestrian);
 	DynamicEntity.name(pedestrian,"pedestrian");
 	find inScene(pedestrian,scene);
-	DynamicEntity.position(pedestrian,pedestrianPos);
 }
 
 
 
 //Objectives
-pattern vehicleReachesRoadEndWithPedestrian(scene: Scene, vehicle: DynamicEntity, pedestrian: DynamicEntity,crosswalk: StaticEntity){
-	Scene.elements(scene,vehicle);
+pattern egoReachesRoadEndWithPedestrian(scene: Scene, ego: DynamicEntity, pedestrian: DynamicEntity,crosswalk: StaticEntity){
+	Scene.elements(scene,ego);
 	Scene.elements(scene,road);
 	Scene.elements(scene,pedestrian);
 	Scene.elements(scene,crosswalk);
@@ -71,24 +121,21 @@ pattern vehicleReachesRoadEndWithPedestrian(scene: Scene, vehicle: DynamicEntity
 	StaticEntity.name(road,"road");
 	
 	StaticEntity.lanes(crosswalk,crosswalkLanes);
-	Lane.endingPosition(crosswalkLanes,crosswalkPos);
+	Lane.startingPosition(crosswalkLanes,crosswalkPos);
 	PositionAttribute.y(crosswalkPos,crosswalkPosY);
 	PositionAttribute.x(crosswalkPos,crosswalkPosX);
 	
 	DynamicEntity.position(pedestrian,pedestrianePos);
 	PositionAttribute.y(pedestrianePos,pedestrianPosY);
 	
-	DynamicEntity.name(vehicle,"car");
-	
-	DynamicEntity.position(vehicle,vehiclePos);
-	PositionAttribute.x(vehiclePos,vehiclePosX);
+	DynamicEntity.name(ego,"ego");
+	DynamicEntity.position(ego,egoPos);
+	PositionAttribute.x(egoPos,egoPosX);
 	
 	find inScene(pedestrian,scene);
-	find inScene(vehicle,scene);
+	find inScene(ego,scene);
+	neg find collision2(ego,pedestrian);
 	
-	//find vehicleOnRoad(vehicle,road);	
-	
-	check(vehiclePosX > crosswalkPosX && pedestrianPosY > crosswalkPosY);
+	check(egoPosX > crosswalkPosX && pedestrianPosY < crosswalkPosY);
 }
 
-//Constraints

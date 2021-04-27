@@ -41,7 +41,6 @@ import org.eclipse.viatra.query.runtime.matchers.tuple.Tuple;
 import org.eclipse.viatra.query.runtime.matchers.tuple.Tuples;
 import org.eclipse.viatra.query.runtime.util.ViatraQueryLoggingUtil;
 import scenedl.DynamicEntity;
-import scenedl.PositionAttribute;
 import scenedl.Scene;
 
 /**
@@ -49,11 +48,10 @@ import scenedl.Scene;
  * 
  * <p>Original source:
  *         <code><pre>
- *         pattern pedestrianMoves(scene: Scene, pedestrian: DynamicEntity, pedestrianPos: PositionAttribute){
+ *         pattern pedestrianMoves(scene: Scene, pedestrian: DynamicEntity){
  *         	Scene.elements(scene,pedestrian);
  *         	DynamicEntity.name(pedestrian,"pedestrian");
  *         	find inScene(pedestrian,scene);
- *         	DynamicEntity.position(pedestrian,pedestrianPos);
  *         }
  * </pre></code>
  * 
@@ -80,14 +78,11 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
     
     private DynamicEntity fPedestrian;
     
-    private PositionAttribute fPedestrianPos;
+    private static List<String> parameterNames = makeImmutableList("scene", "pedestrian");
     
-    private static List<String> parameterNames = makeImmutableList("scene", "pedestrian", "pedestrianPos");
-    
-    private Match(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
+    private Match(final Scene pScene, final DynamicEntity pPedestrian) {
       this.fScene = pScene;
       this.fPedestrian = pPedestrian;
-      this.fPedestrianPos = pPedestrianPos;
     }
     
     @Override
@@ -95,7 +90,6 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
       switch(parameterName) {
           case "scene": return this.fScene;
           case "pedestrian": return this.fPedestrian;
-          case "pedestrianPos": return this.fPedestrianPos;
           default: return null;
       }
     }
@@ -105,7 +99,6 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
       switch(index) {
           case 0: return this.fScene;
           case 1: return this.fPedestrian;
-          case 2: return this.fPedestrianPos;
           default: return null;
       }
     }
@@ -118,10 +111,6 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
       return this.fPedestrian;
     }
     
-    public PositionAttribute getPedestrianPos() {
-      return this.fPedestrianPos;
-    }
-    
     @Override
     public boolean set(final String parameterName, final Object newValue) {
       if (!isMutable()) throw new java.lang.UnsupportedOperationException();
@@ -131,10 +120,6 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
       }
       if ("pedestrian".equals(parameterName) ) {
           this.fPedestrian = (DynamicEntity) newValue;
-          return true;
-      }
-      if ("pedestrianPos".equals(parameterName) ) {
-          this.fPedestrianPos = (PositionAttribute) newValue;
           return true;
       }
       return false;
@@ -150,11 +135,6 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
       this.fPedestrian = pPedestrian;
     }
     
-    public void setPedestrianPos(final PositionAttribute pPedestrianPos) {
-      if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-      this.fPedestrianPos = pPedestrianPos;
-    }
-    
     @Override
     public String patternName() {
       return "event.driven.scenario.dse.queries.pedestrianMoves";
@@ -167,26 +147,25 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
     
     @Override
     public Object[] toArray() {
-      return new Object[]{fScene, fPedestrian, fPedestrianPos};
+      return new Object[]{fScene, fPedestrian};
     }
     
     @Override
     public PedestrianMoves.Match toImmutable() {
-      return isMutable() ? newMatch(fScene, fPedestrian, fPedestrianPos) : this;
+      return isMutable() ? newMatch(fScene, fPedestrian) : this;
     }
     
     @Override
     public String prettyPrint() {
       StringBuilder result = new StringBuilder();
       result.append("\"scene\"=" + prettyPrintValue(fScene) + ", ");
-      result.append("\"pedestrian\"=" + prettyPrintValue(fPedestrian) + ", ");
-      result.append("\"pedestrianPos\"=" + prettyPrintValue(fPedestrianPos));
+      result.append("\"pedestrian\"=" + prettyPrintValue(fPedestrian));
       return result.toString();
     }
     
     @Override
     public int hashCode() {
-      return Objects.hash(fScene, fPedestrian, fPedestrianPos);
+      return Objects.hash(fScene, fPedestrian);
     }
     
     @Override
@@ -198,7 +177,7 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
       }
       if ((obj instanceof PedestrianMoves.Match)) {
           PedestrianMoves.Match other = (PedestrianMoves.Match) obj;
-          return Objects.equals(fScene, other.fScene) && Objects.equals(fPedestrian, other.fPedestrian) && Objects.equals(fPedestrianPos, other.fPedestrianPos);
+          return Objects.equals(fScene, other.fScene) && Objects.equals(fPedestrian, other.fPedestrian);
       } else {
           // this should be infrequent
           if (!(obj instanceof IPatternMatch)) {
@@ -222,7 +201,7 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * 
      */
     public static PedestrianMoves.Match newEmptyMatch() {
-      return new Mutable(null, null, null);
+      return new Mutable(null, null);
     }
     
     /**
@@ -231,12 +210,11 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * 
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
-     * @param pPedestrianPos the fixed value of pattern parameter pedestrianPos, or null if not bound.
      * @return the new, mutable (partial) match object.
      * 
      */
-    public static PedestrianMoves.Match newMutableMatch(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return new Mutable(pScene, pPedestrian, pPedestrianPos);
+    public static PedestrianMoves.Match newMutableMatch(final Scene pScene, final DynamicEntity pPedestrian) {
+      return new Mutable(pScene, pPedestrian);
     }
     
     /**
@@ -245,17 +223,16 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
-     * @param pPedestrianPos the fixed value of pattern parameter pedestrianPos, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public static PedestrianMoves.Match newMatch(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return new Immutable(pScene, pPedestrian, pPedestrianPos);
+    public static PedestrianMoves.Match newMatch(final Scene pScene, final DynamicEntity pPedestrian) {
+      return new Immutable(pScene, pPedestrian);
     }
     
     private static final class Mutable extends PedestrianMoves.Match {
-      Mutable(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-        super(pScene, pPedestrian, pPedestrianPos);
+      Mutable(final Scene pScene, final DynamicEntity pPedestrian) {
+        super(pScene, pPedestrian);
       }
       
       @Override
@@ -265,8 +242,8 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
     }
     
     private static final class Immutable extends PedestrianMoves.Match {
-      Immutable(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-        super(pScene, pPedestrian, pPedestrianPos);
+      Immutable(final Scene pScene, final DynamicEntity pPedestrian) {
+        super(pScene, pPedestrian);
       }
       
       @Override
@@ -287,11 +264,10 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
    * 
    * <p>Original source:
    * <code><pre>
-   * pattern pedestrianMoves(scene: Scene, pedestrian: DynamicEntity, pedestrianPos: PositionAttribute){
+   * pattern pedestrianMoves(scene: Scene, pedestrian: DynamicEntity){
    * 	Scene.elements(scene,pedestrian);
    * 	DynamicEntity.name(pedestrian,"pedestrian");
    * 	find inScene(pedestrian,scene);
-   * 	DynamicEntity.position(pedestrian,pedestrianPos);
    * }
    * </pre></code>
    * 
@@ -331,8 +307,6 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
     
     private static final int POSITION_PEDESTRIAN = 1;
     
-    private static final int POSITION_PEDESTRIANPOS = 2;
-    
     private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(PedestrianMoves.Matcher.class);
     
     /**
@@ -351,12 +325,11 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
-     * @param pPedestrianPos the fixed value of pattern parameter pedestrianPos, or null if not bound.
      * @return matches represented as a Match object.
      * 
      */
-    public Collection<PedestrianMoves.Match> getAllMatches(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return rawStreamAllMatches(new Object[]{pScene, pPedestrian, pPedestrianPos}).collect(Collectors.toSet());
+    public Collection<PedestrianMoves.Match> getAllMatches(final Scene pScene, final DynamicEntity pPedestrian) {
+      return rawStreamAllMatches(new Object[]{pScene, pPedestrian}).collect(Collectors.toSet());
     }
     
     /**
@@ -367,12 +340,11 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * In such cases, either rely on {@link #getAllMatches()} or collect the results of the stream in end-user code.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
-     * @param pPedestrianPos the fixed value of pattern parameter pedestrianPos, or null if not bound.
      * @return a stream of matches represented as a Match object.
      * 
      */
-    public Stream<PedestrianMoves.Match> streamAllMatches(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return rawStreamAllMatches(new Object[]{pScene, pPedestrian, pPedestrianPos});
+    public Stream<PedestrianMoves.Match> streamAllMatches(final Scene pScene, final DynamicEntity pPedestrian) {
+      return rawStreamAllMatches(new Object[]{pScene, pPedestrian});
     }
     
     /**
@@ -380,12 +352,11 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * Neither determinism nor randomness of selection is guaranteed.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
-     * @param pPedestrianPos the fixed value of pattern parameter pedestrianPos, or null if not bound.
      * @return a match represented as a Match object, or null if no match is found.
      * 
      */
-    public Optional<PedestrianMoves.Match> getOneArbitraryMatch(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return rawGetOneArbitraryMatch(new Object[]{pScene, pPedestrian, pPedestrianPos});
+    public Optional<PedestrianMoves.Match> getOneArbitraryMatch(final Scene pScene, final DynamicEntity pPedestrian) {
+      return rawGetOneArbitraryMatch(new Object[]{pScene, pPedestrian});
     }
     
     /**
@@ -393,24 +364,22 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * under any possible substitution of the unspecified parameters (if any).
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
-     * @param pPedestrianPos the fixed value of pattern parameter pedestrianPos, or null if not bound.
      * @return true if the input is a valid (partial) match of the pattern.
      * 
      */
-    public boolean hasMatch(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return rawHasMatch(new Object[]{pScene, pPedestrian, pPedestrianPos});
+    public boolean hasMatch(final Scene pScene, final DynamicEntity pPedestrian) {
+      return rawHasMatch(new Object[]{pScene, pPedestrian});
     }
     
     /**
      * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
-     * @param pPedestrianPos the fixed value of pattern parameter pedestrianPos, or null if not bound.
      * @return the number of pattern matches found.
      * 
      */
-    public int countMatches(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return rawCountMatches(new Object[]{pScene, pPedestrian, pPedestrianPos});
+    public int countMatches(final Scene pScene, final DynamicEntity pPedestrian) {
+      return rawCountMatches(new Object[]{pScene, pPedestrian});
     }
     
     /**
@@ -418,13 +387,12 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * Neither determinism nor randomness of selection is guaranteed.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
-     * @param pPedestrianPos the fixed value of pattern parameter pedestrianPos, or null if not bound.
      * @param processor the action that will process the selected match.
      * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
      * 
      */
-    public boolean forOneArbitraryMatch(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos, final Consumer<? super PedestrianMoves.Match> processor) {
-      return rawForOneArbitraryMatch(new Object[]{pScene, pPedestrian, pPedestrianPos}, processor);
+    public boolean forOneArbitraryMatch(final Scene pScene, final DynamicEntity pPedestrian, final Consumer<? super PedestrianMoves.Match> processor) {
+      return rawForOneArbitraryMatch(new Object[]{pScene, pPedestrian}, processor);
     }
     
     /**
@@ -433,12 +401,11 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
-     * @param pPedestrianPos the fixed value of pattern parameter pedestrianPos, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public PedestrianMoves.Match newMatch(final Scene pScene, final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return PedestrianMoves.Match.newMatch(pScene, pPedestrian, pPedestrianPos);
+    public PedestrianMoves.Match newMatch(final Scene pScene, final DynamicEntity pPedestrian) {
+      return PedestrianMoves.Match.newMatch(pScene, pPedestrian);
     }
     
     /**
@@ -492,8 +459,8 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<Scene> streamAllValuesOfscene(final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return rawStreamAllValuesOfscene(new Object[]{null, pPedestrian, pPedestrianPos});
+    public Stream<Scene> streamAllValuesOfscene(final DynamicEntity pPedestrian) {
+      return rawStreamAllValuesOfscene(new Object[]{null, pPedestrian});
     }
     
     /**
@@ -510,8 +477,8 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<Scene> getAllValuesOfscene(final DynamicEntity pPedestrian, final PositionAttribute pPedestrianPos) {
-      return rawStreamAllValuesOfscene(new Object[]{null, pPedestrian, pPedestrianPos}).collect(Collectors.toSet());
+    public Set<Scene> getAllValuesOfscene(final DynamicEntity pPedestrian) {
+      return rawStreamAllValuesOfscene(new Object[]{null, pPedestrian}).collect(Collectors.toSet());
     }
     
     /**
@@ -565,8 +532,8 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfpedestrian(final Scene pScene, final PositionAttribute pPedestrianPos) {
-      return rawStreamAllValuesOfpedestrian(new Object[]{pScene, null, pPedestrianPos});
+    public Stream<DynamicEntity> streamAllValuesOfpedestrian(final Scene pScene) {
+      return rawStreamAllValuesOfpedestrian(new Object[]{pScene, null});
     }
     
     /**
@@ -583,87 +550,14 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfpedestrian(final Scene pScene, final PositionAttribute pPedestrianPos) {
-      return rawStreamAllValuesOfpedestrian(new Object[]{pScene, null, pPedestrianPos}).collect(Collectors.toSet());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for pedestrianPos.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    protected Stream<PositionAttribute> rawStreamAllValuesOfpedestrianPos(final Object[] parameters) {
-      return rawStreamAllValues(POSITION_PEDESTRIANPOS, parameters).map(PositionAttribute.class::cast);
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for pedestrianPos.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    public Set<PositionAttribute> getAllValuesOfpedestrianPos() {
-      return rawStreamAllValuesOfpedestrianPos(emptyArray()).collect(Collectors.toSet());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for pedestrianPos.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    public Stream<PositionAttribute> streamAllValuesOfpedestrianPos() {
-      return rawStreamAllValuesOfpedestrianPos(emptyArray());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for pedestrianPos.
-     * </p>
-     * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
-     * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
-     * In such cases, either rely on {@link #getAllMatches()} or collect the results of the stream in end-user code.
-     *      
-     * @return the Stream of all values or empty set if there are no matches
-     * 
-     */
-    public Stream<PositionAttribute> streamAllValuesOfpedestrianPos(final PedestrianMoves.Match partialMatch) {
-      return rawStreamAllValuesOfpedestrianPos(partialMatch.toArray());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for pedestrianPos.
-     * </p>
-     * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
-     * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
-     * In such cases, either rely on {@link #getAllMatches()} or collect the results of the stream in end-user code.
-     *      
-     * @return the Stream of all values or empty set if there are no matches
-     * 
-     */
-    public Stream<PositionAttribute> streamAllValuesOfpedestrianPos(final Scene pScene, final DynamicEntity pPedestrian) {
-      return rawStreamAllValuesOfpedestrianPos(new Object[]{pScene, pPedestrian, null});
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for pedestrianPos.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    public Set<PositionAttribute> getAllValuesOfpedestrianPos(final PedestrianMoves.Match partialMatch) {
-      return rawStreamAllValuesOfpedestrianPos(partialMatch.toArray()).collect(Collectors.toSet());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for pedestrianPos.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    public Set<PositionAttribute> getAllValuesOfpedestrianPos(final Scene pScene, final DynamicEntity pPedestrian) {
-      return rawStreamAllValuesOfpedestrianPos(new Object[]{pScene, pPedestrian, null}).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfpedestrian(final Scene pScene) {
+      return rawStreamAllValuesOfpedestrian(new Object[]{pScene, null}).collect(Collectors.toSet());
     }
     
     @Override
     protected PedestrianMoves.Match tupleToMatch(final Tuple t) {
       try {
-          return PedestrianMoves.Match.newMatch((Scene) t.get(POSITION_SCENE), (DynamicEntity) t.get(POSITION_PEDESTRIAN), (PositionAttribute) t.get(POSITION_PEDESTRIANPOS));
+          return PedestrianMoves.Match.newMatch((Scene) t.get(POSITION_SCENE), (DynamicEntity) t.get(POSITION_PEDESTRIAN));
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in tuple not properly typed!",e);
           return null;
@@ -673,7 +567,7 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
     @Override
     protected PedestrianMoves.Match arrayToMatch(final Object[] match) {
       try {
-          return PedestrianMoves.Match.newMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_PEDESTRIAN], (PositionAttribute) match[POSITION_PEDESTRIANPOS]);
+          return PedestrianMoves.Match.newMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_PEDESTRIAN]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -683,7 +577,7 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
     @Override
     protected PedestrianMoves.Match arrayToMatchMutable(final Object[] match) {
       try {
-          return PedestrianMoves.Match.newMutableMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_PEDESTRIAN], (PositionAttribute) match[POSITION_PEDESTRIANPOS]);
+          return PedestrianMoves.Match.newMutableMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_PEDESTRIAN]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -734,7 +628,7 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
   
   @Override
   public PedestrianMoves.Match newMatch(final Object... parameters) {
-    return PedestrianMoves.Match.newMatch((scenedl.Scene) parameters[0], (scenedl.DynamicEntity) parameters[1], (scenedl.PositionAttribute) parameters[2]);
+    return PedestrianMoves.Match.newMatch((scenedl.Scene) parameters[0], (scenedl.DynamicEntity) parameters[1]);
   }
   
   /**
@@ -770,9 +664,7 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
     
     private final PParameter parameter_pedestrian = new PParameter("pedestrian", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
     
-    private final PParameter parameter_pedestrianPos = new PParameter("pedestrianPos", "scenedl.PositionAttribute", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")), PParameterDirection.INOUT);
-    
-    private final List<PParameter> parameters = Arrays.asList(parameter_scene, parameter_pedestrian, parameter_pedestrianPos);
+    private final List<PParameter> parameters = Arrays.asList(parameter_scene, parameter_pedestrian);
     
     private GeneratedPQuery() {
       super(PVisibility.PUBLIC);
@@ -785,7 +677,7 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
     
     @Override
     public List<String> getParameterNames() {
-      return Arrays.asList("scene","pedestrian","pedestrianPos");
+      return Arrays.asList("scene","pedestrian");
     }
     
     @Override
@@ -801,14 +693,11 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
           PBody body = new PBody(this);
           PVariable var_scene = body.getOrCreateVariableByName("scene");
           PVariable var_pedestrian = body.getOrCreateVariableByName("pedestrian");
-          PVariable var_pedestrianPos = body.getOrCreateVariableByName("pedestrianPos");
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
           new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrian), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrianPos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
           body.setSymbolicParameters(Arrays.<ExportedParameter>asList(
              new ExportedParameter(body, var_scene, parameter_scene),
-             new ExportedParameter(body, var_pedestrian, parameter_pedestrian),
-             new ExportedParameter(body, var_pedestrianPos, parameter_pedestrianPos)
+             new ExportedParameter(body, var_pedestrian, parameter_pedestrian)
           ));
           // 	Scene.elements(scene,pedestrian)
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
@@ -826,12 +715,6 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
           new Equality(body, var__virtual_2_, var__virtual_1_);
           // 	find inScene(pedestrian,scene)
           new PositivePatternCall(body, Tuples.flatTupleOf(var_pedestrian, var_scene), InScene.instance().getInternalQueryRepresentation());
-          // 	DynamicEntity.position(pedestrian,pedestrianPos)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrian), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
-          PVariable var__virtual_3_ = body.getOrCreateVariableByName(".virtual{3}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrian, var__virtual_3_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "position")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_3_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
-          new Equality(body, var__virtual_3_, var_pedestrianPos);
           bodies.add(body);
       }
       return bodies;

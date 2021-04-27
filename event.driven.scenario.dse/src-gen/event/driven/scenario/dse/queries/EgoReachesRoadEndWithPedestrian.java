@@ -34,6 +34,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation;
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativePatternCall;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.PositivePatternCall;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint;
@@ -53,8 +54,8 @@ import scenedl.StaticEntity;
  * <p>Original source:
  *         <code><pre>
  *         //Objectives
- *         pattern vehicleReachesRoadEndWithPedestrian(scene: Scene, vehicle: DynamicEntity, pedestrian: DynamicEntity,crosswalk: StaticEntity){
- *         	Scene.elements(scene,vehicle);
+ *         pattern egoReachesRoadEndWithPedestrian(scene: Scene, ego: DynamicEntity, pedestrian: DynamicEntity,crosswalk: StaticEntity){
+ *         	Scene.elements(scene,ego);
  *         	Scene.elements(scene,road);
  *         	Scene.elements(scene,pedestrian);
  *         	Scene.elements(scene,crosswalk);
@@ -64,24 +65,22 @@ import scenedl.StaticEntity;
  *         	StaticEntity.name(road,"road");
  *         	
  *         	StaticEntity.lanes(crosswalk,crosswalkLanes);
- *         	Lane.endingPosition(crosswalkLanes,crosswalkPos);
+ *         	Lane.startingPosition(crosswalkLanes,crosswalkPos);
  *         	PositionAttribute.y(crosswalkPos,crosswalkPosY);
  *         	PositionAttribute.x(crosswalkPos,crosswalkPosX);
  *         	
  *         	DynamicEntity.position(pedestrian,pedestrianePos);
  *         	PositionAttribute.y(pedestrianePos,pedestrianPosY);
  *         	
- *         	DynamicEntity.name(vehicle,"car");
- *         	
- *         	DynamicEntity.position(vehicle,vehiclePos);
- *         	PositionAttribute.x(vehiclePos,vehiclePosX);
+ *         	DynamicEntity.name(ego,"ego");
+ *         	DynamicEntity.position(ego,egoPos);
+ *         	PositionAttribute.x(egoPos,egoPosX);
  *         	
  *         	find inScene(pedestrian,scene);
- *         	find inScene(vehicle,scene);
+ *         	find inScene(ego,scene);
+ *         	neg find collision2(ego,pedestrian);
  *         	
- *         	//find vehicleOnRoad(vehicle,road);	
- *         	
- *         	check(vehiclePosX {@literal >} crosswalkPosX && pedestrianPosY {@literal >} crosswalkPosY);
+ *         	check(egoPosX {@literal >} crosswalkPosX && pedestrianPosY {@literal <} crosswalkPosY);
  *         }
  * </pre></code>
  * 
@@ -90,9 +89,9 @@ import scenedl.StaticEntity;
  * 
  */
 @SuppressWarnings("all")
-public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQuerySpecification<VehicleReachesRoadEndWithPedestrian.Matcher> {
+public final class EgoReachesRoadEndWithPedestrian extends BaseGeneratedEMFQuerySpecification<EgoReachesRoadEndWithPedestrian.Matcher> {
   /**
-   * Pattern-specific match representation of the event.driven.scenario.dse.queries.vehicleReachesRoadEndWithPedestrian pattern,
+   * Pattern-specific match representation of the event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrian pattern,
    * to be used in conjunction with {@link Matcher}.
    * 
    * <p>Class fields correspond to parameters of the pattern. Fields with value null are considered unassigned.
@@ -106,17 +105,17 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
   public static abstract class Match extends BasePatternMatch {
     private Scene fScene;
     
-    private DynamicEntity fVehicle;
+    private DynamicEntity fEgo;
     
     private DynamicEntity fPedestrian;
     
     private StaticEntity fCrosswalk;
     
-    private static List<String> parameterNames = makeImmutableList("scene", "vehicle", "pedestrian", "crosswalk");
+    private static List<String> parameterNames = makeImmutableList("scene", "ego", "pedestrian", "crosswalk");
     
-    private Match(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+    private Match(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
       this.fScene = pScene;
-      this.fVehicle = pVehicle;
+      this.fEgo = pEgo;
       this.fPedestrian = pPedestrian;
       this.fCrosswalk = pCrosswalk;
     }
@@ -125,7 +124,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     public Object get(final String parameterName) {
       switch(parameterName) {
           case "scene": return this.fScene;
-          case "vehicle": return this.fVehicle;
+          case "ego": return this.fEgo;
           case "pedestrian": return this.fPedestrian;
           case "crosswalk": return this.fCrosswalk;
           default: return null;
@@ -136,7 +135,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     public Object get(final int index) {
       switch(index) {
           case 0: return this.fScene;
-          case 1: return this.fVehicle;
+          case 1: return this.fEgo;
           case 2: return this.fPedestrian;
           case 3: return this.fCrosswalk;
           default: return null;
@@ -147,8 +146,8 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
       return this.fScene;
     }
     
-    public DynamicEntity getVehicle() {
-      return this.fVehicle;
+    public DynamicEntity getEgo() {
+      return this.fEgo;
     }
     
     public DynamicEntity getPedestrian() {
@@ -166,8 +165,8 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
           this.fScene = (Scene) newValue;
           return true;
       }
-      if ("vehicle".equals(parameterName) ) {
-          this.fVehicle = (DynamicEntity) newValue;
+      if ("ego".equals(parameterName) ) {
+          this.fEgo = (DynamicEntity) newValue;
           return true;
       }
       if ("pedestrian".equals(parameterName) ) {
@@ -186,9 +185,9 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
       this.fScene = pScene;
     }
     
-    public void setVehicle(final DynamicEntity pVehicle) {
+    public void setEgo(final DynamicEntity pEgo) {
       if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-      this.fVehicle = pVehicle;
+      this.fEgo = pEgo;
     }
     
     public void setPedestrian(final DynamicEntity pPedestrian) {
@@ -203,29 +202,29 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     
     @Override
     public String patternName() {
-      return "event.driven.scenario.dse.queries.vehicleReachesRoadEndWithPedestrian";
+      return "event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrian";
     }
     
     @Override
     public List<String> parameterNames() {
-      return VehicleReachesRoadEndWithPedestrian.Match.parameterNames;
+      return EgoReachesRoadEndWithPedestrian.Match.parameterNames;
     }
     
     @Override
     public Object[] toArray() {
-      return new Object[]{fScene, fVehicle, fPedestrian, fCrosswalk};
+      return new Object[]{fScene, fEgo, fPedestrian, fCrosswalk};
     }
     
     @Override
-    public VehicleReachesRoadEndWithPedestrian.Match toImmutable() {
-      return isMutable() ? newMatch(fScene, fVehicle, fPedestrian, fCrosswalk) : this;
+    public EgoReachesRoadEndWithPedestrian.Match toImmutable() {
+      return isMutable() ? newMatch(fScene, fEgo, fPedestrian, fCrosswalk) : this;
     }
     
     @Override
     public String prettyPrint() {
       StringBuilder result = new StringBuilder();
       result.append("\"scene\"=" + prettyPrintValue(fScene) + ", ");
-      result.append("\"vehicle\"=" + prettyPrintValue(fVehicle) + ", ");
+      result.append("\"ego\"=" + prettyPrintValue(fEgo) + ", ");
       result.append("\"pedestrian\"=" + prettyPrintValue(fPedestrian) + ", ");
       result.append("\"crosswalk\"=" + prettyPrintValue(fCrosswalk));
       return result.toString();
@@ -233,7 +232,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     
     @Override
     public int hashCode() {
-      return Objects.hash(fScene, fVehicle, fPedestrian, fCrosswalk);
+      return Objects.hash(fScene, fEgo, fPedestrian, fCrosswalk);
     }
     
     @Override
@@ -243,9 +242,9 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
       if (obj == null) {
           return false;
       }
-      if ((obj instanceof VehicleReachesRoadEndWithPedestrian.Match)) {
-          VehicleReachesRoadEndWithPedestrian.Match other = (VehicleReachesRoadEndWithPedestrian.Match) obj;
-          return Objects.equals(fScene, other.fScene) && Objects.equals(fVehicle, other.fVehicle) && Objects.equals(fPedestrian, other.fPedestrian) && Objects.equals(fCrosswalk, other.fCrosswalk);
+      if ((obj instanceof EgoReachesRoadEndWithPedestrian.Match)) {
+          EgoReachesRoadEndWithPedestrian.Match other = (EgoReachesRoadEndWithPedestrian.Match) obj;
+          return Objects.equals(fScene, other.fScene) && Objects.equals(fEgo, other.fEgo) && Objects.equals(fPedestrian, other.fPedestrian) && Objects.equals(fCrosswalk, other.fCrosswalk);
       } else {
           // this should be infrequent
           if (!(obj instanceof IPatternMatch)) {
@@ -257,8 +256,8 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     }
     
     @Override
-    public VehicleReachesRoadEndWithPedestrian specification() {
-      return VehicleReachesRoadEndWithPedestrian.instance();
+    public EgoReachesRoadEndWithPedestrian specification() {
+      return EgoReachesRoadEndWithPedestrian.instance();
     }
     
     /**
@@ -268,7 +267,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the empty match.
      * 
      */
-    public static VehicleReachesRoadEndWithPedestrian.Match newEmptyMatch() {
+    public static EgoReachesRoadEndWithPedestrian.Match newEmptyMatch() {
       return new Mutable(null, null, null, null);
     }
     
@@ -277,14 +276,14 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
      * 
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
-     * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
+     * @param pEgo the fixed value of pattern parameter ego, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
      * @param pCrosswalk the fixed value of pattern parameter crosswalk, or null if not bound.
      * @return the new, mutable (partial) match object.
      * 
      */
-    public static VehicleReachesRoadEndWithPedestrian.Match newMutableMatch(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return new Mutable(pScene, pVehicle, pPedestrian, pCrosswalk);
+    public static EgoReachesRoadEndWithPedestrian.Match newMutableMatch(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return new Mutable(pScene, pEgo, pPedestrian, pCrosswalk);
     }
     
     /**
@@ -292,19 +291,19 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * This can be used e.g. to call the matcher with a partial match.
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
-     * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
+     * @param pEgo the fixed value of pattern parameter ego, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
      * @param pCrosswalk the fixed value of pattern parameter crosswalk, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public static VehicleReachesRoadEndWithPedestrian.Match newMatch(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return new Immutable(pScene, pVehicle, pPedestrian, pCrosswalk);
+    public static EgoReachesRoadEndWithPedestrian.Match newMatch(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return new Immutable(pScene, pEgo, pPedestrian, pCrosswalk);
     }
     
-    private static final class Mutable extends VehicleReachesRoadEndWithPedestrian.Match {
-      Mutable(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-        super(pScene, pVehicle, pPedestrian, pCrosswalk);
+    private static final class Mutable extends EgoReachesRoadEndWithPedestrian.Match {
+      Mutable(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+        super(pScene, pEgo, pPedestrian, pCrosswalk);
       }
       
       @Override
@@ -313,9 +312,9 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
       }
     }
     
-    private static final class Immutable extends VehicleReachesRoadEndWithPedestrian.Match {
-      Immutable(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-        super(pScene, pVehicle, pPedestrian, pCrosswalk);
+    private static final class Immutable extends EgoReachesRoadEndWithPedestrian.Match {
+      Immutable(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+        super(pScene, pEgo, pPedestrian, pCrosswalk);
       }
       
       @Override
@@ -326,7 +325,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
   }
   
   /**
-   * Generated pattern matcher API of the event.driven.scenario.dse.queries.vehicleReachesRoadEndWithPedestrian pattern,
+   * Generated pattern matcher API of the event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrian pattern,
    * providing pattern-specific query methods.
    * 
    * <p>Use the pattern matcher on a given model via {@link #on(ViatraQueryEngine)},
@@ -337,8 +336,8 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
    * <p>Original source:
    * <code><pre>
    * //Objectives
-   * pattern vehicleReachesRoadEndWithPedestrian(scene: Scene, vehicle: DynamicEntity, pedestrian: DynamicEntity,crosswalk: StaticEntity){
-   * 	Scene.elements(scene,vehicle);
+   * pattern egoReachesRoadEndWithPedestrian(scene: Scene, ego: DynamicEntity, pedestrian: DynamicEntity,crosswalk: StaticEntity){
+   * 	Scene.elements(scene,ego);
    * 	Scene.elements(scene,road);
    * 	Scene.elements(scene,pedestrian);
    * 	Scene.elements(scene,crosswalk);
@@ -348,32 +347,30 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
    * 	StaticEntity.name(road,"road");
    * 	
    * 	StaticEntity.lanes(crosswalk,crosswalkLanes);
-   * 	Lane.endingPosition(crosswalkLanes,crosswalkPos);
+   * 	Lane.startingPosition(crosswalkLanes,crosswalkPos);
    * 	PositionAttribute.y(crosswalkPos,crosswalkPosY);
    * 	PositionAttribute.x(crosswalkPos,crosswalkPosX);
    * 	
    * 	DynamicEntity.position(pedestrian,pedestrianePos);
    * 	PositionAttribute.y(pedestrianePos,pedestrianPosY);
    * 	
-   * 	DynamicEntity.name(vehicle,"car");
-   * 	
-   * 	DynamicEntity.position(vehicle,vehiclePos);
-   * 	PositionAttribute.x(vehiclePos,vehiclePosX);
+   * 	DynamicEntity.name(ego,"ego");
+   * 	DynamicEntity.position(ego,egoPos);
+   * 	PositionAttribute.x(egoPos,egoPosX);
    * 	
    * 	find inScene(pedestrian,scene);
-   * 	find inScene(vehicle,scene);
+   * 	find inScene(ego,scene);
+   * 	neg find collision2(ego,pedestrian);
    * 	
-   * 	//find vehicleOnRoad(vehicle,road);	
-   * 	
-   * 	check(vehiclePosX {@literal >} crosswalkPosX && pedestrianPosY {@literal >} crosswalkPosY);
+   * 	check(egoPosX {@literal >} crosswalkPosX && pedestrianPosY {@literal <} crosswalkPosY);
    * }
    * </pre></code>
    * 
    * @see Match
-   * @see VehicleReachesRoadEndWithPedestrian
+   * @see EgoReachesRoadEndWithPedestrian
    * 
    */
-  public static class Matcher extends BaseMatcher<VehicleReachesRoadEndWithPedestrian.Match> {
+  public static class Matcher extends BaseMatcher<EgoReachesRoadEndWithPedestrian.Match> {
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
      * If the pattern matcher is already constructed in the engine, only a light-weight reference is returned.
@@ -382,7 +379,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @throws ViatraQueryRuntimeException if an error occurs during pattern matcher creation
      * 
      */
-    public static VehicleReachesRoadEndWithPedestrian.Matcher on(final ViatraQueryEngine engine) {
+    public static EgoReachesRoadEndWithPedestrian.Matcher on(final ViatraQueryEngine engine) {
       // check if matcher already exists
       Matcher matcher = engine.getExistingMatcher(querySpecification());
       if (matcher == null) {
@@ -397,19 +394,19 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @noreference This method is for internal matcher initialization by the framework, do not call it manually.
      * 
      */
-    public static VehicleReachesRoadEndWithPedestrian.Matcher create() {
+    public static EgoReachesRoadEndWithPedestrian.Matcher create() {
       return new Matcher();
     }
     
     private static final int POSITION_SCENE = 0;
     
-    private static final int POSITION_VEHICLE = 1;
+    private static final int POSITION_EGO = 1;
     
     private static final int POSITION_PEDESTRIAN = 2;
     
     private static final int POSITION_CROSSWALK = 3;
     
-    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(VehicleReachesRoadEndWithPedestrian.Matcher.class);
+    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(EgoReachesRoadEndWithPedestrian.Matcher.class);
     
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
@@ -426,14 +423,14 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     /**
      * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
-     * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
+     * @param pEgo the fixed value of pattern parameter ego, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
      * @param pCrosswalk the fixed value of pattern parameter crosswalk, or null if not bound.
      * @return matches represented as a Match object.
      * 
      */
-    public Collection<VehicleReachesRoadEndWithPedestrian.Match> getAllMatches(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return rawStreamAllMatches(new Object[]{pScene, pVehicle, pPedestrian, pCrosswalk}).collect(Collectors.toSet());
+    public Collection<EgoReachesRoadEndWithPedestrian.Match> getAllMatches(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return rawStreamAllMatches(new Object[]{pScene, pEgo, pPedestrian, pCrosswalk}).collect(Collectors.toSet());
     }
     
     /**
@@ -443,70 +440,70 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
      * In such cases, either rely on {@link #getAllMatches()} or collect the results of the stream in end-user code.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
-     * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
+     * @param pEgo the fixed value of pattern parameter ego, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
      * @param pCrosswalk the fixed value of pattern parameter crosswalk, or null if not bound.
      * @return a stream of matches represented as a Match object.
      * 
      */
-    public Stream<VehicleReachesRoadEndWithPedestrian.Match> streamAllMatches(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return rawStreamAllMatches(new Object[]{pScene, pVehicle, pPedestrian, pCrosswalk});
+    public Stream<EgoReachesRoadEndWithPedestrian.Match> streamAllMatches(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return rawStreamAllMatches(new Object[]{pScene, pEgo, pPedestrian, pCrosswalk});
     }
     
     /**
      * Returns an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
      * Neither determinism nor randomness of selection is guaranteed.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
-     * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
+     * @param pEgo the fixed value of pattern parameter ego, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
      * @param pCrosswalk the fixed value of pattern parameter crosswalk, or null if not bound.
      * @return a match represented as a Match object, or null if no match is found.
      * 
      */
-    public Optional<VehicleReachesRoadEndWithPedestrian.Match> getOneArbitraryMatch(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return rawGetOneArbitraryMatch(new Object[]{pScene, pVehicle, pPedestrian, pCrosswalk});
+    public Optional<EgoReachesRoadEndWithPedestrian.Match> getOneArbitraryMatch(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return rawGetOneArbitraryMatch(new Object[]{pScene, pEgo, pPedestrian, pCrosswalk});
     }
     
     /**
      * Indicates whether the given combination of specified pattern parameters constitute a valid pattern match,
      * under any possible substitution of the unspecified parameters (if any).
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
-     * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
+     * @param pEgo the fixed value of pattern parameter ego, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
      * @param pCrosswalk the fixed value of pattern parameter crosswalk, or null if not bound.
      * @return true if the input is a valid (partial) match of the pattern.
      * 
      */
-    public boolean hasMatch(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return rawHasMatch(new Object[]{pScene, pVehicle, pPedestrian, pCrosswalk});
+    public boolean hasMatch(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return rawHasMatch(new Object[]{pScene, pEgo, pPedestrian, pCrosswalk});
     }
     
     /**
      * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
-     * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
+     * @param pEgo the fixed value of pattern parameter ego, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
      * @param pCrosswalk the fixed value of pattern parameter crosswalk, or null if not bound.
      * @return the number of pattern matches found.
      * 
      */
-    public int countMatches(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return rawCountMatches(new Object[]{pScene, pVehicle, pPedestrian, pCrosswalk});
+    public int countMatches(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return rawCountMatches(new Object[]{pScene, pEgo, pPedestrian, pCrosswalk});
     }
     
     /**
      * Executes the given processor on an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
      * Neither determinism nor randomness of selection is guaranteed.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
-     * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
+     * @param pEgo the fixed value of pattern parameter ego, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
      * @param pCrosswalk the fixed value of pattern parameter crosswalk, or null if not bound.
      * @param processor the action that will process the selected match.
      * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
      * 
      */
-    public boolean forOneArbitraryMatch(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk, final Consumer<? super VehicleReachesRoadEndWithPedestrian.Match> processor) {
-      return rawForOneArbitraryMatch(new Object[]{pScene, pVehicle, pPedestrian, pCrosswalk}, processor);
+    public boolean forOneArbitraryMatch(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk, final Consumer<? super EgoReachesRoadEndWithPedestrian.Match> processor) {
+      return rawForOneArbitraryMatch(new Object[]{pScene, pEgo, pPedestrian, pCrosswalk}, processor);
     }
     
     /**
@@ -514,14 +511,14 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * This can be used e.g. to call the matcher with a partial match.
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
-     * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
+     * @param pEgo the fixed value of pattern parameter ego, or null if not bound.
      * @param pPedestrian the fixed value of pattern parameter pedestrian, or null if not bound.
      * @param pCrosswalk the fixed value of pattern parameter crosswalk, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public VehicleReachesRoadEndWithPedestrian.Match newMatch(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return VehicleReachesRoadEndWithPedestrian.Match.newMatch(pScene, pVehicle, pPedestrian, pCrosswalk);
+    public EgoReachesRoadEndWithPedestrian.Match newMatch(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return EgoReachesRoadEndWithPedestrian.Match.newMatch(pScene, pEgo, pPedestrian, pCrosswalk);
     }
     
     /**
@@ -561,7 +558,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<Scene> streamAllValuesOfscene(final VehicleReachesRoadEndWithPedestrian.Match partialMatch) {
+    public Stream<Scene> streamAllValuesOfscene(final EgoReachesRoadEndWithPedestrian.Match partialMatch) {
       return rawStreamAllValuesOfscene(partialMatch.toArray());
     }
     
@@ -575,8 +572,8 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<Scene> streamAllValuesOfscene(final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return rawStreamAllValuesOfscene(new Object[]{null, pVehicle, pPedestrian, pCrosswalk});
+    public Stream<Scene> streamAllValuesOfscene(final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return rawStreamAllValuesOfscene(new Object[]{null, pEgo, pPedestrian, pCrosswalk});
     }
     
     /**
@@ -584,7 +581,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<Scene> getAllValuesOfscene(final VehicleReachesRoadEndWithPedestrian.Match partialMatch) {
+    public Set<Scene> getAllValuesOfscene(final EgoReachesRoadEndWithPedestrian.Match partialMatch) {
       return rawStreamAllValuesOfscene(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
@@ -593,39 +590,39 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<Scene> getAllValuesOfscene(final DynamicEntity pVehicle, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return rawStreamAllValuesOfscene(new Object[]{null, pVehicle, pPedestrian, pCrosswalk}).collect(Collectors.toSet());
+    public Set<Scene> getAllValuesOfscene(final DynamicEntity pEgo, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return rawStreamAllValuesOfscene(new Object[]{null, pEgo, pPedestrian, pCrosswalk}).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for vehicle.
+     * Retrieve the set of values that occur in matches for ego.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    protected Stream<DynamicEntity> rawStreamAllValuesOfvehicle(final Object[] parameters) {
-      return rawStreamAllValues(POSITION_VEHICLE, parameters).map(DynamicEntity.class::cast);
+    protected Stream<DynamicEntity> rawStreamAllValuesOfego(final Object[] parameters) {
+      return rawStreamAllValues(POSITION_EGO, parameters).map(DynamicEntity.class::cast);
     }
     
     /**
-     * Retrieve the set of values that occur in matches for vehicle.
+     * Retrieve the set of values that occur in matches for ego.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfvehicle() {
-      return rawStreamAllValuesOfvehicle(emptyArray()).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfego() {
+      return rawStreamAllValuesOfego(emptyArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for vehicle.
+     * Retrieve the set of values that occur in matches for ego.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfvehicle() {
-      return rawStreamAllValuesOfvehicle(emptyArray());
+    public Stream<DynamicEntity> streamAllValuesOfego() {
+      return rawStreamAllValuesOfego(emptyArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for vehicle.
+     * Retrieve the set of values that occur in matches for ego.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -634,12 +631,12 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfvehicle(final VehicleReachesRoadEndWithPedestrian.Match partialMatch) {
-      return rawStreamAllValuesOfvehicle(partialMatch.toArray());
+    public Stream<DynamicEntity> streamAllValuesOfego(final EgoReachesRoadEndWithPedestrian.Match partialMatch) {
+      return rawStreamAllValuesOfego(partialMatch.toArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for vehicle.
+     * Retrieve the set of values that occur in matches for ego.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -648,26 +645,26 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfvehicle(final Scene pScene, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return rawStreamAllValuesOfvehicle(new Object[]{pScene, null, pPedestrian, pCrosswalk});
+    public Stream<DynamicEntity> streamAllValuesOfego(final Scene pScene, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return rawStreamAllValuesOfego(new Object[]{pScene, null, pPedestrian, pCrosswalk});
     }
     
     /**
-     * Retrieve the set of values that occur in matches for vehicle.
+     * Retrieve the set of values that occur in matches for ego.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfvehicle(final VehicleReachesRoadEndWithPedestrian.Match partialMatch) {
-      return rawStreamAllValuesOfvehicle(partialMatch.toArray()).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfego(final EgoReachesRoadEndWithPedestrian.Match partialMatch) {
+      return rawStreamAllValuesOfego(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for vehicle.
+     * Retrieve the set of values that occur in matches for ego.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfvehicle(final Scene pScene, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
-      return rawStreamAllValuesOfvehicle(new Object[]{pScene, null, pPedestrian, pCrosswalk}).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfego(final Scene pScene, final DynamicEntity pPedestrian, final StaticEntity pCrosswalk) {
+      return rawStreamAllValuesOfego(new Object[]{pScene, null, pPedestrian, pCrosswalk}).collect(Collectors.toSet());
     }
     
     /**
@@ -707,7 +704,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfpedestrian(final VehicleReachesRoadEndWithPedestrian.Match partialMatch) {
+    public Stream<DynamicEntity> streamAllValuesOfpedestrian(final EgoReachesRoadEndWithPedestrian.Match partialMatch) {
       return rawStreamAllValuesOfpedestrian(partialMatch.toArray());
     }
     
@@ -721,8 +718,8 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfpedestrian(final Scene pScene, final DynamicEntity pVehicle, final StaticEntity pCrosswalk) {
-      return rawStreamAllValuesOfpedestrian(new Object[]{pScene, pVehicle, null, pCrosswalk});
+    public Stream<DynamicEntity> streamAllValuesOfpedestrian(final Scene pScene, final DynamicEntity pEgo, final StaticEntity pCrosswalk) {
+      return rawStreamAllValuesOfpedestrian(new Object[]{pScene, pEgo, null, pCrosswalk});
     }
     
     /**
@@ -730,7 +727,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfpedestrian(final VehicleReachesRoadEndWithPedestrian.Match partialMatch) {
+    public Set<DynamicEntity> getAllValuesOfpedestrian(final EgoReachesRoadEndWithPedestrian.Match partialMatch) {
       return rawStreamAllValuesOfpedestrian(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
@@ -739,8 +736,8 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfpedestrian(final Scene pScene, final DynamicEntity pVehicle, final StaticEntity pCrosswalk) {
-      return rawStreamAllValuesOfpedestrian(new Object[]{pScene, pVehicle, null, pCrosswalk}).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfpedestrian(final Scene pScene, final DynamicEntity pEgo, final StaticEntity pCrosswalk) {
+      return rawStreamAllValuesOfpedestrian(new Object[]{pScene, pEgo, null, pCrosswalk}).collect(Collectors.toSet());
     }
     
     /**
@@ -780,7 +777,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<StaticEntity> streamAllValuesOfcrosswalk(final VehicleReachesRoadEndWithPedestrian.Match partialMatch) {
+    public Stream<StaticEntity> streamAllValuesOfcrosswalk(final EgoReachesRoadEndWithPedestrian.Match partialMatch) {
       return rawStreamAllValuesOfcrosswalk(partialMatch.toArray());
     }
     
@@ -794,8 +791,8 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<StaticEntity> streamAllValuesOfcrosswalk(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian) {
-      return rawStreamAllValuesOfcrosswalk(new Object[]{pScene, pVehicle, pPedestrian, null});
+    public Stream<StaticEntity> streamAllValuesOfcrosswalk(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian) {
+      return rawStreamAllValuesOfcrosswalk(new Object[]{pScene, pEgo, pPedestrian, null});
     }
     
     /**
@@ -803,7 +800,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<StaticEntity> getAllValuesOfcrosswalk(final VehicleReachesRoadEndWithPedestrian.Match partialMatch) {
+    public Set<StaticEntity> getAllValuesOfcrosswalk(final EgoReachesRoadEndWithPedestrian.Match partialMatch) {
       return rawStreamAllValuesOfcrosswalk(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
@@ -812,14 +809,14 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<StaticEntity> getAllValuesOfcrosswalk(final Scene pScene, final DynamicEntity pVehicle, final DynamicEntity pPedestrian) {
-      return rawStreamAllValuesOfcrosswalk(new Object[]{pScene, pVehicle, pPedestrian, null}).collect(Collectors.toSet());
+    public Set<StaticEntity> getAllValuesOfcrosswalk(final Scene pScene, final DynamicEntity pEgo, final DynamicEntity pPedestrian) {
+      return rawStreamAllValuesOfcrosswalk(new Object[]{pScene, pEgo, pPedestrian, null}).collect(Collectors.toSet());
     }
     
     @Override
-    protected VehicleReachesRoadEndWithPedestrian.Match tupleToMatch(final Tuple t) {
+    protected EgoReachesRoadEndWithPedestrian.Match tupleToMatch(final Tuple t) {
       try {
-          return VehicleReachesRoadEndWithPedestrian.Match.newMatch((Scene) t.get(POSITION_SCENE), (DynamicEntity) t.get(POSITION_VEHICLE), (DynamicEntity) t.get(POSITION_PEDESTRIAN), (StaticEntity) t.get(POSITION_CROSSWALK));
+          return EgoReachesRoadEndWithPedestrian.Match.newMatch((Scene) t.get(POSITION_SCENE), (DynamicEntity) t.get(POSITION_EGO), (DynamicEntity) t.get(POSITION_PEDESTRIAN), (StaticEntity) t.get(POSITION_CROSSWALK));
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in tuple not properly typed!",e);
           return null;
@@ -827,9 +824,9 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     }
     
     @Override
-    protected VehicleReachesRoadEndWithPedestrian.Match arrayToMatch(final Object[] match) {
+    protected EgoReachesRoadEndWithPedestrian.Match arrayToMatch(final Object[] match) {
       try {
-          return VehicleReachesRoadEndWithPedestrian.Match.newMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_VEHICLE], (DynamicEntity) match[POSITION_PEDESTRIAN], (StaticEntity) match[POSITION_CROSSWALK]);
+          return EgoReachesRoadEndWithPedestrian.Match.newMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_EGO], (DynamicEntity) match[POSITION_PEDESTRIAN], (StaticEntity) match[POSITION_CROSSWALK]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -837,9 +834,9 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     }
     
     @Override
-    protected VehicleReachesRoadEndWithPedestrian.Match arrayToMatchMutable(final Object[] match) {
+    protected EgoReachesRoadEndWithPedestrian.Match arrayToMatchMutable(final Object[] match) {
       try {
-          return VehicleReachesRoadEndWithPedestrian.Match.newMutableMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_VEHICLE], (DynamicEntity) match[POSITION_PEDESTRIAN], (StaticEntity) match[POSITION_CROSSWALK]);
+          return EgoReachesRoadEndWithPedestrian.Match.newMutableMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_EGO], (DynamicEntity) match[POSITION_PEDESTRIAN], (StaticEntity) match[POSITION_CROSSWALK]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -851,12 +848,12 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
      * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
      * 
      */
-    public static IQuerySpecification<VehicleReachesRoadEndWithPedestrian.Matcher> querySpecification() {
-      return VehicleReachesRoadEndWithPedestrian.instance();
+    public static IQuerySpecification<EgoReachesRoadEndWithPedestrian.Matcher> querySpecification() {
+      return EgoReachesRoadEndWithPedestrian.instance();
     }
   }
   
-  private VehicleReachesRoadEndWithPedestrian() {
+  private EgoReachesRoadEndWithPedestrian() {
     super(GeneratedPQuery.INSTANCE);
   }
   
@@ -865,7 +862,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
    * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
    * 
    */
-  public static VehicleReachesRoadEndWithPedestrian instance() {
+  public static EgoReachesRoadEndWithPedestrian instance() {
     try{
         return LazyHolder.INSTANCE;
     } catch (ExceptionInInitializerError err) {
@@ -874,35 +871,35 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
   }
   
   @Override
-  protected VehicleReachesRoadEndWithPedestrian.Matcher instantiate(final ViatraQueryEngine engine) {
-    return VehicleReachesRoadEndWithPedestrian.Matcher.on(engine);
+  protected EgoReachesRoadEndWithPedestrian.Matcher instantiate(final ViatraQueryEngine engine) {
+    return EgoReachesRoadEndWithPedestrian.Matcher.on(engine);
   }
   
   @Override
-  public VehicleReachesRoadEndWithPedestrian.Matcher instantiate() {
-    return VehicleReachesRoadEndWithPedestrian.Matcher.create();
+  public EgoReachesRoadEndWithPedestrian.Matcher instantiate() {
+    return EgoReachesRoadEndWithPedestrian.Matcher.create();
   }
   
   @Override
-  public VehicleReachesRoadEndWithPedestrian.Match newEmptyMatch() {
-    return VehicleReachesRoadEndWithPedestrian.Match.newEmptyMatch();
+  public EgoReachesRoadEndWithPedestrian.Match newEmptyMatch() {
+    return EgoReachesRoadEndWithPedestrian.Match.newEmptyMatch();
   }
   
   @Override
-  public VehicleReachesRoadEndWithPedestrian.Match newMatch(final Object... parameters) {
-    return VehicleReachesRoadEndWithPedestrian.Match.newMatch((scenedl.Scene) parameters[0], (scenedl.DynamicEntity) parameters[1], (scenedl.DynamicEntity) parameters[2], (scenedl.StaticEntity) parameters[3]);
+  public EgoReachesRoadEndWithPedestrian.Match newMatch(final Object... parameters) {
+    return EgoReachesRoadEndWithPedestrian.Match.newMatch((scenedl.Scene) parameters[0], (scenedl.DynamicEntity) parameters[1], (scenedl.DynamicEntity) parameters[2], (scenedl.StaticEntity) parameters[3]);
   }
   
   /**
-   * Inner class allowing the singleton instance of {@link VehicleReachesRoadEndWithPedestrian} to be created 
+   * Inner class allowing the singleton instance of {@link EgoReachesRoadEndWithPedestrian} to be created 
    *     <b>not</b> at the class load time of the outer class, 
-   *     but rather at the first call to {@link VehicleReachesRoadEndWithPedestrian#instance()}.
+   *     but rather at the first call to {@link EgoReachesRoadEndWithPedestrian#instance()}.
    * 
    * <p> This workaround is required e.g. to support recursion.
    * 
    */
   private static class LazyHolder {
-    private static final VehicleReachesRoadEndWithPedestrian INSTANCE = new VehicleReachesRoadEndWithPedestrian();
+    private static final EgoReachesRoadEndWithPedestrian INSTANCE = new EgoReachesRoadEndWithPedestrian();
     
     /**
      * Statically initializes the query specification <b>after</b> the field {@link #INSTANCE} is assigned.
@@ -920,17 +917,17 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
   }
   
   private static class GeneratedPQuery extends BaseGeneratedEMFPQuery {
-    private static final VehicleReachesRoadEndWithPedestrian.GeneratedPQuery INSTANCE = new GeneratedPQuery();
+    private static final EgoReachesRoadEndWithPedestrian.GeneratedPQuery INSTANCE = new GeneratedPQuery();
     
     private final PParameter parameter_scene = new PParameter("scene", "scenedl.Scene", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "Scene")), PParameterDirection.INOUT);
     
-    private final PParameter parameter_vehicle = new PParameter("vehicle", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
+    private final PParameter parameter_ego = new PParameter("ego", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
     
     private final PParameter parameter_pedestrian = new PParameter("pedestrian", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
     
     private final PParameter parameter_crosswalk = new PParameter("crosswalk", "scenedl.StaticEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "StaticEntity")), PParameterDirection.INOUT);
     
-    private final List<PParameter> parameters = Arrays.asList(parameter_scene, parameter_vehicle, parameter_pedestrian, parameter_crosswalk);
+    private final List<PParameter> parameters = Arrays.asList(parameter_scene, parameter_ego, parameter_pedestrian, parameter_crosswalk);
     
     private GeneratedPQuery() {
       super(PVisibility.PUBLIC);
@@ -938,12 +935,12 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     
     @Override
     public String getFullyQualifiedName() {
-      return "event.driven.scenario.dse.queries.vehicleReachesRoadEndWithPedestrian";
+      return "event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrian";
     }
     
     @Override
     public List<String> getParameterNames() {
-      return Arrays.asList("scene","vehicle","pedestrian","crosswalk");
+      return Arrays.asList("scene","ego","pedestrian","crosswalk");
     }
     
     @Override
@@ -958,7 +955,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
       {
           PBody body = new PBody(this);
           PVariable var_scene = body.getOrCreateVariableByName("scene");
-          PVariable var_vehicle = body.getOrCreateVariableByName("vehicle");
+          PVariable var_ego = body.getOrCreateVariableByName("ego");
           PVariable var_pedestrian = body.getOrCreateVariableByName("pedestrian");
           PVariable var_crosswalk = body.getOrCreateVariableByName("crosswalk");
           PVariable var_road = body.getOrCreateVariableByName("road");
@@ -968,24 +965,24 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
           PVariable var_crosswalkPosX = body.getOrCreateVariableByName("crosswalkPosX");
           PVariable var_pedestrianePos = body.getOrCreateVariableByName("pedestrianePos");
           PVariable var_pedestrianPosY = body.getOrCreateVariableByName("pedestrianPosY");
-          PVariable var_vehiclePos = body.getOrCreateVariableByName("vehiclePos");
-          PVariable var_vehiclePosX = body.getOrCreateVariableByName("vehiclePosX");
+          PVariable var_egoPos = body.getOrCreateVariableByName("egoPos");
+          PVariable var_egoPosX = body.getOrCreateVariableByName("egoPosX");
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_ego), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
           new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrian), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
           new TypeConstraint(body, Tuples.flatTupleOf(var_crosswalk), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "StaticEntity")));
           body.setSymbolicParameters(Arrays.<ExportedParameter>asList(
              new ExportedParameter(body, var_scene, parameter_scene),
-             new ExportedParameter(body, var_vehicle, parameter_vehicle),
+             new ExportedParameter(body, var_ego, parameter_ego),
              new ExportedParameter(body, var_pedestrian, parameter_pedestrian),
              new ExportedParameter(body, var_crosswalk, parameter_crosswalk)
           ));
-          // 	Scene.elements(scene,vehicle)
+          // 	Scene.elements(scene,ego)
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
           PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene", "elements")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_0_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Element")));
-          new Equality(body, var__virtual_0_, var_vehicle);
+          new Equality(body, var__virtual_0_, var_ego);
           // 	Scene.elements(scene,road)
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
           PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
@@ -1034,10 +1031,10 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
           new TypeConstraint(body, Tuples.flatTupleOf(var_crosswalk, var__virtual_10_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "StaticEntity", "lanes")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_10_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Lane")));
           new Equality(body, var__virtual_10_, var_crosswalkLanes);
-          // 	Lane.endingPosition(crosswalkLanes,crosswalkPos)
+          // 	Lane.startingPosition(crosswalkLanes,crosswalkPos)
           new TypeConstraint(body, Tuples.flatTupleOf(var_crosswalkLanes), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Lane")));
           PVariable var__virtual_11_ = body.getOrCreateVariableByName(".virtual{11}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_crosswalkLanes, var__virtual_11_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Lane", "endingPosition")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_crosswalkLanes, var__virtual_11_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Lane", "startingPosition")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_11_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
           new Equality(body, var__virtual_11_, var_crosswalkPos);
           // 	PositionAttribute.y(crosswalkPos,crosswalkPosY)
@@ -1064,49 +1061,51 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
           new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrianePos, var__virtual_15_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_15_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
           new Equality(body, var__virtual_15_, var_pedestrianPosY);
-          // 		DynamicEntity.name(vehicle,"car")
+          // 		DynamicEntity.name(ego,"ego")
           PVariable var__virtual_16_ = body.getOrCreateVariableByName(".virtual{16}");
-          new ConstantValue(body, var__virtual_16_, "car");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          new ConstantValue(body, var__virtual_16_, "ego");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_ego), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
           PVariable var__virtual_17_ = body.getOrCreateVariableByName(".virtual{17}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle, var__virtual_17_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Element", "name")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_ego, var__virtual_17_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Element", "name")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_17_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EString")));
           new Equality(body, var__virtual_17_, var__virtual_16_);
-          // 		DynamicEntity.position(vehicle,vehiclePos)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          // 	DynamicEntity.position(ego,egoPos)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_ego), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
           PVariable var__virtual_18_ = body.getOrCreateVariableByName(".virtual{18}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle, var__virtual_18_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "position")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_ego, var__virtual_18_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "position")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_18_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
-          new Equality(body, var__virtual_18_, var_vehiclePos);
-          // 	PositionAttribute.x(vehiclePos,vehiclePosX)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehiclePos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
+          new Equality(body, var__virtual_18_, var_egoPos);
+          // 	PositionAttribute.x(egoPos,egoPosX)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_egoPos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
           PVariable var__virtual_19_ = body.getOrCreateVariableByName(".virtual{19}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehiclePos, var__virtual_19_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "x")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_egoPos, var__virtual_19_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "x")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_19_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
-          new Equality(body, var__virtual_19_, var_vehiclePosX);
+          new Equality(body, var__virtual_19_, var_egoPosX);
           // 		find inScene(pedestrian,scene)
           new PositivePatternCall(body, Tuples.flatTupleOf(var_pedestrian, var_scene), InScene.instance().getInternalQueryRepresentation());
-          // 	find inScene(vehicle,scene)
-          new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle, var_scene), InScene.instance().getInternalQueryRepresentation());
-          // 		//find vehicleOnRoad(vehicle,road);			check(vehiclePosX > crosswalkPosX && pedestrianPosY > crosswalkPosY)
+          // 	find inScene(ego,scene)
+          new PositivePatternCall(body, Tuples.flatTupleOf(var_ego, var_scene), InScene.instance().getInternalQueryRepresentation());
+          // 	neg find collision2(ego,pedestrian)
+          new NegativePatternCall(body, Tuples.flatTupleOf(var_ego, var_pedestrian), Collision2.instance().getInternalQueryRepresentation());
+          // 		check(egoPosX > crosswalkPosX && pedestrianPosY < crosswalkPosY)
           new ExpressionEvaluation(body, new IExpressionEvaluator() {
           
               @Override
               public String getShortDescription() {
-                  return "Expression evaluation from pattern vehicleReachesRoadEndWithPedestrian";
+                  return "Expression evaluation from pattern egoReachesRoadEndWithPedestrian";
               }
               
               @Override
               public Iterable<String> getInputParameterNames() {
-                  return Arrays.asList("crosswalkPosX", "crosswalkPosY", "pedestrianPosY", "vehiclePosX");}
+                  return Arrays.asList("crosswalkPosX", "crosswalkPosY", "egoPosX", "pedestrianPosY");}
           
               @Override
               public Object evaluateExpression(IValueProvider provider) throws Exception {
                   Integer crosswalkPosX = (Integer) provider.getValue("crosswalkPosX");
                   Integer crosswalkPosY = (Integer) provider.getValue("crosswalkPosY");
+                  Integer egoPosX = (Integer) provider.getValue("egoPosX");
                   Integer pedestrianPosY = (Integer) provider.getValue("pedestrianPosY");
-                  Integer vehiclePosX = (Integer) provider.getValue("vehiclePosX");
-                  return evaluateExpression_1_1(crosswalkPosX, crosswalkPosY, pedestrianPosY, vehiclePosX);
+                  return evaluateExpression_1_1(crosswalkPosX, crosswalkPosY, egoPosX, pedestrianPosY);
               }
           },  null); 
           bodies.add(body);
@@ -1115,7 +1114,7 @@ public final class VehicleReachesRoadEndWithPedestrian extends BaseGeneratedEMFQ
     }
   }
   
-  private static boolean evaluateExpression_1_1(final Integer crosswalkPosX, final Integer crosswalkPosY, final Integer pedestrianPosY, final Integer vehiclePosX) {
-    return ((vehiclePosX.compareTo(crosswalkPosX) > 0) && (pedestrianPosY.compareTo(crosswalkPosY) > 0));
+  private static boolean evaluateExpression_1_1(final Integer crosswalkPosX, final Integer crosswalkPosY, final Integer egoPosX, final Integer pedestrianPosY) {
+    return ((egoPosX.compareTo(crosswalkPosX) > 0) && (pedestrianPosY.compareTo(crosswalkPosY) < 0));
   }
 }
