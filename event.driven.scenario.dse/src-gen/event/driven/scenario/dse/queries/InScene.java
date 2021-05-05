@@ -57,11 +57,15 @@ import scenedl.Scene;
  *         	PositionAttribute.x(boundryPos,boundryPosX);
  *         	PositionAttribute.y(boundryPos,boundryPosY);
  *         	
+ *         	DynamicEntity.speed(entity,entitySpeed);
+ *         	PositionAttribute.x(entitySpeed,speedX);
+ *         	PositionAttribute.y(entitySpeed,speedY);
+ *         	
  *         	DynamicEntity.position(entity,entityPos);
  *         	PositionAttribute.x(entityPos,posX);
  *         	PositionAttribute.y(entityPos,posY);
  *         	
- *         	check(posX {@literal <}= boundryPosX && posY {@literal <}= boundryPosY && posX {@literal >}= 0 && posY {@literal >}= 0);
+ *         	check((posX+speedX) {@literal <}= boundryPosX && (posY+speedY) {@literal <}= boundryPosY && (posX+speedX) {@literal >}= 0 && (posY+speedY) {@literal >}= 0);
  *         }
  * </pre></code>
  * 
@@ -282,11 +286,15 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
    * 	PositionAttribute.x(boundryPos,boundryPosX);
    * 	PositionAttribute.y(boundryPos,boundryPosY);
    * 	
+   * 	DynamicEntity.speed(entity,entitySpeed);
+   * 	PositionAttribute.x(entitySpeed,speedX);
+   * 	PositionAttribute.y(entitySpeed,speedY);
+   * 	
    * 	DynamicEntity.position(entity,entityPos);
    * 	PositionAttribute.x(entityPos,posX);
    * 	PositionAttribute.y(entityPos,posY);
    * 	
-   * 	check(posX {@literal <}= boundryPosX && posY {@literal <}= boundryPosY && posX {@literal >}= 0 && posY {@literal >}= 0);
+   * 	check((posX+speedX) {@literal <}= boundryPosX && (posY+speedY) {@literal <}= boundryPosY && (posX+speedX) {@literal >}= 0 && (posY+speedY) {@literal >}= 0);
    * }
    * </pre></code>
    * 
@@ -715,6 +723,9 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
           PVariable var_boundryPos = body.getOrCreateVariableByName("boundryPos");
           PVariable var_boundryPosX = body.getOrCreateVariableByName("boundryPosX");
           PVariable var_boundryPosY = body.getOrCreateVariableByName("boundryPosY");
+          PVariable var_entitySpeed = body.getOrCreateVariableByName("entitySpeed");
+          PVariable var_speedX = body.getOrCreateVariableByName("speedX");
+          PVariable var_speedY = body.getOrCreateVariableByName("speedY");
           PVariable var_entityPos = body.getOrCreateVariableByName("entityPos");
           PVariable var_posX = body.getOrCreateVariableByName("posX");
           PVariable var_posY = body.getOrCreateVariableByName("posY");
@@ -748,25 +759,43 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
           new TypeConstraint(body, Tuples.flatTupleOf(var_boundryPos, var__virtual_3_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_3_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
           new Equality(body, var__virtual_3_, var_boundryPosY);
-          // 		DynamicEntity.position(entity,entityPos)
+          // 		DynamicEntity.speed(entity,entitySpeed)
           new TypeConstraint(body, Tuples.flatTupleOf(var_entity), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
           PVariable var__virtual_4_ = body.getOrCreateVariableByName(".virtual{4}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_entity, var__virtual_4_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "position")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_entity, var__virtual_4_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "speed")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_4_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
-          new Equality(body, var__virtual_4_, var_entityPos);
+          new Equality(body, var__virtual_4_, var_entitySpeed);
+          // 	PositionAttribute.x(entitySpeed,speedX)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_entitySpeed), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
+          PVariable var__virtual_5_ = body.getOrCreateVariableByName(".virtual{5}");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_entitySpeed, var__virtual_5_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "x")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_5_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
+          new Equality(body, var__virtual_5_, var_speedX);
+          // 	PositionAttribute.y(entitySpeed,speedY)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_entitySpeed), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
+          PVariable var__virtual_6_ = body.getOrCreateVariableByName(".virtual{6}");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_entitySpeed, var__virtual_6_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_6_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
+          new Equality(body, var__virtual_6_, var_speedY);
+          // 		DynamicEntity.position(entity,entityPos)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_entity), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          PVariable var__virtual_7_ = body.getOrCreateVariableByName(".virtual{7}");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_entity, var__virtual_7_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "position")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_7_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
+          new Equality(body, var__virtual_7_, var_entityPos);
           // 	PositionAttribute.x(entityPos,posX)
           new TypeConstraint(body, Tuples.flatTupleOf(var_entityPos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
-          PVariable var__virtual_5_ = body.getOrCreateVariableByName(".virtual{5}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_entityPos, var__virtual_5_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "x")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_5_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
-          new Equality(body, var__virtual_5_, var_posX);
+          PVariable var__virtual_8_ = body.getOrCreateVariableByName(".virtual{8}");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_entityPos, var__virtual_8_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "x")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_8_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
+          new Equality(body, var__virtual_8_, var_posX);
           // 	PositionAttribute.y(entityPos,posY)
           new TypeConstraint(body, Tuples.flatTupleOf(var_entityPos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
-          PVariable var__virtual_6_ = body.getOrCreateVariableByName(".virtual{6}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_entityPos, var__virtual_6_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_6_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
-          new Equality(body, var__virtual_6_, var_posY);
-          // 		check(posX <= boundryPosX && posY <= boundryPosY && posX >= 0 && posY >= 0)
+          PVariable var__virtual_9_ = body.getOrCreateVariableByName(".virtual{9}");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_entityPos, var__virtual_9_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_9_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
+          new Equality(body, var__virtual_9_, var_posY);
+          // 		check((posX+speedX) <= boundryPosX && (posY+speedY) <= boundryPosY && (posX+speedX) >= 0 && (posY+speedY) >= 0)
           new ExpressionEvaluation(body, new IExpressionEvaluator() {
           
               @Override
@@ -776,7 +805,7 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
               
               @Override
               public Iterable<String> getInputParameterNames() {
-                  return Arrays.asList("boundryPosX", "boundryPosY", "posX", "posY");}
+                  return Arrays.asList("boundryPosX", "boundryPosY", "posX", "posY", "speedX", "speedY");}
           
               @Override
               public Object evaluateExpression(IValueProvider provider) throws Exception {
@@ -784,7 +813,9 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
                   Integer boundryPosY = (Integer) provider.getValue("boundryPosY");
                   Integer posX = (Integer) provider.getValue("posX");
                   Integer posY = (Integer) provider.getValue("posY");
-                  return evaluateExpression_1_1(boundryPosX, boundryPosY, posX, posY);
+                  Integer speedX = (Integer) provider.getValue("speedX");
+                  Integer speedY = (Integer) provider.getValue("speedY");
+                  return evaluateExpression_1_1(boundryPosX, boundryPosY, posX, posY, speedX, speedY);
               }
           },  null); 
           bodies.add(body);
@@ -793,7 +824,7 @@ public final class InScene extends BaseGeneratedEMFQuerySpecification<InScene.Ma
     }
   }
   
-  private static boolean evaluateExpression_1_1(final Integer boundryPosX, final Integer boundryPosY, final Integer posX, final Integer posY) {
-    return ((((posX.compareTo(boundryPosX) <= 0) && (posY.compareTo(boundryPosY) <= 0)) && ((posX).intValue() >= 0)) && ((posY).intValue() >= 0));
+  private static boolean evaluateExpression_1_1(final Integer boundryPosX, final Integer boundryPosY, final Integer posX, final Integer posY, final Integer speedX, final Integer speedY) {
+    return ((((((posX).intValue() + (speedX).intValue()) <= (boundryPosX).intValue()) && (((posY).intValue() + (speedY).intValue()) <= (boundryPosY).intValue())) && (((posX).intValue() + (speedX).intValue()) >= 0)) && (((posY).intValue() + (speedY).intValue()) >= 0));
   }
 }

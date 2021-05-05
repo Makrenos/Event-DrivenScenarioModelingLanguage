@@ -54,7 +54,7 @@ public class SceneStateCoder implements IStateCoder {
 	            for (RegularAttribute a : attributes) {
 	            		attribs[index++] =  a.getName() + ": " + a.getValue() + "," ;
 	            }
-	            attribs[index++] = de.getName()+"Position: x: " + de.getPosition().getX() + " y: " + de.getPosition().getY();
+	            attribs[index++] = de.getName()+"Position: x: " + de.getPosition().getX() + " y: " + de.getPosition().getY() +" Speed: x: " + de.getSpeed().getX() + " y: " + de.getSpeed().getY() ;
 
 	            sb.append(e.getName()+":");
 	            sb.append('(');
@@ -62,7 +62,7 @@ public class SceneStateCoder implements IStateCoder {
 	                sb.append(code);
 	            }
 	            if(de.getOn() != null) {
-	            	sb.append(") Featured by: "+de.getOn().getName()+",");
+	            	sb.append(") Using: "+de.getOn().getName()+",");
 	            }else {
 	            	sb.append("),");
 	            }
@@ -99,7 +99,8 @@ public class SceneStateCoder implements IStateCoder {
 	            	sb.add(s);	            	
     				s= "";
     			}
-    			s += de.getName() + "Position: x: "+ de.getPosition().getX() + " y: " + de.getPosition().getY();
+    			s += de.getName() + "Position: x: "+ de.getPosition().getX() + " y: " + de.getPosition().getY() + " Speed: x: "+ de.getSpeed().getX() + " y: " + de.getSpeed().getY();
+    			
 
     			if(de.getOn() != null) {
     				s += ") Featured by:" + de.getOn().getName();

@@ -77,18 +77,20 @@ public class InitInstanceModels {
     	//Car init
 		DynamicEntity car = sceneFactory.createDynamicEntity();
 		PositionAttribute carPos = sceneFactory.createPositionAttribute();
-		RegularAttribute carSpeed = sceneFactory.createRegularAttribute();
+		PositionAttribute carSpeed = sceneFactory.createPositionAttribute();
 		    		
 		car.setName("ego");
 		car.setType("dynamic_entity");
-		carSpeed.setValue(1);
-		carSpeed.setName("speed");
+		carSpeed.setX(1);
+		carSpeed.setY(0);
+		//carSpeed.setName("speed");
 		
 		carPos.setX(1);
 		carPos.setY(2);
 		
 		car.setPosition(carPos);
-		car.getAttributes().add(carSpeed);
+		car.setSpeed(carPos);
+		//car.getAttributes().add(carSpeed);
 		car.setContainedIn(s);
 		
 		//Lanes init
@@ -153,18 +155,20 @@ public class InitInstanceModels {
         //Pedestrian init
         DynamicEntity pedestrian = sceneFactory.createDynamicEntity();
 		PositionAttribute pedestrianPos = sceneFactory.createPositionAttribute();
-		RegularAttribute pedestrianSpeed = sceneFactory.createRegularAttribute();
+		PositionAttribute pedestrianSpeed = sceneFactory.createPositionAttribute();
 		    		
 		pedestrian.setName("pedestrian");
 		pedestrian.setType("dynamic_entity");
-		pedestrianSpeed.setValue(1);
-		pedestrianSpeed.setName("speed");
+		pedestrianSpeed.setX(0);
+		pedestrianSpeed.setY(1);
+		//pedestrianSpeed.setName("speed");
 		
 		pedestrianPos.setX(4);
 		pedestrianPos.setY(4);
 		
 		pedestrian.setPosition(pedestrianPos);
-		pedestrian.getAttributes().add(pedestrianSpeed);
+		pedestrian.setSpeed(pedestrianPos);
+		//pedestrian.getAttributes().add(pedestrianSpeed);
 		
 		pedestrian.setContainedIn(s);
         

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <scenedl:Scene xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scenedl="http://www.eventDrivenScenario.org/scenedl" name="One_vehicle_with_crosswalk_and_pedestrian">
   <elements xsi:type="scenedl:DynamicEntity" type="dynamic_entity" name="pedestrian" containedIn="One_vehicle_with_crosswalk_and_pedestrian">
-    <attributes value="1" name="speed"/>
     <position x="4" y="1"/>
+    <speed y="-1"/>
   </elements>
   <elements xsi:type="scenedl:StaticEntity" type="static_entity" name="crosswalk" containedIn="One_vehicle_with_crosswalk_and_pedestrian">
     <lanes>
@@ -15,14 +15,18 @@
       <startingPosition x="1" y="2"/>
       <endingPosition x="7" y="2"/>
     </lanes>
-    <lanes>
+    <lanes id="1">
       <startingPosition x="1" y="3"/>
       <endingPosition x="7" y="3"/>
     </lanes>
   </elements>
   <elements xsi:type="scenedl:DynamicEntity" type="dynamic_entity" name="ego" containedIn="One_vehicle_with_crosswalk_and_pedestrian" on="//@elements.2">
-    <attributes value="1" name="speed"/>
-    <position x="7" y="2"/>
+    <position x="5" y="2"/>
+    <speed x="2"/>
+  </elements>
+  <elements xsi:type="scenedl:DynamicEntity" type="dynamic_entity" name="car1" containedIn="One_vehicle_with_crosswalk_and_pedestrian" on="//@elements.2">
+    <position x="1" y="3"/>
+    <speed x="1"/>
   </elements>
   <stateMachine>
     <states name="Slows">
@@ -55,7 +59,7 @@
       <ruleBasedActions name="vehicleMoves"/>
       <ruleBasedActions name="pedestrianMoves"/>
     </dictionary>
-    <runtimestate actualState="Moves"/>
+    <runtimestate actualState="Accelerates"/>
   </stateMachine>
   <boundry x="8" y="4"/>
 </scenedl:Scene>

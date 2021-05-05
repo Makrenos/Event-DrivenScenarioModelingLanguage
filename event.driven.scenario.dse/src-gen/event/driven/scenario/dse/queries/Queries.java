@@ -16,15 +16,18 @@ import org.eclipse.viatra.query.runtime.api.impl.BaseGeneratedPatternGroup;
  * <p> From package event.driven.scenario.dse.queries, the group contains the definition of the following patterns: <ul>
  * <li>inScene</li>
  * <li>egoOnRoad</li>
- * <li>noCollision4</li>
- * <li>noCollision3</li>
- * <li>collision2</li>
+ * <li>collision</li>
  * <li>getPossibleTransitions</li>
  * <li>vehicleSlowsDown</li>
  * <li>vehicleAccelerates</li>
  * <li>vehicleMoves</li>
  * <li>pedestrianMoves</li>
+ * <li>vehicleSlowsDownMeasurements</li>
+ * <li>vehicleAcceleratesMeasurements</li>
+ * <li>vehicleMovesMeasurements</li>
+ * <li>randomVehicleMovesMeasurements</li>
  * <li>egoReachesRoadEndWithPedestrian</li>
+ * <li>egoReachesRoadEndWithPedestrianMeasurement</li>
  * </ul>
  * 
  * @see IQueryGroup
@@ -51,15 +54,18 @@ public final class Queries extends BaseGeneratedPatternGroup {
   private Queries() {
     querySpecifications.add(InScene.instance());
     querySpecifications.add(EgoOnRoad.instance());
-    querySpecifications.add(NoCollision4.instance());
-    querySpecifications.add(NoCollision3.instance());
-    querySpecifications.add(Collision2.instance());
+    querySpecifications.add(Collision.instance());
     querySpecifications.add(GetPossibleTransitions.instance());
     querySpecifications.add(VehicleSlowsDown.instance());
     querySpecifications.add(VehicleAccelerates.instance());
     querySpecifications.add(VehicleMoves.instance());
     querySpecifications.add(PedestrianMoves.instance());
+    querySpecifications.add(VehicleSlowsDownMeasurements.instance());
+    querySpecifications.add(VehicleAcceleratesMeasurements.instance());
+    querySpecifications.add(VehicleMovesMeasurements.instance());
+    querySpecifications.add(RandomVehicleMovesMeasurements.instance());
     querySpecifications.add(EgoReachesRoadEndWithPedestrian.instance());
+    querySpecifications.add(EgoReachesRoadEndWithPedestrianMeasurement.instance());
   }
   
   public InScene getInScene() {
@@ -78,28 +84,12 @@ public final class Queries extends BaseGeneratedPatternGroup {
     return EgoOnRoad.Matcher.on(engine);
   }
   
-  public NoCollision4 getNoCollision4() {
-    return NoCollision4.instance();
+  public Collision getCollision() {
+    return Collision.instance();
   }
   
-  public NoCollision4.Matcher getNoCollision4(final ViatraQueryEngine engine) {
-    return NoCollision4.Matcher.on(engine);
-  }
-  
-  public NoCollision3 getNoCollision3() {
-    return NoCollision3.instance();
-  }
-  
-  public NoCollision3.Matcher getNoCollision3(final ViatraQueryEngine engine) {
-    return NoCollision3.Matcher.on(engine);
-  }
-  
-  public Collision2 getCollision2() {
-    return Collision2.instance();
-  }
-  
-  public Collision2.Matcher getCollision2(final ViatraQueryEngine engine) {
-    return Collision2.Matcher.on(engine);
+  public Collision.Matcher getCollision(final ViatraQueryEngine engine) {
+    return Collision.Matcher.on(engine);
   }
   
   public GetPossibleTransitions getGetPossibleTransitions() {
@@ -142,11 +132,51 @@ public final class Queries extends BaseGeneratedPatternGroup {
     return PedestrianMoves.Matcher.on(engine);
   }
   
+  public VehicleSlowsDownMeasurements getVehicleSlowsDownMeasurements() {
+    return VehicleSlowsDownMeasurements.instance();
+  }
+  
+  public VehicleSlowsDownMeasurements.Matcher getVehicleSlowsDownMeasurements(final ViatraQueryEngine engine) {
+    return VehicleSlowsDownMeasurements.Matcher.on(engine);
+  }
+  
+  public VehicleAcceleratesMeasurements getVehicleAcceleratesMeasurements() {
+    return VehicleAcceleratesMeasurements.instance();
+  }
+  
+  public VehicleAcceleratesMeasurements.Matcher getVehicleAcceleratesMeasurements(final ViatraQueryEngine engine) {
+    return VehicleAcceleratesMeasurements.Matcher.on(engine);
+  }
+  
+  public VehicleMovesMeasurements getVehicleMovesMeasurements() {
+    return VehicleMovesMeasurements.instance();
+  }
+  
+  public VehicleMovesMeasurements.Matcher getVehicleMovesMeasurements(final ViatraQueryEngine engine) {
+    return VehicleMovesMeasurements.Matcher.on(engine);
+  }
+  
+  public RandomVehicleMovesMeasurements getRandomVehicleMovesMeasurements() {
+    return RandomVehicleMovesMeasurements.instance();
+  }
+  
+  public RandomVehicleMovesMeasurements.Matcher getRandomVehicleMovesMeasurements(final ViatraQueryEngine engine) {
+    return RandomVehicleMovesMeasurements.Matcher.on(engine);
+  }
+  
   public EgoReachesRoadEndWithPedestrian getEgoReachesRoadEndWithPedestrian() {
     return EgoReachesRoadEndWithPedestrian.instance();
   }
   
   public EgoReachesRoadEndWithPedestrian.Matcher getEgoReachesRoadEndWithPedestrian(final ViatraQueryEngine engine) {
     return EgoReachesRoadEndWithPedestrian.Matcher.on(engine);
+  }
+  
+  public EgoReachesRoadEndWithPedestrianMeasurement getEgoReachesRoadEndWithPedestrianMeasurement() {
+    return EgoReachesRoadEndWithPedestrianMeasurement.instance();
+  }
+  
+  public EgoReachesRoadEndWithPedestrianMeasurement.Matcher getEgoReachesRoadEndWithPedestrianMeasurement(final ViatraQueryEngine engine) {
+    return EgoReachesRoadEndWithPedestrianMeasurement.Matcher.on(engine);
   }
 }

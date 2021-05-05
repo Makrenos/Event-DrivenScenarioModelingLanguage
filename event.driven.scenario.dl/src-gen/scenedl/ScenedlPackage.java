@@ -331,13 +331,22 @@ public interface ScenedlPackage extends EPackage {
 	int DYNAMIC_ENTITY__POSITION = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Speed</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DYNAMIC_ENTITY__SPEED = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Dynamic Entity</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DYNAMIC_ENTITY_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int DYNAMIC_ENTITY_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Dynamic Entity</em>' class.
@@ -668,6 +677,17 @@ public interface ScenedlPackage extends EPackage {
 	EReference getDynamicEntity_Position();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link scenedl.DynamicEntity#getSpeed <em>Speed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Speed</em>'.
+	 * @see scenedl.DynamicEntity#getSpeed()
+	 * @see #getDynamicEntity()
+	 * @generated
+	 */
+	EReference getDynamicEntity_Speed();
+
+	/**
 	 * Returns the meta object for class '{@link scenedl.RegularAttribute <em>Regular Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -932,6 +952,14 @@ public interface ScenedlPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DYNAMIC_ENTITY__POSITION = eINSTANCE.getDynamicEntity_Position();
+
+		/**
+		 * The meta object literal for the '<em><b>Speed</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DYNAMIC_ENTITY__SPEED = eINSTANCE.getDynamicEntity_Speed();
 
 		/**
 		 * The meta object literal for the '{@link scenedl.impl.RegularAttributeImpl <em>Regular Attribute</em>}' class.

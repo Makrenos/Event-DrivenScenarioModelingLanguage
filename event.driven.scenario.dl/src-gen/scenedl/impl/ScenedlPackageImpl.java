@@ -306,6 +306,15 @@ public class ScenedlPackageImpl extends EPackageImpl implements ScenedlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getDynamicEntity_Speed() {
+		return (EReference) dynamicEntityEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRegularAttribute() {
 		return regularAttributeEClass;
 	}
@@ -439,6 +448,7 @@ public class ScenedlPackageImpl extends EPackageImpl implements ScenedlPackage {
 		dynamicEntityEClass = createEClass(DYNAMIC_ENTITY);
 		createEReference(dynamicEntityEClass, DYNAMIC_ENTITY__ON);
 		createEReference(dynamicEntityEClass, DYNAMIC_ENTITY__POSITION);
+		createEReference(dynamicEntityEClass, DYNAMIC_ENTITY__SPEED);
 
 		regularAttributeEClass = createEClass(REGULAR_ATTRIBUTE);
 		createEAttribute(regularAttributeEClass, REGULAR_ATTRIBUTE__VALUE);
@@ -520,7 +530,7 @@ public class ScenedlPackageImpl extends EPackageImpl implements ScenedlPackage {
 		initEReference(getStaticEntity_Uses(), this.getDynamicEntity(), null, "uses", null, 0, -1, StaticEntity.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStaticEntity_Lanes(), this.getLane(), null, "lanes", null, 0, -1, StaticEntity.class,
+		initEReference(getStaticEntity_Lanes(), this.getLane(), null, "lanes", null, 1, -1, StaticEntity.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -530,6 +540,9 @@ public class ScenedlPackageImpl extends EPackageImpl implements ScenedlPackage {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDynamicEntity_Position(), this.getPositionAttribute(), null, "position", null, 1, 1,
+				DynamicEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDynamicEntity_Speed(), this.getPositionAttribute(), null, "speed", null, 1, 1,
 				DynamicEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

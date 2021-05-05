@@ -532,7 +532,7 @@ public class StateTransitionBasedThreadContext implements StateTransitionBasedID
     	//It would be more elegant, to extend the Notifier interface with a getStateMachine function, and the model has to implement the extended Notifier. (getModel().getStateMachine())
     	Scene s = (Scene)getModel();
     	boolean found = false;
-    	
+    	System.out.println(notFilteredActivationIds);
         for(Object o : notFilteredActivationIds) {
         	found = false;
         	for(Transition t : s.getStateMachine().getRuntimestate().get(0).getActualState().getOutTransitions()) {	

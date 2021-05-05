@@ -13,6 +13,7 @@ package scenedl;
  * <ul>
  *   <li>{@link scenedl.DynamicEntity#getOn <em>On</em>}</li>
  *   <li>{@link scenedl.DynamicEntity#getPosition <em>Position</em>}</li>
+ *   <li>{@link scenedl.DynamicEntity#getSpeed <em>Speed</em>}</li>
  * </ul>
  *
  * @see scenedl.ScenedlPackage#getDynamicEntity()
@@ -64,4 +65,26 @@ public interface DynamicEntity extends Element {
 	 * @generated
 	 */
 	void setPosition(PositionAttribute value);
+
+	/**
+	 * Returns the value of the '<em><b>Speed</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Speed</em>' containment reference.
+	 * @see #setSpeed(PositionAttribute)
+	 * @see scenedl.ScenedlPackage#getDynamicEntity_Speed()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	PositionAttribute getSpeed();
+
+	/**
+	 * Sets the value of the '{@link scenedl.DynamicEntity#getSpeed <em>Speed</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Speed</em>' containment reference.
+	 * @see #getSpeed()
+	 * @generated
+	 */
+	void setSpeed(PositionAttribute value);
 } // DynamicEntity

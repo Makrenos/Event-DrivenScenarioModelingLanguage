@@ -49,9 +49,10 @@ import scenedl.Scene;
  * <p>Original source:
  *         <code><pre>
  *         pattern pedestrianMoves(scene: Scene, pedestrian: DynamicEntity){
+ *         	find inScene(pedestrian,scene);
  *         	Scene.elements(scene,pedestrian);
  *         	DynamicEntity.name(pedestrian,"pedestrian");
- *         	find inScene(pedestrian,scene);
+ *         	
  *         }
  * </pre></code>
  * 
@@ -265,9 +266,10 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
    * <p>Original source:
    * <code><pre>
    * pattern pedestrianMoves(scene: Scene, pedestrian: DynamicEntity){
+   * 	find inScene(pedestrian,scene);
    * 	Scene.elements(scene,pedestrian);
    * 	DynamicEntity.name(pedestrian,"pedestrian");
-   * 	find inScene(pedestrian,scene);
+   * 	
    * }
    * </pre></code>
    * 
@@ -699,6 +701,8 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
              new ExportedParameter(body, var_scene, parameter_scene),
              new ExportedParameter(body, var_pedestrian, parameter_pedestrian)
           ));
+          // 	find inScene(pedestrian,scene)
+          new PositivePatternCall(body, Tuples.flatTupleOf(var_pedestrian, var_scene), InScene.instance().getInternalQueryRepresentation());
           // 	Scene.elements(scene,pedestrian)
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
           PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
@@ -713,8 +717,6 @@ public final class PedestrianMoves extends BaseGeneratedEMFQuerySpecification<Pe
           new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrian, var__virtual_2_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Element", "name")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_2_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EString")));
           new Equality(body, var__virtual_2_, var__virtual_1_);
-          // 	find inScene(pedestrian,scene)
-          new PositivePatternCall(body, Tuples.flatTupleOf(var_pedestrian, var_scene), InScene.instance().getInternalQueryRepresentation());
           bodies.add(body);
       }
       return bodies;

@@ -34,6 +34,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.TypeFilterConstraint;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue;
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.PositivePatternCall;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint;
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameterDirection;
@@ -50,6 +51,7 @@ import scenedl.Scene;
  * <p>Original source:
  *         <code><pre>
  *         pattern vehicleAccelerates(scene: Scene, vehicle: DynamicEntity, by : java Integer){
+ *         	find inScene(vehicle,scene);
  *         	Scene.elements(scene,vehicle);
  *         	DynamicEntity.name(vehicle,"ego");
  *         	by == 1;
@@ -287,6 +289,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
    * <p>Original source:
    * <code><pre>
    * pattern vehicleAccelerates(scene: Scene, vehicle: DynamicEntity, by : java Integer){
+   * 	find inScene(vehicle,scene);
    * 	Scene.elements(scene,vehicle);
    * 	DynamicEntity.name(vehicle,"ego");
    * 	by == 1;
@@ -808,6 +811,8 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
              new ExportedParameter(body, var_vehicle, parameter_vehicle),
              new ExportedParameter(body, var_by, parameter_by)
           ));
+          // 	find inScene(vehicle,scene)
+          new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle, var_scene), InScene.instance().getInternalQueryRepresentation());
           // 	Scene.elements(scene,vehicle)
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
           PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");

@@ -16,6 +16,7 @@ import scenedl.Scene;
 public class StateTransitionBasedDfsStrategy implements StateTransitionBasedIStrategy{
 	
     private int maxDepth;
+    public float time;
     private AtomicBoolean isInterrupted = new AtomicBoolean(false);
     private StateTransitionBasedThreadContext context;
     
@@ -28,6 +29,7 @@ public class StateTransitionBasedDfsStrategy implements StateTransitionBasedIStr
      * Creates a new depth-first search algorithm without depth limit.
      */
     public StateTransitionBasedDfsStrategy() {
+    	this.time = (float) 0;
         this.maxDepth = Integer.MAX_VALUE;
     }
 
@@ -124,10 +126,14 @@ public class StateTransitionBasedDfsStrategy implements StateTransitionBasedIStr
             
             do {
             	//Scene s = (Scene)context.getModel();
-            	System.out.println("Statemachine-based filtering start:" + System.nanoTime());
+            	
+            	//System.out.println("Statemachine-based filtering start");
+            	//long startTime = System.nanoTime();
             	//activationIds = context.getUntraversedActivationIds(s.getStateMachine());
             	activationIds = context.getUntraversedActivationIds();
-            	System.out.println("Statemachine-based filtering end:" + System.nanoTime());
+            	//time += ((float)(System.nanoTime()-startTime))/1000000 ;
+            	//System.out.println("Statemachine-based filtering runtime: " + ((float)(System.nanoTime()-startTime))/1000 + " microseconds");
+            	//System.out.println("Statemachine-based filtering runtime:" + System.nanoTime());
                 if (activationIds.isEmpty()) {
                     boolean isSuccessfulUndo = context.backtrack();
                     if (!isSuccessfulUndo) {

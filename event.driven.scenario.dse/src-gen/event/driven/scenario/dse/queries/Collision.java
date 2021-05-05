@@ -31,6 +31,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PBody;
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter;
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Inequality;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint;
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.viatra.query.runtime.matchers.psystem.queries.PParameterDirection;
@@ -45,18 +46,19 @@ import scenedl.DynamicEntity;
  * 
  * <p>Original source:
  *         <code><pre>
- *         pattern collision2(e: DynamicEntity,p: DynamicEntity){
+ *         pattern collision(d1: DynamicEntity,d2: DynamicEntity){
+ *         	d1 != d2;
  *         	//DynamicEntity.name(p,"pedestrian");
- *         	DynamicEntity.position(p,pedestrianePos);
- *         	PositionAttribute.y(pedestrianePos,pedestrianPosY);
- *         	PositionAttribute.x(pedestrianePos,pedestrianPosX);
+ *         	DynamicEntity.position(d2,d2Pos);
+ *         	PositionAttribute.y(d2Pos,d2PosY);
+ *         	PositionAttribute.x(d2Pos,d2PosX);
  *         	
  *         	//DynamicEntity.name(e,"ego");
- *         	DynamicEntity.position(e,egoPos);
- *         	PositionAttribute.x(egoPos,egoPosX);
- *         	PositionAttribute.y(egoPos,egoPosY);
- *         	egoPosX == pedestrianPosX;
- *         	pedestrianPosY == egoPosY;
+ *         	DynamicEntity.position(d1,d1Pos);
+ *         	PositionAttribute.x(d1Pos,d1PosX);
+ *         	PositionAttribute.y(d1Pos,d1PosY);
+ *         	d1PosX == d2PosX;
+ *         	d1PosY == d2PosY;
  *         	//check(egoPosX == pedestrianPosX && pedestrianPosY == egoPosY);
  *         }
  * </pre></code>
@@ -66,9 +68,9 @@ import scenedl.DynamicEntity;
  * 
  */
 @SuppressWarnings("all")
-public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collision2.Matcher> {
+public final class Collision extends BaseGeneratedEMFQuerySpecification<Collision.Matcher> {
   /**
-   * Pattern-specific match representation of the event.driven.scenario.dse.queries.collision2 pattern,
+   * Pattern-specific match representation of the event.driven.scenario.dse.queries.collision pattern,
    * to be used in conjunction with {@link Matcher}.
    * 
    * <p>Class fields correspond to parameters of the pattern. Fields with value null are considered unassigned.
@@ -80,22 +82,22 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
    * 
    */
   public static abstract class Match extends BasePatternMatch {
-    private DynamicEntity fE;
+    private DynamicEntity fD1;
     
-    private DynamicEntity fP;
+    private DynamicEntity fD2;
     
-    private static List<String> parameterNames = makeImmutableList("e", "p");
+    private static List<String> parameterNames = makeImmutableList("d1", "d2");
     
-    private Match(final DynamicEntity pE, final DynamicEntity pP) {
-      this.fE = pE;
-      this.fP = pP;
+    private Match(final DynamicEntity pD1, final DynamicEntity pD2) {
+      this.fD1 = pD1;
+      this.fD2 = pD2;
     }
     
     @Override
     public Object get(final String parameterName) {
       switch(parameterName) {
-          case "e": return this.fE;
-          case "p": return this.fP;
+          case "d1": return this.fD1;
+          case "d2": return this.fD2;
           default: return null;
       }
     }
@@ -103,75 +105,75 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
     @Override
     public Object get(final int index) {
       switch(index) {
-          case 0: return this.fE;
-          case 1: return this.fP;
+          case 0: return this.fD1;
+          case 1: return this.fD2;
           default: return null;
       }
     }
     
-    public DynamicEntity getE() {
-      return this.fE;
+    public DynamicEntity getD1() {
+      return this.fD1;
     }
     
-    public DynamicEntity getP() {
-      return this.fP;
+    public DynamicEntity getD2() {
+      return this.fD2;
     }
     
     @Override
     public boolean set(final String parameterName, final Object newValue) {
       if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-      if ("e".equals(parameterName) ) {
-          this.fE = (DynamicEntity) newValue;
+      if ("d1".equals(parameterName) ) {
+          this.fD1 = (DynamicEntity) newValue;
           return true;
       }
-      if ("p".equals(parameterName) ) {
-          this.fP = (DynamicEntity) newValue;
+      if ("d2".equals(parameterName) ) {
+          this.fD2 = (DynamicEntity) newValue;
           return true;
       }
       return false;
     }
     
-    public void setE(final DynamicEntity pE) {
+    public void setD1(final DynamicEntity pD1) {
       if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-      this.fE = pE;
+      this.fD1 = pD1;
     }
     
-    public void setP(final DynamicEntity pP) {
+    public void setD2(final DynamicEntity pD2) {
       if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-      this.fP = pP;
+      this.fD2 = pD2;
     }
     
     @Override
     public String patternName() {
-      return "event.driven.scenario.dse.queries.collision2";
+      return "event.driven.scenario.dse.queries.collision";
     }
     
     @Override
     public List<String> parameterNames() {
-      return Collision2.Match.parameterNames;
+      return Collision.Match.parameterNames;
     }
     
     @Override
     public Object[] toArray() {
-      return new Object[]{fE, fP};
+      return new Object[]{fD1, fD2};
     }
     
     @Override
-    public Collision2.Match toImmutable() {
-      return isMutable() ? newMatch(fE, fP) : this;
+    public Collision.Match toImmutable() {
+      return isMutable() ? newMatch(fD1, fD2) : this;
     }
     
     @Override
     public String prettyPrint() {
       StringBuilder result = new StringBuilder();
-      result.append("\"e\"=" + prettyPrintValue(fE) + ", ");
-      result.append("\"p\"=" + prettyPrintValue(fP));
+      result.append("\"d1\"=" + prettyPrintValue(fD1) + ", ");
+      result.append("\"d2\"=" + prettyPrintValue(fD2));
       return result.toString();
     }
     
     @Override
     public int hashCode() {
-      return Objects.hash(fE, fP);
+      return Objects.hash(fD1, fD2);
     }
     
     @Override
@@ -181,9 +183,9 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
       if (obj == null) {
           return false;
       }
-      if ((obj instanceof Collision2.Match)) {
-          Collision2.Match other = (Collision2.Match) obj;
-          return Objects.equals(fE, other.fE) && Objects.equals(fP, other.fP);
+      if ((obj instanceof Collision.Match)) {
+          Collision.Match other = (Collision.Match) obj;
+          return Objects.equals(fD1, other.fD1) && Objects.equals(fD2, other.fD2);
       } else {
           // this should be infrequent
           if (!(obj instanceof IPatternMatch)) {
@@ -195,8 +197,8 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
     }
     
     @Override
-    public Collision2 specification() {
-      return Collision2.instance();
+    public Collision specification() {
+      return Collision.instance();
     }
     
     /**
@@ -206,7 +208,7 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * @return the empty match.
      * 
      */
-    public static Collision2.Match newEmptyMatch() {
+    public static Collision.Match newEmptyMatch() {
       return new Mutable(null, null);
     }
     
@@ -214,31 +216,31 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * Returns a mutable (partial) match.
      * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
      * 
-     * @param pE the fixed value of pattern parameter e, or null if not bound.
-     * @param pP the fixed value of pattern parameter p, or null if not bound.
+     * @param pD1 the fixed value of pattern parameter d1, or null if not bound.
+     * @param pD2 the fixed value of pattern parameter d2, or null if not bound.
      * @return the new, mutable (partial) match object.
      * 
      */
-    public static Collision2.Match newMutableMatch(final DynamicEntity pE, final DynamicEntity pP) {
-      return new Mutable(pE, pP);
+    public static Collision.Match newMutableMatch(final DynamicEntity pD1, final DynamicEntity pD2) {
+      return new Mutable(pD1, pD2);
     }
     
     /**
      * Returns a new (partial) match.
      * This can be used e.g. to call the matcher with a partial match.
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
-     * @param pE the fixed value of pattern parameter e, or null if not bound.
-     * @param pP the fixed value of pattern parameter p, or null if not bound.
+     * @param pD1 the fixed value of pattern parameter d1, or null if not bound.
+     * @param pD2 the fixed value of pattern parameter d2, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public static Collision2.Match newMatch(final DynamicEntity pE, final DynamicEntity pP) {
-      return new Immutable(pE, pP);
+    public static Collision.Match newMatch(final DynamicEntity pD1, final DynamicEntity pD2) {
+      return new Immutable(pD1, pD2);
     }
     
-    private static final class Mutable extends Collision2.Match {
-      Mutable(final DynamicEntity pE, final DynamicEntity pP) {
-        super(pE, pP);
+    private static final class Mutable extends Collision.Match {
+      Mutable(final DynamicEntity pD1, final DynamicEntity pD2) {
+        super(pD1, pD2);
       }
       
       @Override
@@ -247,9 +249,9 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
       }
     }
     
-    private static final class Immutable extends Collision2.Match {
-      Immutable(final DynamicEntity pE, final DynamicEntity pP) {
-        super(pE, pP);
+    private static final class Immutable extends Collision.Match {
+      Immutable(final DynamicEntity pD1, final DynamicEntity pD2) {
+        super(pD1, pD2);
       }
       
       @Override
@@ -260,7 +262,7 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
   }
   
   /**
-   * Generated pattern matcher API of the event.driven.scenario.dse.queries.collision2 pattern,
+   * Generated pattern matcher API of the event.driven.scenario.dse.queries.collision pattern,
    * providing pattern-specific query methods.
    * 
    * <p>Use the pattern matcher on a given model via {@link #on(ViatraQueryEngine)},
@@ -270,27 +272,28 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
    * 
    * <p>Original source:
    * <code><pre>
-   * pattern collision2(e: DynamicEntity,p: DynamicEntity){
+   * pattern collision(d1: DynamicEntity,d2: DynamicEntity){
+   * 	d1 != d2;
    * 	//DynamicEntity.name(p,"pedestrian");
-   * 	DynamicEntity.position(p,pedestrianePos);
-   * 	PositionAttribute.y(pedestrianePos,pedestrianPosY);
-   * 	PositionAttribute.x(pedestrianePos,pedestrianPosX);
+   * 	DynamicEntity.position(d2,d2Pos);
+   * 	PositionAttribute.y(d2Pos,d2PosY);
+   * 	PositionAttribute.x(d2Pos,d2PosX);
    * 	
    * 	//DynamicEntity.name(e,"ego");
-   * 	DynamicEntity.position(e,egoPos);
-   * 	PositionAttribute.x(egoPos,egoPosX);
-   * 	PositionAttribute.y(egoPos,egoPosY);
-   * 	egoPosX == pedestrianPosX;
-   * 	pedestrianPosY == egoPosY;
+   * 	DynamicEntity.position(d1,d1Pos);
+   * 	PositionAttribute.x(d1Pos,d1PosX);
+   * 	PositionAttribute.y(d1Pos,d1PosY);
+   * 	d1PosX == d2PosX;
+   * 	d1PosY == d2PosY;
    * 	//check(egoPosX == pedestrianPosX && pedestrianPosY == egoPosY);
    * }
    * </pre></code>
    * 
    * @see Match
-   * @see Collision2
+   * @see Collision
    * 
    */
-  public static class Matcher extends BaseMatcher<Collision2.Match> {
+  public static class Matcher extends BaseMatcher<Collision.Match> {
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
      * If the pattern matcher is already constructed in the engine, only a light-weight reference is returned.
@@ -299,7 +302,7 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * @throws ViatraQueryRuntimeException if an error occurs during pattern matcher creation
      * 
      */
-    public static Collision2.Matcher on(final ViatraQueryEngine engine) {
+    public static Collision.Matcher on(final ViatraQueryEngine engine) {
       // check if matcher already exists
       Matcher matcher = engine.getExistingMatcher(querySpecification());
       if (matcher == null) {
@@ -314,15 +317,15 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * @noreference This method is for internal matcher initialization by the framework, do not call it manually.
      * 
      */
-    public static Collision2.Matcher create() {
+    public static Collision.Matcher create() {
       return new Matcher();
     }
     
-    private static final int POSITION_E = 0;
+    private static final int POSITION_D1 = 0;
     
-    private static final int POSITION_P = 1;
+    private static final int POSITION_D2 = 1;
     
-    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(Collision2.Matcher.class);
+    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(Collision.Matcher.class);
     
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
@@ -338,13 +341,13 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
     
     /**
      * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
-     * @param pE the fixed value of pattern parameter e, or null if not bound.
-     * @param pP the fixed value of pattern parameter p, or null if not bound.
+     * @param pD1 the fixed value of pattern parameter d1, or null if not bound.
+     * @param pD2 the fixed value of pattern parameter d2, or null if not bound.
      * @return matches represented as a Match object.
      * 
      */
-    public Collection<Collision2.Match> getAllMatches(final DynamicEntity pE, final DynamicEntity pP) {
-      return rawStreamAllMatches(new Object[]{pE, pP}).collect(Collectors.toSet());
+    public Collection<Collision.Match> getAllMatches(final DynamicEntity pD1, final DynamicEntity pD2) {
+      return rawStreamAllMatches(new Object[]{pD1, pD2}).collect(Collectors.toSet());
     }
     
     /**
@@ -353,105 +356,105 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
      * In such cases, either rely on {@link #getAllMatches()} or collect the results of the stream in end-user code.
-     * @param pE the fixed value of pattern parameter e, or null if not bound.
-     * @param pP the fixed value of pattern parameter p, or null if not bound.
+     * @param pD1 the fixed value of pattern parameter d1, or null if not bound.
+     * @param pD2 the fixed value of pattern parameter d2, or null if not bound.
      * @return a stream of matches represented as a Match object.
      * 
      */
-    public Stream<Collision2.Match> streamAllMatches(final DynamicEntity pE, final DynamicEntity pP) {
-      return rawStreamAllMatches(new Object[]{pE, pP});
+    public Stream<Collision.Match> streamAllMatches(final DynamicEntity pD1, final DynamicEntity pD2) {
+      return rawStreamAllMatches(new Object[]{pD1, pD2});
     }
     
     /**
      * Returns an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
      * Neither determinism nor randomness of selection is guaranteed.
-     * @param pE the fixed value of pattern parameter e, or null if not bound.
-     * @param pP the fixed value of pattern parameter p, or null if not bound.
+     * @param pD1 the fixed value of pattern parameter d1, or null if not bound.
+     * @param pD2 the fixed value of pattern parameter d2, or null if not bound.
      * @return a match represented as a Match object, or null if no match is found.
      * 
      */
-    public Optional<Collision2.Match> getOneArbitraryMatch(final DynamicEntity pE, final DynamicEntity pP) {
-      return rawGetOneArbitraryMatch(new Object[]{pE, pP});
+    public Optional<Collision.Match> getOneArbitraryMatch(final DynamicEntity pD1, final DynamicEntity pD2) {
+      return rawGetOneArbitraryMatch(new Object[]{pD1, pD2});
     }
     
     /**
      * Indicates whether the given combination of specified pattern parameters constitute a valid pattern match,
      * under any possible substitution of the unspecified parameters (if any).
-     * @param pE the fixed value of pattern parameter e, or null if not bound.
-     * @param pP the fixed value of pattern parameter p, or null if not bound.
+     * @param pD1 the fixed value of pattern parameter d1, or null if not bound.
+     * @param pD2 the fixed value of pattern parameter d2, or null if not bound.
      * @return true if the input is a valid (partial) match of the pattern.
      * 
      */
-    public boolean hasMatch(final DynamicEntity pE, final DynamicEntity pP) {
-      return rawHasMatch(new Object[]{pE, pP});
+    public boolean hasMatch(final DynamicEntity pD1, final DynamicEntity pD2) {
+      return rawHasMatch(new Object[]{pD1, pD2});
     }
     
     /**
      * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
-     * @param pE the fixed value of pattern parameter e, or null if not bound.
-     * @param pP the fixed value of pattern parameter p, or null if not bound.
+     * @param pD1 the fixed value of pattern parameter d1, or null if not bound.
+     * @param pD2 the fixed value of pattern parameter d2, or null if not bound.
      * @return the number of pattern matches found.
      * 
      */
-    public int countMatches(final DynamicEntity pE, final DynamicEntity pP) {
-      return rawCountMatches(new Object[]{pE, pP});
+    public int countMatches(final DynamicEntity pD1, final DynamicEntity pD2) {
+      return rawCountMatches(new Object[]{pD1, pD2});
     }
     
     /**
      * Executes the given processor on an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
      * Neither determinism nor randomness of selection is guaranteed.
-     * @param pE the fixed value of pattern parameter e, or null if not bound.
-     * @param pP the fixed value of pattern parameter p, or null if not bound.
+     * @param pD1 the fixed value of pattern parameter d1, or null if not bound.
+     * @param pD2 the fixed value of pattern parameter d2, or null if not bound.
      * @param processor the action that will process the selected match.
      * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
      * 
      */
-    public boolean forOneArbitraryMatch(final DynamicEntity pE, final DynamicEntity pP, final Consumer<? super Collision2.Match> processor) {
-      return rawForOneArbitraryMatch(new Object[]{pE, pP}, processor);
+    public boolean forOneArbitraryMatch(final DynamicEntity pD1, final DynamicEntity pD2, final Consumer<? super Collision.Match> processor) {
+      return rawForOneArbitraryMatch(new Object[]{pD1, pD2}, processor);
     }
     
     /**
      * Returns a new (partial) match.
      * This can be used e.g. to call the matcher with a partial match.
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
-     * @param pE the fixed value of pattern parameter e, or null if not bound.
-     * @param pP the fixed value of pattern parameter p, or null if not bound.
+     * @param pD1 the fixed value of pattern parameter d1, or null if not bound.
+     * @param pD2 the fixed value of pattern parameter d2, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public Collision2.Match newMatch(final DynamicEntity pE, final DynamicEntity pP) {
-      return Collision2.Match.newMatch(pE, pP);
+    public Collision.Match newMatch(final DynamicEntity pD1, final DynamicEntity pD2) {
+      return Collision.Match.newMatch(pD1, pD2);
     }
     
     /**
-     * Retrieve the set of values that occur in matches for e.
+     * Retrieve the set of values that occur in matches for d1.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    protected Stream<DynamicEntity> rawStreamAllValuesOfe(final Object[] parameters) {
-      return rawStreamAllValues(POSITION_E, parameters).map(DynamicEntity.class::cast);
+    protected Stream<DynamicEntity> rawStreamAllValuesOfd1(final Object[] parameters) {
+      return rawStreamAllValues(POSITION_D1, parameters).map(DynamicEntity.class::cast);
     }
     
     /**
-     * Retrieve the set of values that occur in matches for e.
+     * Retrieve the set of values that occur in matches for d1.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfe() {
-      return rawStreamAllValuesOfe(emptyArray()).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfd1() {
+      return rawStreamAllValuesOfd1(emptyArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for e.
+     * Retrieve the set of values that occur in matches for d1.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfe() {
-      return rawStreamAllValuesOfe(emptyArray());
+    public Stream<DynamicEntity> streamAllValuesOfd1() {
+      return rawStreamAllValuesOfd1(emptyArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for e.
+     * Retrieve the set of values that occur in matches for d1.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -460,12 +463,12 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfe(final Collision2.Match partialMatch) {
-      return rawStreamAllValuesOfe(partialMatch.toArray());
+    public Stream<DynamicEntity> streamAllValuesOfd1(final Collision.Match partialMatch) {
+      return rawStreamAllValuesOfd1(partialMatch.toArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for e.
+     * Retrieve the set of values that occur in matches for d1.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -474,57 +477,57 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfe(final DynamicEntity pP) {
-      return rawStreamAllValuesOfe(new Object[]{null, pP});
+    public Stream<DynamicEntity> streamAllValuesOfd1(final DynamicEntity pD2) {
+      return rawStreamAllValuesOfd1(new Object[]{null, pD2});
     }
     
     /**
-     * Retrieve the set of values that occur in matches for e.
+     * Retrieve the set of values that occur in matches for d1.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfe(final Collision2.Match partialMatch) {
-      return rawStreamAllValuesOfe(partialMatch.toArray()).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfd1(final Collision.Match partialMatch) {
+      return rawStreamAllValuesOfd1(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for e.
+     * Retrieve the set of values that occur in matches for d1.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfe(final DynamicEntity pP) {
-      return rawStreamAllValuesOfe(new Object[]{null, pP}).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfd1(final DynamicEntity pD2) {
+      return rawStreamAllValuesOfd1(new Object[]{null, pD2}).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for p.
+     * Retrieve the set of values that occur in matches for d2.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    protected Stream<DynamicEntity> rawStreamAllValuesOfp(final Object[] parameters) {
-      return rawStreamAllValues(POSITION_P, parameters).map(DynamicEntity.class::cast);
+    protected Stream<DynamicEntity> rawStreamAllValuesOfd2(final Object[] parameters) {
+      return rawStreamAllValues(POSITION_D2, parameters).map(DynamicEntity.class::cast);
     }
     
     /**
-     * Retrieve the set of values that occur in matches for p.
+     * Retrieve the set of values that occur in matches for d2.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfp() {
-      return rawStreamAllValuesOfp(emptyArray()).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfd2() {
+      return rawStreamAllValuesOfd2(emptyArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for p.
+     * Retrieve the set of values that occur in matches for d2.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfp() {
-      return rawStreamAllValuesOfp(emptyArray());
+    public Stream<DynamicEntity> streamAllValuesOfd2() {
+      return rawStreamAllValuesOfd2(emptyArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for p.
+     * Retrieve the set of values that occur in matches for d2.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -533,12 +536,12 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfp(final Collision2.Match partialMatch) {
-      return rawStreamAllValuesOfp(partialMatch.toArray());
+    public Stream<DynamicEntity> streamAllValuesOfd2(final Collision.Match partialMatch) {
+      return rawStreamAllValuesOfd2(partialMatch.toArray());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for p.
+     * Retrieve the set of values that occur in matches for d2.
      * </p>
      * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
      * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
@@ -547,32 +550,32 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfp(final DynamicEntity pE) {
-      return rawStreamAllValuesOfp(new Object[]{pE, null});
+    public Stream<DynamicEntity> streamAllValuesOfd2(final DynamicEntity pD1) {
+      return rawStreamAllValuesOfd2(new Object[]{pD1, null});
     }
     
     /**
-     * Retrieve the set of values that occur in matches for p.
+     * Retrieve the set of values that occur in matches for d2.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfp(final Collision2.Match partialMatch) {
-      return rawStreamAllValuesOfp(partialMatch.toArray()).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfd2(final Collision.Match partialMatch) {
+      return rawStreamAllValuesOfd2(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
     /**
-     * Retrieve the set of values that occur in matches for p.
+     * Retrieve the set of values that occur in matches for d2.
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfp(final DynamicEntity pE) {
-      return rawStreamAllValuesOfp(new Object[]{pE, null}).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfd2(final DynamicEntity pD1) {
+      return rawStreamAllValuesOfd2(new Object[]{pD1, null}).collect(Collectors.toSet());
     }
     
     @Override
-    protected Collision2.Match tupleToMatch(final Tuple t) {
+    protected Collision.Match tupleToMatch(final Tuple t) {
       try {
-          return Collision2.Match.newMatch((DynamicEntity) t.get(POSITION_E), (DynamicEntity) t.get(POSITION_P));
+          return Collision.Match.newMatch((DynamicEntity) t.get(POSITION_D1), (DynamicEntity) t.get(POSITION_D2));
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in tuple not properly typed!",e);
           return null;
@@ -580,9 +583,9 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
     }
     
     @Override
-    protected Collision2.Match arrayToMatch(final Object[] match) {
+    protected Collision.Match arrayToMatch(final Object[] match) {
       try {
-          return Collision2.Match.newMatch((DynamicEntity) match[POSITION_E], (DynamicEntity) match[POSITION_P]);
+          return Collision.Match.newMatch((DynamicEntity) match[POSITION_D1], (DynamicEntity) match[POSITION_D2]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -590,9 +593,9 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
     }
     
     @Override
-    protected Collision2.Match arrayToMatchMutable(final Object[] match) {
+    protected Collision.Match arrayToMatchMutable(final Object[] match) {
       try {
-          return Collision2.Match.newMutableMatch((DynamicEntity) match[POSITION_E], (DynamicEntity) match[POSITION_P]);
+          return Collision.Match.newMutableMatch((DynamicEntity) match[POSITION_D1], (DynamicEntity) match[POSITION_D2]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -604,12 +607,12 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
      * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
      * 
      */
-    public static IQuerySpecification<Collision2.Matcher> querySpecification() {
-      return Collision2.instance();
+    public static IQuerySpecification<Collision.Matcher> querySpecification() {
+      return Collision.instance();
     }
   }
   
-  private Collision2() {
+  private Collision() {
     super(GeneratedPQuery.INSTANCE);
   }
   
@@ -618,7 +621,7 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
    * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
    * 
    */
-  public static Collision2 instance() {
+  public static Collision instance() {
     try{
         return LazyHolder.INSTANCE;
     } catch (ExceptionInInitializerError err) {
@@ -627,35 +630,35 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
   }
   
   @Override
-  protected Collision2.Matcher instantiate(final ViatraQueryEngine engine) {
-    return Collision2.Matcher.on(engine);
+  protected Collision.Matcher instantiate(final ViatraQueryEngine engine) {
+    return Collision.Matcher.on(engine);
   }
   
   @Override
-  public Collision2.Matcher instantiate() {
-    return Collision2.Matcher.create();
+  public Collision.Matcher instantiate() {
+    return Collision.Matcher.create();
   }
   
   @Override
-  public Collision2.Match newEmptyMatch() {
-    return Collision2.Match.newEmptyMatch();
+  public Collision.Match newEmptyMatch() {
+    return Collision.Match.newEmptyMatch();
   }
   
   @Override
-  public Collision2.Match newMatch(final Object... parameters) {
-    return Collision2.Match.newMatch((scenedl.DynamicEntity) parameters[0], (scenedl.DynamicEntity) parameters[1]);
+  public Collision.Match newMatch(final Object... parameters) {
+    return Collision.Match.newMatch((scenedl.DynamicEntity) parameters[0], (scenedl.DynamicEntity) parameters[1]);
   }
   
   /**
-   * Inner class allowing the singleton instance of {@link Collision2} to be created 
+   * Inner class allowing the singleton instance of {@link Collision} to be created 
    *     <b>not</b> at the class load time of the outer class, 
-   *     but rather at the first call to {@link Collision2#instance()}.
+   *     but rather at the first call to {@link Collision#instance()}.
    * 
    * <p> This workaround is required e.g. to support recursion.
    * 
    */
   private static class LazyHolder {
-    private static final Collision2 INSTANCE = new Collision2();
+    private static final Collision INSTANCE = new Collision();
     
     /**
      * Statically initializes the query specification <b>after</b> the field {@link #INSTANCE} is assigned.
@@ -673,13 +676,13 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
   }
   
   private static class GeneratedPQuery extends BaseGeneratedEMFPQuery {
-    private static final Collision2.GeneratedPQuery INSTANCE = new GeneratedPQuery();
+    private static final Collision.GeneratedPQuery INSTANCE = new GeneratedPQuery();
     
-    private final PParameter parameter_e = new PParameter("e", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
+    private final PParameter parameter_d1 = new PParameter("d1", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
     
-    private final PParameter parameter_p = new PParameter("p", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
+    private final PParameter parameter_d2 = new PParameter("d2", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
     
-    private final List<PParameter> parameters = Arrays.asList(parameter_e, parameter_p);
+    private final List<PParameter> parameters = Arrays.asList(parameter_d1, parameter_d2);
     
     private GeneratedPQuery() {
       super(PVisibility.PUBLIC);
@@ -687,12 +690,12 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
     
     @Override
     public String getFullyQualifiedName() {
-      return "event.driven.scenario.dse.queries.collision2";
+      return "event.driven.scenario.dse.queries.collision";
     }
     
     @Override
     public List<String> getParameterNames() {
-      return Arrays.asList("e","p");
+      return Arrays.asList("d1","d2");
     }
     
     @Override
@@ -706,60 +709,62 @@ public final class Collision2 extends BaseGeneratedEMFQuerySpecification<Collisi
       Set<PBody> bodies = new LinkedHashSet<>();
       {
           PBody body = new PBody(this);
-          PVariable var_e = body.getOrCreateVariableByName("e");
-          PVariable var_p = body.getOrCreateVariableByName("p");
-          PVariable var_pedestrianePos = body.getOrCreateVariableByName("pedestrianePos");
-          PVariable var_pedestrianPosY = body.getOrCreateVariableByName("pedestrianPosY");
-          PVariable var_pedestrianPosX = body.getOrCreateVariableByName("pedestrianPosX");
-          PVariable var_egoPos = body.getOrCreateVariableByName("egoPos");
-          PVariable var_egoPosX = body.getOrCreateVariableByName("egoPosX");
-          PVariable var_egoPosY = body.getOrCreateVariableByName("egoPosY");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_e), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var_p), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          PVariable var_d1 = body.getOrCreateVariableByName("d1");
+          PVariable var_d2 = body.getOrCreateVariableByName("d2");
+          PVariable var_d2Pos = body.getOrCreateVariableByName("d2Pos");
+          PVariable var_d2PosY = body.getOrCreateVariableByName("d2PosY");
+          PVariable var_d2PosX = body.getOrCreateVariableByName("d2PosX");
+          PVariable var_d1Pos = body.getOrCreateVariableByName("d1Pos");
+          PVariable var_d1PosX = body.getOrCreateVariableByName("d1PosX");
+          PVariable var_d1PosY = body.getOrCreateVariableByName("d1PosY");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d1), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d2), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
           body.setSymbolicParameters(Arrays.<ExportedParameter>asList(
-             new ExportedParameter(body, var_e, parameter_e),
-             new ExportedParameter(body, var_p, parameter_p)
+             new ExportedParameter(body, var_d1, parameter_d1),
+             new ExportedParameter(body, var_d2, parameter_d2)
           ));
-          // 	//DynamicEntity.name(p,"pedestrian");	DynamicEntity.position(p,pedestrianePos)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_p), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          // 	d1 != d2
+          new Inequality(body, var_d1, var_d2);
+          // 	//DynamicEntity.name(p,"pedestrian");	DynamicEntity.position(d2,d2Pos)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d2), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
           PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_p, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "position")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d2, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "position")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_0_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
-          new Equality(body, var__virtual_0_, var_pedestrianePos);
-          // 	PositionAttribute.y(pedestrianePos,pedestrianPosY)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrianePos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
+          new Equality(body, var__virtual_0_, var_d2Pos);
+          // 	PositionAttribute.y(d2Pos,d2PosY)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d2Pos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
           PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrianePos, var__virtual_1_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d2Pos, var__virtual_1_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_1_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
-          new Equality(body, var__virtual_1_, var_pedestrianPosY);
-          // 	PositionAttribute.x(pedestrianePos,pedestrianPosX)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrianePos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
+          new Equality(body, var__virtual_1_, var_d2PosY);
+          // 	PositionAttribute.x(d2Pos,d2PosX)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d2Pos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
           PVariable var__virtual_2_ = body.getOrCreateVariableByName(".virtual{2}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_pedestrianePos, var__virtual_2_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "x")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d2Pos, var__virtual_2_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "x")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_2_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
-          new Equality(body, var__virtual_2_, var_pedestrianPosX);
-          // 		//DynamicEntity.name(e,"ego");	DynamicEntity.position(e,egoPos)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_e), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          new Equality(body, var__virtual_2_, var_d2PosX);
+          // 		//DynamicEntity.name(e,"ego");	DynamicEntity.position(d1,d1Pos)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d1), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
           PVariable var__virtual_3_ = body.getOrCreateVariableByName(".virtual{3}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_e, var__virtual_3_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "position")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d1, var__virtual_3_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity", "position")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_3_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
-          new Equality(body, var__virtual_3_, var_egoPos);
-          // 	PositionAttribute.x(egoPos,egoPosX)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_egoPos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
+          new Equality(body, var__virtual_3_, var_d1Pos);
+          // 	PositionAttribute.x(d1Pos,d1PosX)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d1Pos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
           PVariable var__virtual_4_ = body.getOrCreateVariableByName(".virtual{4}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_egoPos, var__virtual_4_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "x")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d1Pos, var__virtual_4_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "x")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_4_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
-          new Equality(body, var__virtual_4_, var_egoPosX);
-          // 	PositionAttribute.y(egoPos,egoPosY)
-          new TypeConstraint(body, Tuples.flatTupleOf(var_egoPos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
+          new Equality(body, var__virtual_4_, var_d1PosX);
+          // 	PositionAttribute.y(d1Pos,d1PosY)
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d1Pos), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute")));
           PVariable var__virtual_5_ = body.getOrCreateVariableByName(".virtual{5}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_egoPos, var__virtual_5_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_d1Pos, var__virtual_5_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "PositionAttribute", "y")));
           new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_5_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EInt")));
-          new Equality(body, var__virtual_5_, var_egoPosY);
-          // 	egoPosX == pedestrianPosX
-          new Equality(body, var_egoPosX, var_pedestrianPosX);
-          // 	pedestrianPosY == egoPosY
-          new Equality(body, var_pedestrianPosY, var_egoPosY);
+          new Equality(body, var__virtual_5_, var_d1PosY);
+          // 	d1PosX == d2PosX
+          new Equality(body, var_d1PosX, var_d2PosX);
+          // 	d1PosY == d2PosY
+          new Equality(body, var_d1PosY, var_d2PosY);
           bodies.add(body);
       }
       return bodies;

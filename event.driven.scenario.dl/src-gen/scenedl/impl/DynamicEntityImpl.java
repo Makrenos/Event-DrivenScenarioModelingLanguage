@@ -23,6 +23,7 @@ import scenedl.StaticEntity;
  * <ul>
  *   <li>{@link scenedl.impl.DynamicEntityImpl#getOn <em>On</em>}</li>
  *   <li>{@link scenedl.impl.DynamicEntityImpl#getPosition <em>Position</em>}</li>
+ *   <li>{@link scenedl.impl.DynamicEntityImpl#getSpeed <em>Speed</em>}</li>
  * </ul>
  *
  * @generated
@@ -46,6 +47,16 @@ public class DynamicEntityImpl extends ElementImpl implements DynamicEntity {
 	 * @ordered
 	 */
 	protected PositionAttribute position;
+
+	/**
+	 * The cached value of the '{@link #getSpeed() <em>Speed</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSpeed()
+	 * @generated
+	 * @ordered
+	 */
+	protected PositionAttribute speed;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -160,11 +171,63 @@ public class DynamicEntityImpl extends ElementImpl implements DynamicEntity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PositionAttribute getSpeed() {
+		return speed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetSpeed(PositionAttribute newSpeed, NotificationChain msgs) {
+		PositionAttribute oldSpeed = speed;
+		speed = newSpeed;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					ScenedlPackage.DYNAMIC_ENTITY__SPEED, oldSpeed, newSpeed);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSpeed(PositionAttribute newSpeed) {
+		if (newSpeed != speed) {
+			NotificationChain msgs = null;
+			if (speed != null)
+				msgs = ((InternalEObject) speed).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - ScenedlPackage.DYNAMIC_ENTITY__SPEED, null, msgs);
+			if (newSpeed != null)
+				msgs = ((InternalEObject) newSpeed).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - ScenedlPackage.DYNAMIC_ENTITY__SPEED, null, msgs);
+			msgs = basicSetSpeed(newSpeed, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ScenedlPackage.DYNAMIC_ENTITY__SPEED, newSpeed,
+					newSpeed));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case ScenedlPackage.DYNAMIC_ENTITY__POSITION:
 			return basicSetPosition(null, msgs);
+		case ScenedlPackage.DYNAMIC_ENTITY__SPEED:
+			return basicSetSpeed(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -183,6 +246,8 @@ public class DynamicEntityImpl extends ElementImpl implements DynamicEntity {
 			return basicGetOn();
 		case ScenedlPackage.DYNAMIC_ENTITY__POSITION:
 			return getPosition();
+		case ScenedlPackage.DYNAMIC_ENTITY__SPEED:
+			return getSpeed();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -200,6 +265,9 @@ public class DynamicEntityImpl extends ElementImpl implements DynamicEntity {
 			return;
 		case ScenedlPackage.DYNAMIC_ENTITY__POSITION:
 			setPosition((PositionAttribute) newValue);
+			return;
+		case ScenedlPackage.DYNAMIC_ENTITY__SPEED:
+			setSpeed((PositionAttribute) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -219,6 +287,9 @@ public class DynamicEntityImpl extends ElementImpl implements DynamicEntity {
 		case ScenedlPackage.DYNAMIC_ENTITY__POSITION:
 			setPosition((PositionAttribute) null);
 			return;
+		case ScenedlPackage.DYNAMIC_ENTITY__SPEED:
+			setSpeed((PositionAttribute) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -235,6 +306,8 @@ public class DynamicEntityImpl extends ElementImpl implements DynamicEntity {
 			return on != null;
 		case ScenedlPackage.DYNAMIC_ENTITY__POSITION:
 			return position != null;
+		case ScenedlPackage.DYNAMIC_ENTITY__SPEED:
+			return speed != null;
 		}
 		return super.eIsSet(featureID);
 	}

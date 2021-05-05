@@ -15,6 +15,10 @@ import scenedl.DynamicEntity
 import scenedl.Element
 import scenedl.Lane
 import scenedl.StaticEntity
+import event.driven.scenario.dse.queries.VehicleMovesMeasurements
+import event.driven.scenario.dse.queries.VehicleSlowsDownMeasurements
+import event.driven.scenario.dse.queries.VehicleAcceleratesMeasurements
+import event.driven.scenario.dse.queries.RandomVehicleMovesMeasurements
 
 class EdsdlDseRules {
     extension BatchTransformationRuleFactory factory = new BatchTransformationRuleFactory
@@ -22,9 +26,16 @@ class EdsdlDseRules {
 	//rules
     public BatchTransformationRule<?, ?> vehicleMoves
     public BatchTransformationRule<?, ?> vehicleSlowsDown
-    public BatchTransformationRule<?, ?> vehicleAccelerates
+    public BatchTransformationRule<?, ?> vehicleAccelerates    
 	public BatchTransformationRule<?, ?> pedestrianMoves
+	
+	//measurements
+	public BatchTransformationRule<?, ?> vehicleMovesMeasurements
+    public BatchTransformationRule<?, ?> vehicleSlowsDownMeasurements
+    public BatchTransformationRule<?, ?> vehicleAcceleratesMeasurements
+    public BatchTransformationRule<?, ?> randomVehicleMovesMeasurements
 
+	/*
 	def int getSpeed(DynamicEntity e){
 		for(RegularAttribute a : e.attributes){
 			if(a.name.equals("speed")){
@@ -44,6 +55,7 @@ class EdsdlDseRules {
 		}
 		return 0
 	}
+	*/
 	
 	def void actuateModel(DynamicEntity de,String rule){
 		//Actutate "on" reference
@@ -86,7 +98,8 @@ class EdsdlDseRules {
 			vehicleMoves = createRule(VehicleMoves.instance())
                 .name("vehicleMoves")
                 .action[						
-					vehicle.position.x = vehicle.position.x + vehicle.getSpeed
+					vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
 					vehicle.actuateModel(vehicleMoves.name) 	    
                 ]
                 .build
@@ -96,9 +109,12 @@ class EdsdlDseRules {
                 .action[                	
                 	//val featureX = vehiclePos.eClass.EAllStructuralFeatures.filter[it.name.equals("x")].head
                 	//map a by megszerzéséhez
-                	//vehiclePos.eSet(featureX,1);
+                	//vehiclePos.eSet(featureX,1);s
                 	//vehicle.position.x
-					vehicle.position.x = vehicle.position.x + vehicle.setSpeed(by)
+                	vehicle.speed.x = vehicle.speed.x + by 
+                	vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+					//vehicle.position.x = vehicle.position.x + vehicle.setSpeed(by)
                 	vehicle.actuateModel(vehicleSlowsDown.name)                	    
                 ]
                 .build
@@ -106,7 +122,9 @@ class EdsdlDseRules {
             vehicleAccelerates = createRule(VehicleAccelerates.instance())
                 .name("vehicleAccelerates")
                 .action[            	
-					vehicle.position.x = vehicle.position.x + vehicle.setSpeed(by)
+					vehicle.speed.x = vehicle.speed.x + by 
+                	vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
                 	vehicle.actuateModel(vehicleAccelerates.name)                	    
                 ]
                 .build
@@ -115,8 +133,57 @@ class EdsdlDseRules {
 			pedestrianMoves = createRule(PedestrianMoves.instance())
                 .name("pedestrianMoves")
                 .action[
-					pedestrian.position.y = pedestrian.position.y - pedestrian.getSpeed
+                	//System.out.println(pedestrian.name);
+                	pedestrian.position.x = pedestrian.position.x + pedestrian.speed.x
+					pedestrian.position.y = pedestrian.position.y + pedestrian.speed.y
 					pedestrian.actuateModel(pedestrianMoves.name)
+                ]
+                .build
+                
+            //Measurements
+			vehicleMovesMeasurements = createRule(VehicleMovesMeasurements.instance())
+                .name("vehicleMoves")
+                .action[
+                	//System.out.println(vehicle.name);						
+					vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+					vehicle.actuateModel(vehicleMoves.name) 	    
+                ]
+                .build
+                
+			randomVehicleMovesMeasurements = createRule(RandomVehicleMovesMeasurements.instance())
+                .name("randomVehicleMoves")
+                .action[
+                	//System.out.println(vehicle.name);						
+					vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+					vehicle.actuateModel(vehicleMoves.name) 	    
+                ]
+                .build
+                
+            vehicleSlowsDownMeasurements = createRule(VehicleSlowsDownMeasurements.instance())
+                .name("vehicleSlowsDown")
+                .action[
+                	//System.out.println(vehicle.name);	                	
+                	//val featureX = vehiclePos.eClass.EAllStructuralFeatures.filter[it.name.equals("x")].head
+                	//map a by megszerzéséhez
+                	//vehiclePos.eSet(featureX,1);
+                	//vehicle.position.x
+					vehicle.speed.x = vehicle.speed.x + by 
+                	vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+                	vehicle.actuateModel(vehicleSlowsDown.name)                	    
+                ]
+                .build
+                
+            vehicleAcceleratesMeasurements = createRule(VehicleAcceleratesMeasurements.instance())
+                .name("vehicleAccelerates")
+                .action[
+                	//System.out.println(vehicle.name);            	
+					vehicle.speed.x = vehicle.speed.x + by 
+                	vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+                	vehicle.actuateModel(vehicleAccelerates.name)                	    
                 ]
                 .build    
 			

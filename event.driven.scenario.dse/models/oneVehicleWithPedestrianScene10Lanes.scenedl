@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scenedl:Scene
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:scenedl="http://www.eventDrivenScenario.org/scenedl"
+    xsi:schemaLocation="http://www.eventDrivenScenario.org/scenedl ../../event.driven.scenario.dl/model/scenedl.ecore"
+    name="One_vehicle_with_crosswalk_and_pedestrian">
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="pedestrian"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian">
+    <position
+        x="4"
+        y="12"/>
+    <speed y="-1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:StaticEntity"
+      type="static_entity"
+      name="crosswalk"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian">
+    <lanes>
+      <startingPosition
+          x="4"
+          y="2"/>
+      <endingPosition
+          x="4"
+          y="11"/>
+    </lanes>
+  </elements>
+  <elements
+      xsi:type="scenedl:StaticEntity"
+      type="static_entity"
+      name="road"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      uses="//@elements.3">
+    <lanes>
+      <startingPosition
+          x="1"
+          y="2"/>
+      <endingPosition
+          x="7"
+          y="2"/>
+    </lanes>
+    <lanes id="1">
+      <startingPosition
+          x="1"
+          y="3"/>
+      <endingPosition
+          x="7"
+          y="3"/>
+    </lanes>
+    <lanes id="2">
+      <startingPosition
+          x="1"
+          y="4"/>
+      <endingPosition
+          x="7"
+          y="4"/>
+    </lanes>
+    <lanes id="3">
+      <startingPosition
+          x="1"
+          y="5"/>
+      <endingPosition
+          x="7"
+          y="5"/>
+    </lanes>
+    <lanes id="4">
+      <startingPosition
+          x="1"
+          y="6"/>
+      <endingPosition
+          x="7"
+          y="6"/>
+    </lanes>
+    <lanes id="5">
+      <startingPosition
+          x="1"
+          y="7"/>
+      <endingPosition
+          x="7"
+          y="7"/>
+    </lanes>
+    <lanes id="6">
+      <startingPosition
+          x="1"
+          y="8"/>
+      <endingPosition
+          x="7"
+          y="8"/>
+    </lanes>
+    <lanes id="7">
+      <startingPosition
+          x="1"
+          y="9"/>
+      <endingPosition
+          x="7"
+          y="9"/>
+    </lanes>
+    <lanes id="8">
+      <startingPosition
+          x="1"
+          y="10"/>
+      <endingPosition
+          x="7"
+          y="10"/>
+    </lanes>
+    <lanes id="9">
+      <startingPosition
+          x="1"
+          y="11"/>
+      <endingPosition
+          x="7"
+          y="11"/>
+    </lanes>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="ego"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="2"/>
+    <speed x="1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="car1"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="3"/>
+    <speed x="1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="car2"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="4"/>
+    <speed x="1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="car3"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="5"/>
+    <speed x="1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="car4"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="6"/>
+    <speed x="1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="car5"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="7"/>
+    <speed x="1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="car6"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="8"/>
+    <speed x="1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="car7"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="9"/>
+    <speed x="1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="car8"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="10"/>
+    <speed x="1"/>
+  </elements>
+  <elements
+      xsi:type="scenedl:DynamicEntity"
+      type="dynamic_entity"
+      name="car9"
+      containedIn="One_vehicle_with_crosswalk_and_pedestrian"
+      on="//@elements.2">
+    <position
+        x="1"
+        y="11"/>
+    <speed x="1"/>
+  </elements>
+  <boundry x="8"
+      y="12"/>
+</scenedl:Scene>

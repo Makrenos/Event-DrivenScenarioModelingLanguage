@@ -3,9 +3,13 @@ package event.driven.scenario.dse.rules;
 import edsdl.Action;
 import edsdl.Transition;
 import event.driven.scenario.dse.queries.PedestrianMoves;
+import event.driven.scenario.dse.queries.RandomVehicleMovesMeasurements;
 import event.driven.scenario.dse.queries.VehicleAccelerates;
+import event.driven.scenario.dse.queries.VehicleAcceleratesMeasurements;
 import event.driven.scenario.dse.queries.VehicleMoves;
+import event.driven.scenario.dse.queries.VehicleMovesMeasurements;
 import event.driven.scenario.dse.queries.VehicleSlowsDown;
+import event.driven.scenario.dse.queries.VehicleSlowsDownMeasurements;
 import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.viatra.dse.api.DSEException;
@@ -18,7 +22,6 @@ import scenedl.DynamicEntity;
 import scenedl.Element;
 import scenedl.Lane;
 import scenedl.PositionAttribute;
-import scenedl.RegularAttribute;
 import scenedl.StaticEntity;
 
 @SuppressWarnings("all")
@@ -34,31 +37,35 @@ public class EdsdlDseRules {
   
   public BatchTransformationRule<?, ?> pedestrianMoves;
   
-  public int getSpeed(final DynamicEntity e) {
-    EList<RegularAttribute> _attributes = e.getAttributes();
-    for (final RegularAttribute a : _attributes) {
-      boolean _equals = a.getName().equals("speed");
-      if (_equals) {
-        return a.getValue();
-      }
-    }
-    return 0;
-  }
+  public BatchTransformationRule<?, ?> vehicleMovesMeasurements;
   
-  public int setSpeed(final DynamicEntity e, final int by) {
-    EList<RegularAttribute> _attributes = e.getAttributes();
-    for (final RegularAttribute a : _attributes) {
-      boolean _equals = a.getName().equals("speed");
-      if (_equals) {
-        int _value = a.getValue();
-        int _plus = (_value + by);
-        a.setValue(_plus);
-        return a.getValue();
-      }
-    }
-    return 0;
-  }
+  public BatchTransformationRule<?, ?> vehicleSlowsDownMeasurements;
   
+  public BatchTransformationRule<?, ?> vehicleAcceleratesMeasurements;
+  
+  public BatchTransformationRule<?, ?> randomVehicleMovesMeasurements;
+  
+  /**
+   * def int getSpeed(DynamicEntity e){
+   * for(RegularAttribute a : e.attributes){
+   * if(a.name.equals("speed")){
+   * 
+   * return a.value;
+   * }
+   * }
+   * return 0
+   * }
+   * 
+   * def int setSpeed(DynamicEntity e,int by){
+   * for(RegularAttribute a : e.attributes){
+   * if(a.name.equals("speed")){
+   * a.value = a.value+by
+   * return a.value
+   * }
+   * }
+   * return 0
+   * }
+   */
   public void actuateModel(final DynamicEntity de, final String rule) {
     boolean outOfFeatureZone = true;
     EList<Element> _elements = de.getContainedIn().getElements();
@@ -111,39 +118,135 @@ public class EdsdlDseRules {
       final Consumer<VehicleMoves.Match> _function = (VehicleMoves.Match it) -> {
         PositionAttribute _position = it.getVehicle().getPosition();
         int _x = it.getVehicle().getPosition().getX();
-        int _speed = this.getSpeed(it.getVehicle());
-        int _plus = (_x + _speed);
+        int _x_1 = it.getVehicle().getSpeed().getX();
+        int _plus = (_x + _x_1);
         _position.setX(_plus);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_1 = (_y + _y_1);
+        _position_1.setY(_plus_1);
         this.actuateModel(it.getVehicle(), this.vehicleMoves.getName());
       };
       this.vehicleMoves = this.factory.<VehicleMoves.Match, VehicleMoves.Matcher>createRule(VehicleMoves.instance()).name("vehicleMoves").action(_function).build();
       final Consumer<VehicleSlowsDown.Match> _function_1 = (VehicleSlowsDown.Match it) -> {
+        PositionAttribute _speed = it.getVehicle().getSpeed();
+        int _x = it.getVehicle().getSpeed().getX();
+        Integer _by = it.getBy();
+        int _plus = (_x + (_by).intValue());
+        _speed.setX(_plus);
         PositionAttribute _position = it.getVehicle().getPosition();
-        int _x = it.getVehicle().getPosition().getX();
-        int _setSpeed = this.setSpeed(it.getVehicle(), (it.getBy()).intValue());
-        int _plus = (_x + _setSpeed);
-        _position.setX(_plus);
+        int _x_1 = it.getVehicle().getPosition().getX();
+        int _x_2 = it.getVehicle().getSpeed().getX();
+        int _plus_1 = (_x_1 + _x_2);
+        _position.setX(_plus_1);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_2 = (_y + _y_1);
+        _position_1.setY(_plus_2);
         this.actuateModel(it.getVehicle(), this.vehicleSlowsDown.getName());
       };
       this.vehicleSlowsDown = this.factory.<VehicleSlowsDown.Match, VehicleSlowsDown.Matcher>createRule(VehicleSlowsDown.instance()).name("vehicleSlowsDown").action(_function_1).build();
       final Consumer<VehicleAccelerates.Match> _function_2 = (VehicleAccelerates.Match it) -> {
+        PositionAttribute _speed = it.getVehicle().getSpeed();
+        int _x = it.getVehicle().getSpeed().getX();
+        Integer _by = it.getBy();
+        int _plus = (_x + (_by).intValue());
+        _speed.setX(_plus);
         PositionAttribute _position = it.getVehicle().getPosition();
-        int _x = it.getVehicle().getPosition().getX();
-        int _setSpeed = this.setSpeed(it.getVehicle(), (it.getBy()).intValue());
-        int _plus = (_x + _setSpeed);
-        _position.setX(_plus);
+        int _x_1 = it.getVehicle().getPosition().getX();
+        int _x_2 = it.getVehicle().getSpeed().getX();
+        int _plus_1 = (_x_1 + _x_2);
+        _position.setX(_plus_1);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_2 = (_y + _y_1);
+        _position_1.setY(_plus_2);
         this.actuateModel(it.getVehicle(), this.vehicleAccelerates.getName());
       };
       this.vehicleAccelerates = this.factory.<VehicleAccelerates.Match, VehicleAccelerates.Matcher>createRule(VehicleAccelerates.instance()).name("vehicleAccelerates").action(_function_2).build();
       final Consumer<PedestrianMoves.Match> _function_3 = (PedestrianMoves.Match it) -> {
         PositionAttribute _position = it.getPedestrian().getPosition();
+        int _x = it.getPedestrian().getPosition().getX();
+        int _x_1 = it.getPedestrian().getSpeed().getX();
+        int _plus = (_x + _x_1);
+        _position.setX(_plus);
+        PositionAttribute _position_1 = it.getPedestrian().getPosition();
         int _y = it.getPedestrian().getPosition().getY();
-        int _speed = this.getSpeed(it.getPedestrian());
-        int _minus = (_y - _speed);
-        _position.setY(_minus);
+        int _y_1 = it.getPedestrian().getSpeed().getY();
+        int _plus_1 = (_y + _y_1);
+        _position_1.setY(_plus_1);
         this.actuateModel(it.getPedestrian(), this.pedestrianMoves.getName());
       };
       this.pedestrianMoves = this.factory.<PedestrianMoves.Match, PedestrianMoves.Matcher>createRule(PedestrianMoves.instance()).name("pedestrianMoves").action(_function_3).build();
+      final Consumer<VehicleMovesMeasurements.Match> _function_4 = (VehicleMovesMeasurements.Match it) -> {
+        PositionAttribute _position = it.getVehicle().getPosition();
+        int _x = it.getVehicle().getPosition().getX();
+        int _x_1 = it.getVehicle().getSpeed().getX();
+        int _plus = (_x + _x_1);
+        _position.setX(_plus);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_1 = (_y + _y_1);
+        _position_1.setY(_plus_1);
+        this.actuateModel(it.getVehicle(), this.vehicleMoves.getName());
+      };
+      this.vehicleMovesMeasurements = this.factory.<VehicleMovesMeasurements.Match, VehicleMovesMeasurements.Matcher>createRule(VehicleMovesMeasurements.instance()).name("vehicleMoves").action(_function_4).build();
+      final Consumer<RandomVehicleMovesMeasurements.Match> _function_5 = (RandomVehicleMovesMeasurements.Match it) -> {
+        PositionAttribute _position = it.getVehicle().getPosition();
+        int _x = it.getVehicle().getPosition().getX();
+        int _x_1 = it.getVehicle().getSpeed().getX();
+        int _plus = (_x + _x_1);
+        _position.setX(_plus);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_1 = (_y + _y_1);
+        _position_1.setY(_plus_1);
+        this.actuateModel(it.getVehicle(), this.vehicleMoves.getName());
+      };
+      this.randomVehicleMovesMeasurements = this.factory.<RandomVehicleMovesMeasurements.Match, RandomVehicleMovesMeasurements.Matcher>createRule(RandomVehicleMovesMeasurements.instance()).name("randomVehicleMoves").action(_function_5).build();
+      final Consumer<VehicleSlowsDownMeasurements.Match> _function_6 = (VehicleSlowsDownMeasurements.Match it) -> {
+        PositionAttribute _speed = it.getVehicle().getSpeed();
+        int _x = it.getVehicle().getSpeed().getX();
+        Integer _by = it.getBy();
+        int _plus = (_x + (_by).intValue());
+        _speed.setX(_plus);
+        PositionAttribute _position = it.getVehicle().getPosition();
+        int _x_1 = it.getVehicle().getPosition().getX();
+        int _x_2 = it.getVehicle().getSpeed().getX();
+        int _plus_1 = (_x_1 + _x_2);
+        _position.setX(_plus_1);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_2 = (_y + _y_1);
+        _position_1.setY(_plus_2);
+        this.actuateModel(it.getVehicle(), this.vehicleSlowsDown.getName());
+      };
+      this.vehicleSlowsDownMeasurements = this.factory.<VehicleSlowsDownMeasurements.Match, VehicleSlowsDownMeasurements.Matcher>createRule(VehicleSlowsDownMeasurements.instance()).name("vehicleSlowsDown").action(_function_6).build();
+      final Consumer<VehicleAcceleratesMeasurements.Match> _function_7 = (VehicleAcceleratesMeasurements.Match it) -> {
+        PositionAttribute _speed = it.getVehicle().getSpeed();
+        int _x = it.getVehicle().getSpeed().getX();
+        Integer _by = it.getBy();
+        int _plus = (_x + (_by).intValue());
+        _speed.setX(_plus);
+        PositionAttribute _position = it.getVehicle().getPosition();
+        int _x_1 = it.getVehicle().getPosition().getX();
+        int _x_2 = it.getVehicle().getSpeed().getX();
+        int _plus_1 = (_x_1 + _x_2);
+        _position.setX(_plus_1);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_2 = (_y + _y_1);
+        _position_1.setY(_plus_2);
+        this.actuateModel(it.getVehicle(), this.vehicleAccelerates.getName());
+      };
+      this.vehicleAcceleratesMeasurements = this.factory.<VehicleAcceleratesMeasurements.Match, VehicleAcceleratesMeasurements.Matcher>createRule(VehicleAcceleratesMeasurements.instance()).name("vehicleAccelerates").action(_function_7).build();
     } catch (final Throwable _t) {
       if (_t instanceof ViatraQueryException) {
         final ViatraQueryException e = (ViatraQueryException)_t;

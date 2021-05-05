@@ -44,6 +44,26 @@ import scenedl.StaticEntity;
  * 
  * <p>Original source:
  *         <code><pre>
+ *         pattern inScene(entity: DynamicEntity,scene : Scene){
+ *         	Scene.elements(scene,entity);
+ *         	
+ *         	Scene.boundry(scene,boundryPos);
+ *         	PositionAttribute.x(boundryPos,boundryPosX);
+ *         	PositionAttribute.y(boundryPos,boundryPosY);
+ *         	
+ *         	DynamicEntity.speed(entity,entitySpeed);
+ *         	PositionAttribute.x(entitySpeed,speedX);
+ *         	PositionAttribute.y(entitySpeed,speedY);
+ *         	
+ *         	DynamicEntity.position(entity,entityPos);
+ *         	PositionAttribute.x(entityPos,posX);
+ *         	PositionAttribute.y(entityPos,posY);
+ *         	
+ *         	check(posX {@literal <}= boundryPosX && posY {@literal <}= boundryPosY && posX {@literal >}= 0 && posY {@literal >}= 0);
+ *         }
+ *         
+ *         
+ *         
  *         pattern egoOnRoad(de: DynamicEntity,se: StaticEntity){		
  *         	DynamicEntity.on(de,se);
  *         }
@@ -258,6 +278,26 @@ public final class EgoOnRoad extends BaseGeneratedEMFQuerySpecification<EgoOnRoa
    * 
    * <p>Original source:
    * <code><pre>
+   * pattern inScene(entity: DynamicEntity,scene : Scene){
+   * 	Scene.elements(scene,entity);
+   * 	
+   * 	Scene.boundry(scene,boundryPos);
+   * 	PositionAttribute.x(boundryPos,boundryPosX);
+   * 	PositionAttribute.y(boundryPos,boundryPosY);
+   * 	
+   * 	DynamicEntity.speed(entity,entitySpeed);
+   * 	PositionAttribute.x(entitySpeed,speedX);
+   * 	PositionAttribute.y(entitySpeed,speedY);
+   * 	
+   * 	DynamicEntity.position(entity,entityPos);
+   * 	PositionAttribute.x(entityPos,posX);
+   * 	PositionAttribute.y(entityPos,posY);
+   * 	
+   * 	check(posX {@literal <}= boundryPosX && posY {@literal <}= boundryPosY && posX {@literal >}= 0 && posY {@literal >}= 0);
+   * }
+   * 
+   * 
+   * 
    * pattern egoOnRoad(de: DynamicEntity,se: StaticEntity){		
    * 	DynamicEntity.on(de,se);
    * }

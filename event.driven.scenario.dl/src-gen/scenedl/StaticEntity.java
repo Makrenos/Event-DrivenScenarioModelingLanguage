@@ -41,7 +41,7 @@ public interface StaticEntity extends Element {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Lanes</em>' containment reference list.
 	 * @see scenedl.ScenedlPackage#getStaticEntity_Lanes()
-	 * @model containment="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	EList<Lane> getLanes();

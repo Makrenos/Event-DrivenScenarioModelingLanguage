@@ -121,7 +121,7 @@ public class SceneDseRunner_vehicle_with_pedestrian {
         EdsdlDseRules rules = new EdsdlDseRules();
         dse.addTransformationRule(rules.vehicleMoves);
         dse.addTransformationRule(rules.vehicleAccelerates);
-        //dse.addTransformationRule(rules.vehicleSlowsDown);
+        dse.addTransformationRule(rules.vehicleSlowsDown);
         dse.addTransformationRule(rules.pedestrianMoves);
         
         dse.addObjective(
@@ -132,11 +132,17 @@ public class SceneDseRunner_vehicle_with_pedestrian {
         //global constraint -> eldobja ha illeszkedés van
 
         //save found instance models
-        dse.setSolutionStore(new StateTransitionBasedSolutionStore(20).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrian/vehicleReachesRoadEndWithPedestrian","scenedl"));
+        dse.setSolutionStore(new StateTransitionBasedSolutionStore(10000).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrian/vehicleReachesRoadEndWithPedestrian","scenedl"));
 
+    	System.out.println("Exploration start");
+    	//final long startTime = System.nanoTime();
+    	StateTransitionBasedDfsStrategy strategy = new StateTransitionBasedDfsStrategy(1000);
+        dse.startExploration(strategy);
         
-        dse.startExploration(new StateTransitionBasedDfsStrategy(100));
-
+        
+        //System.out.println("Exploration start runtime: " + ((float)(System.nanoTime()-startTime))/1000 + " microseconds");
+        //System.out.println(strategy.time);
+        
         System.out.println(dse.toStringSolutions());
     	
     }

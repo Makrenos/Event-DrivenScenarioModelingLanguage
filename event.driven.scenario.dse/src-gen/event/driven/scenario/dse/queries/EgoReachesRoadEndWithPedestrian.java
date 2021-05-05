@@ -78,7 +78,7 @@ import scenedl.StaticEntity;
  *         	
  *         	find inScene(pedestrian,scene);
  *         	find inScene(ego,scene);
- *         	neg find collision2(ego,pedestrian);
+ *         	neg find collision(ego,pedestrian);
  *         	
  *         	check(egoPosX {@literal >} crosswalkPosX && pedestrianPosY {@literal <} crosswalkPosY);
  *         }
@@ -360,7 +360,7 @@ public final class EgoReachesRoadEndWithPedestrian extends BaseGeneratedEMFQuery
    * 	
    * 	find inScene(pedestrian,scene);
    * 	find inScene(ego,scene);
-   * 	neg find collision2(ego,pedestrian);
+   * 	neg find collision(ego,pedestrian);
    * 	
    * 	check(egoPosX {@literal >} crosswalkPosX && pedestrianPosY {@literal <} crosswalkPosY);
    * }
@@ -1085,8 +1085,8 @@ public final class EgoReachesRoadEndWithPedestrian extends BaseGeneratedEMFQuery
           new PositivePatternCall(body, Tuples.flatTupleOf(var_pedestrian, var_scene), InScene.instance().getInternalQueryRepresentation());
           // 	find inScene(ego,scene)
           new PositivePatternCall(body, Tuples.flatTupleOf(var_ego, var_scene), InScene.instance().getInternalQueryRepresentation());
-          // 	neg find collision2(ego,pedestrian)
-          new NegativePatternCall(body, Tuples.flatTupleOf(var_ego, var_pedestrian), Collision2.instance().getInternalQueryRepresentation());
+          // 	neg find collision(ego,pedestrian)
+          new NegativePatternCall(body, Tuples.flatTupleOf(var_ego, var_pedestrian), Collision.instance().getInternalQueryRepresentation());
           // 		check(egoPosX > crosswalkPosX && pedestrianPosY < crosswalkPosY)
           new ExpressionEvaluation(body, new IExpressionEvaluator() {
           

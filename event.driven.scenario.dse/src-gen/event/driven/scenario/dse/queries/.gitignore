@@ -16,3 +16,11 @@
 /.EgoOnRoad.java._trace
 /.EgoReachesRoadEndWithPedestrian.java._trace
 /.EgoSlowsDown.java._trace
+/.QueriesMeasurement.java._trace
+/.EgoReachesRoadEndWithPedestrianMeasurement.java._trace
+/.VehicleAcceleratesMeasurements.java._trace
+/.VehicleSlowsDownMeasurements.java._trace
+/.VehicleMovesMeasurements.java._trace
+/.RandomVehicleMovesMeasurements.java._trace
+/.InSceneTry.java._trace
+/.Collision.java._trace
