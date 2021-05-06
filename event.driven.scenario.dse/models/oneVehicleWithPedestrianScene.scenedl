@@ -165,7 +165,11 @@
           name="pedestrianMoves"/>
     </dictionary>
     <runtimestate
-        actualState="Accelerates"/>
+        actualState="Accelerates"
+        actor="ego"/>
+    <runtimestate
+        actualState="Accelerates"
+        actor="pedestrian"/>
   </stateMachine>
   <boundry x="8"
       y="4"/>

@@ -413,6 +413,15 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRuntimeState_Actor() {
+		return (EAttribute) runtimeStateEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EdsdlFactory getEdsdlFactory() {
 		return (EdsdlFactory) getEFactoryInstance();
 	}
@@ -468,6 +477,7 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 
 		runtimeStateEClass = createEClass(RUNTIME_STATE);
 		createEReference(runtimeStateEClass, RUNTIME_STATE__ACTUAL_STATE);
+		createEAttribute(runtimeStateEClass, RUNTIME_STATE__ACTOR);
 
 		actionEClass = createEClass(ACTION);
 		createEAttribute(actionEClass, ACTION__NAME);
@@ -573,6 +583,8 @@ public class EdsdlPackageImpl extends EPackageImpl implements EdsdlPackage {
 		initEReference(getRuntimeState_ActualState(), this.getState(), null, "actualState", null, 1, 1,
 				RuntimeState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRuntimeState_Actor(), ecorePackage.getEString(), "actor", null, 1, 1, RuntimeState.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(actionEClass, Action.class, "Action", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAction_Name(), ecorePackage.getEString(), "name", null, 1, 1, Action.class, !IS_TRANSIENT,

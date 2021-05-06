@@ -51,6 +51,8 @@ import scenedl.Scene;
  * <p>Original source:
  *         <code><pre>
  *         pattern randomVehicleMovesMeasurements(scene: Scene, vehicle: DynamicEntity){
+ *         	//neg find danger(vehicle);
+ *         	//find speedLimit(vehicle,2);
  *         	neg DynamicEntity.name(vehicle,"pedestrian");
  *         	neg DynamicEntity.name(vehicle,"ego");
  *         	find inScene(vehicle,scene);
@@ -268,6 +270,8 @@ public final class RandomVehicleMovesMeasurements extends BaseGeneratedEMFQueryS
    * <p>Original source:
    * <code><pre>
    * pattern randomVehicleMovesMeasurements(scene: Scene, vehicle: DynamicEntity){
+   * 	//neg find danger(vehicle);
+   * 	//find speedLimit(vehicle,2);
    * 	neg DynamicEntity.name(vehicle,"pedestrian");
    * 	neg DynamicEntity.name(vehicle,"ego");
    * 	find inScene(vehicle,scene);
@@ -783,7 +787,7 @@ public final class RandomVehicleMovesMeasurements extends BaseGeneratedEMFQueryS
              new ExportedParameter(body, var_scene, parameter_scene),
              new ExportedParameter(body, var_vehicle, parameter_vehicle)
           ));
-          // 	neg DynamicEntity.name(vehicle,"pedestrian")
+          // 	//neg find danger(vehicle);	//find speedLimit(vehicle,2);	neg DynamicEntity.name(vehicle,"pedestrian")
           PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
           new ConstantValue(body, var__virtual_0_, "pedestrian");
           new NegativePatternCall(body, Tuples.flatTupleOf(var_vehicle, var__virtual_0_), new RandomVehicleMovesMeasurements.GeneratedPQuery.Embedded_1_DynamicEntity_name());

@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link edsdl.RuntimeState#getActualState <em>Actual State</em>}</li>
+ *   <li>{@link edsdl.RuntimeState#getActor <em>Actor</em>}</li>
  * </ul>
  *
  * @see edsdl.EdsdlPackage#getRuntimeState()
@@ -42,5 +43,27 @@ public interface RuntimeState extends EObject {
 	 * @generated
 	 */
 	void setActualState(State value);
+
+	/**
+	 * Returns the value of the '<em><b>Actor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Actor</em>' attribute.
+	 * @see #setActor(String)
+	 * @see edsdl.EdsdlPackage#getRuntimeState_Actor()
+	 * @model required="true"
+	 * @generated
+	 */
+	String getActor();
+
+	/**
+	 * Sets the value of the '{@link edsdl.RuntimeState#getActor <em>Actor</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Actor</em>' attribute.
+	 * @see #getActor()
+	 * @generated
+	 */
+	void setActor(String value);
 
 } // RuntimeState

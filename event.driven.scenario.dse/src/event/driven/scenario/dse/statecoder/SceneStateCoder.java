@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.viatra.dse.statecode.IStateCoder;
 import org.eclipse.viatra.query.runtime.api.IPatternMatch;
 
+import edsdl.RuntimeState;
 import edsdl.State;
 import scenedl.DynamicEntity;
 import scenedl.Element;
@@ -71,7 +72,7 @@ public class SceneStateCoder implements IStateCoder {
 			}
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("Current state: " + currState.getName()+ ". Dynamic entities: ");
+        sb.append(/*"Current state: " + currState.getName()+ */". Dynamic entities: ");
         for (String stateCode : stateCodes) {
             sb.append(stateCode);
         }
@@ -87,12 +88,14 @@ public class SceneStateCoder implements IStateCoder {
     	StringJoiner sb = new StringJoiner(", ");
     	String[] longMatch = match.patternName().split("\\.");
     	String action = "Action: " + longMatch[longMatch.length-1];
-    	action += ", Current state: " + this.s.getStateMachine().getRuntimestate().get(0).getActualState().getName();
+    	String actorName = "";
+    	//action += ", Current state: " + this.s.getStateMachine().getRuntimestate().get(0).getActualState().getName();
     	sb.add(action);
     	//add dynamic entites from query
     	for(int i = 0 ; i < match.parameterNames().size(); i++) {
     		if(match.get(i).getClass().getSimpleName().equals("DynamicEntityImpl")) {
     			DynamicEntity de = (DynamicEntity) match.get(i);
+    			actorName = de.getName();
     			s += " Entities: " + de.getName()+" :( ";
     			for(RegularAttribute a : de.getAttributes()) {
 	            	s += a.getName() + ": "+ a.getValue();
@@ -111,6 +114,12 @@ public class SceneStateCoder implements IStateCoder {
     			}
     		}    		
     	}
+    	for(RuntimeState r : this.s.getStateMachine().getRuntimestate()) {
+    		if(r.getActor().equals(actorName)) {
+    			sb.add(actorName + "'s current state: " + r.getActualState().getName());
+    		}
+    	}
+    	
     	return sb.toString();
     }
 

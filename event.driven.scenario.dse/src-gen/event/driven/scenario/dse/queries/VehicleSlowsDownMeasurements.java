@@ -55,9 +55,12 @@ import scenedl.Scene;
  *         //Measurements
  *         
  *         pattern vehicleSlowsDownMeasurements(scene: Scene, vehicle: DynamicEntity, by : java Integer){
+ *         	find danger(vehicle);
+ *         	
+ *         	neg DynamicEntity.name(vehicle,"pedestrian");
+ *         	neg DynamicEntity.name(vehicle,"ego");
  *         	find inScene(vehicle,scene);
  *         	Scene.elements(scene,vehicle);
- *         	neg DynamicEntity.name(vehicle,"pedestrian");
  *         	by == -1;
  *         }
  * </pre></code>
@@ -295,9 +298,12 @@ public final class VehicleSlowsDownMeasurements extends BaseGeneratedEMFQuerySpe
    * //Measurements
    * 
    * pattern vehicleSlowsDownMeasurements(scene: Scene, vehicle: DynamicEntity, by : java Integer){
+   * 	find danger(vehicle);
+   * 	
+   * 	neg DynamicEntity.name(vehicle,"pedestrian");
+   * 	neg DynamicEntity.name(vehicle,"ego");
    * 	find inScene(vehicle,scene);
    * 	Scene.elements(scene,vehicle);
-   * 	neg DynamicEntity.name(vehicle,"pedestrian");
    * 	by == -1;
    * }
    * </pre></code>
@@ -794,7 +800,7 @@ public final class VehicleSlowsDownMeasurements extends BaseGeneratedEMFQuerySpe
       
       @Override
       public String getFullyQualifiedName() {
-        return GeneratedPQuery.this.getFullyQualifiedName() + "$Embedded_1_DynamicEntity_name";
+        return GeneratedPQuery.this.getFullyQualifiedName() + "$Embedded_2_DynamicEntity_name";
       }
       
       @Override
@@ -812,6 +818,46 @@ public final class VehicleSlowsDownMeasurements extends BaseGeneratedEMFQuerySpe
            new ExportedParameter(body, var_p1, parameter_p1)
         ));
         //  DynamicEntity.name(vehicle,"pedestrian")
+        new TypeConstraint(body, Tuples.flatTupleOf(var_p0), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+        PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
+        new TypeConstraint(body, Tuples.flatTupleOf(var_p0, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Element", "name")));
+        new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_0_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EString")));
+        new Equality(body, var__virtual_0_, var_p1);
+        return Collections.singleton(body);
+      }
+    }
+    
+    private class Embedded_2_DynamicEntity_name extends BaseGeneratedEMFPQuery {
+      private final PParameter parameter_p0 = new PParameter("p0", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
+      
+      private final PParameter parameter_p1 = new PParameter("p1", "java.lang.String", new EDataTypeInSlotsKey((EDataType)getClassifierLiteralSafe("http://www.eclipse.org/emf/2002/Ecore", "EString")), PParameterDirection.INOUT);
+      
+      private final List<PParameter> embeddedParameters = Arrays.asList(parameter_p0, parameter_p1);
+      
+      public Embedded_2_DynamicEntity_name() {
+        super(PVisibility.EMBEDDED);
+      }
+      
+      @Override
+      public String getFullyQualifiedName() {
+        return GeneratedPQuery.this.getFullyQualifiedName() + "$Embedded_2_DynamicEntity_name";
+      }
+      
+      @Override
+      public List<PParameter> getParameters() {
+        return embeddedParameters;
+      }
+      
+      @Override
+      public Set<PBody> doGetContainedBodies() {
+        PBody body = new PBody(this);
+        PVariable var_p0 = body.getOrCreateVariableByName("p0");
+        PVariable var_p1 = body.getOrCreateVariableByName("p1");
+        body.setSymbolicParameters(Arrays.<ExportedParameter>asList(
+           new ExportedParameter(body, var_p0, parameter_p0),
+           new ExportedParameter(body, var_p1, parameter_p1)
+        ));
+        //  DynamicEntity.name(vehicle,"ego")
         new TypeConstraint(body, Tuples.flatTupleOf(var_p0), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
         PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
         new TypeConstraint(body, Tuples.flatTupleOf(var_p0, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Element", "name")));
@@ -857,22 +903,28 @@ public final class VehicleSlowsDownMeasurements extends BaseGeneratedEMFQuerySpe
              new ExportedParameter(body, var_vehicle, parameter_vehicle),
              new ExportedParameter(body, var_by, parameter_by)
           ));
+          // 	find danger(vehicle)
+          new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle), Danger.instance().getInternalQueryRepresentation());
+          // 		neg DynamicEntity.name(vehicle,"pedestrian")
+          PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
+          new ConstantValue(body, var__virtual_0_, "pedestrian");
+          new NegativePatternCall(body, Tuples.flatTupleOf(var_vehicle, var__virtual_0_), new VehicleSlowsDownMeasurements.GeneratedPQuery.Embedded_1_DynamicEntity_name());
+          // 	neg DynamicEntity.name(vehicle,"ego")
+          PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
+          new ConstantValue(body, var__virtual_1_, "ego");
+          new NegativePatternCall(body, Tuples.flatTupleOf(var_vehicle, var__virtual_1_), new VehicleSlowsDownMeasurements.GeneratedPQuery.Embedded_2_DynamicEntity_name());
           // 	find inScene(vehicle,scene)
           new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle, var_scene), InScene.instance().getInternalQueryRepresentation());
           // 	Scene.elements(scene,vehicle)
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
-          PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_scene, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene", "elements")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_0_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Element")));
-          new Equality(body, var__virtual_0_, var_vehicle);
-          // 	neg DynamicEntity.name(vehicle,"pedestrian")
-          PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
-          new ConstantValue(body, var__virtual_1_, "pedestrian");
-          new NegativePatternCall(body, Tuples.flatTupleOf(var_vehicle, var__virtual_1_), new VehicleSlowsDownMeasurements.GeneratedPQuery.Embedded_1_DynamicEntity_name());
-          // 	by == -1
           PVariable var__virtual_2_ = body.getOrCreateVariableByName(".virtual{2}");
-          new ConstantValue(body, var__virtual_2_, -1);
-          new Equality(body, var_by, var__virtual_2_);
+          new TypeConstraint(body, Tuples.flatTupleOf(var_scene, var__virtual_2_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene", "elements")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_2_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Element")));
+          new Equality(body, var__virtual_2_, var_vehicle);
+          // 	by == -1
+          PVariable var__virtual_3_ = body.getOrCreateVariableByName(".virtual{3}");
+          new ConstantValue(body, var__virtual_3_, -1);
+          new Equality(body, var_by, var__virtual_3_);
           bodies.add(body);
       }
       return bodies;

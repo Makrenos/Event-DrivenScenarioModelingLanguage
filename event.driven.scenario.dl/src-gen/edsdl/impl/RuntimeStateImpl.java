@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link edsdl.impl.RuntimeStateImpl#getActualState <em>Actual State</em>}</li>
+ *   <li>{@link edsdl.impl.RuntimeStateImpl#getActor <em>Actor</em>}</li>
  * </ul>
  *
  * @generated
@@ -37,6 +38,25 @@ public class RuntimeStateImpl extends MinimalEObjectImpl.Container implements Ru
 	 * @ordered
 	 */
 	protected State actualState;
+
+	/**
+	 * The default value of the '{@link #getActor() <em>Actor</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActor()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ACTOR_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getActor() <em>Actor</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActor()
+	 * @generated
+	 * @ordered
+	 */
+	protected String actor = ACTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -102,6 +122,27 @@ public class RuntimeStateImpl extends MinimalEObjectImpl.Container implements Ru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getActor() {
+		return actor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setActor(String newActor) {
+		String oldActor = actor;
+		actor = newActor;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EdsdlPackage.RUNTIME_STATE__ACTOR, oldActor, actor));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -109,6 +150,8 @@ public class RuntimeStateImpl extends MinimalEObjectImpl.Container implements Ru
 			if (resolve)
 				return getActualState();
 			return basicGetActualState();
+		case EdsdlPackage.RUNTIME_STATE__ACTOR:
+			return getActor();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -123,6 +166,9 @@ public class RuntimeStateImpl extends MinimalEObjectImpl.Container implements Ru
 		switch (featureID) {
 		case EdsdlPackage.RUNTIME_STATE__ACTUAL_STATE:
 			setActualState((State) newValue);
+			return;
+		case EdsdlPackage.RUNTIME_STATE__ACTOR:
+			setActor((String) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -139,6 +185,9 @@ public class RuntimeStateImpl extends MinimalEObjectImpl.Container implements Ru
 		case EdsdlPackage.RUNTIME_STATE__ACTUAL_STATE:
 			setActualState((State) null);
 			return;
+		case EdsdlPackage.RUNTIME_STATE__ACTOR:
+			setActor(ACTOR_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -153,8 +202,27 @@ public class RuntimeStateImpl extends MinimalEObjectImpl.Container implements Ru
 		switch (featureID) {
 		case EdsdlPackage.RUNTIME_STATE__ACTUAL_STATE:
 			return actualState != null;
+		case EdsdlPackage.RUNTIME_STATE__ACTOR:
+			return ACTOR_EDEFAULT == null ? actor != null : !ACTOR_EDEFAULT.equals(actor);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (actor: ");
+		result.append(actor);
+		result.append(')');
+		return result.toString();
 	}
 
 } //RuntimeStateImpl

@@ -22,10 +22,15 @@ import org.eclipse.viatra.query.runtime.api.impl.BaseGeneratedPatternGroup;
  * <li>vehicleAccelerates</li>
  * <li>vehicleMoves</li>
  * <li>pedestrianMoves</li>
+ * <li>danger</li>
+ * <li>speedLimit</li>
  * <li>vehicleSlowsDownMeasurements</li>
  * <li>vehicleAcceleratesMeasurements</li>
  * <li>vehicleMovesMeasurements</li>
  * <li>randomVehicleMovesMeasurements</li>
+ * <li>vehicleSlowsDownTEST</li>
+ * <li>vehicleAcceleratesTEST</li>
+ * <li>vehicleMovesTEST</li>
  * <li>egoReachesRoadEndWithPedestrian</li>
  * <li>egoReachesRoadEndWithPedestrianMeasurement</li>
  * </ul>
@@ -60,10 +65,15 @@ public final class Queries extends BaseGeneratedPatternGroup {
     querySpecifications.add(VehicleAccelerates.instance());
     querySpecifications.add(VehicleMoves.instance());
     querySpecifications.add(PedestrianMoves.instance());
+    querySpecifications.add(Danger.instance());
+    querySpecifications.add(SpeedLimit.instance());
     querySpecifications.add(VehicleSlowsDownMeasurements.instance());
     querySpecifications.add(VehicleAcceleratesMeasurements.instance());
     querySpecifications.add(VehicleMovesMeasurements.instance());
     querySpecifications.add(RandomVehicleMovesMeasurements.instance());
+    querySpecifications.add(VehicleSlowsDownTEST.instance());
+    querySpecifications.add(VehicleAcceleratesTEST.instance());
+    querySpecifications.add(VehicleMovesTEST.instance());
     querySpecifications.add(EgoReachesRoadEndWithPedestrian.instance());
     querySpecifications.add(EgoReachesRoadEndWithPedestrianMeasurement.instance());
   }
@@ -132,6 +142,22 @@ public final class Queries extends BaseGeneratedPatternGroup {
     return PedestrianMoves.Matcher.on(engine);
   }
   
+  public Danger getDanger() {
+    return Danger.instance();
+  }
+  
+  public Danger.Matcher getDanger(final ViatraQueryEngine engine) {
+    return Danger.Matcher.on(engine);
+  }
+  
+  public SpeedLimit getSpeedLimit() {
+    return SpeedLimit.instance();
+  }
+  
+  public SpeedLimit.Matcher getSpeedLimit(final ViatraQueryEngine engine) {
+    return SpeedLimit.Matcher.on(engine);
+  }
+  
   public VehicleSlowsDownMeasurements getVehicleSlowsDownMeasurements() {
     return VehicleSlowsDownMeasurements.instance();
   }
@@ -162,6 +188,30 @@ public final class Queries extends BaseGeneratedPatternGroup {
   
   public RandomVehicleMovesMeasurements.Matcher getRandomVehicleMovesMeasurements(final ViatraQueryEngine engine) {
     return RandomVehicleMovesMeasurements.Matcher.on(engine);
+  }
+  
+  public VehicleSlowsDownTEST getVehicleSlowsDownTEST() {
+    return VehicleSlowsDownTEST.instance();
+  }
+  
+  public VehicleSlowsDownTEST.Matcher getVehicleSlowsDownTEST(final ViatraQueryEngine engine) {
+    return VehicleSlowsDownTEST.Matcher.on(engine);
+  }
+  
+  public VehicleAcceleratesTEST getVehicleAcceleratesTEST() {
+    return VehicleAcceleratesTEST.instance();
+  }
+  
+  public VehicleAcceleratesTEST.Matcher getVehicleAcceleratesTEST(final ViatraQueryEngine engine) {
+    return VehicleAcceleratesTEST.Matcher.on(engine);
+  }
+  
+  public VehicleMovesTEST getVehicleMovesTEST() {
+    return VehicleMovesTEST.instance();
+  }
+  
+  public VehicleMovesTEST.Matcher getVehicleMovesTEST(final ViatraQueryEngine engine) {
+    return VehicleMovesTEST.Matcher.on(engine);
   }
   
   public EgoReachesRoadEndWithPedestrian getEgoReachesRoadEndWithPedestrian() {

@@ -144,18 +144,30 @@ public class SceneDseRunner_measurements_setup {
             //lot of sollutions -> into thesis
             //dse.setSolutionStore(new StateTransitionBasedSolutionStore(100000).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrianMeasurements/vehicleReachesRoadEndWithPedestrianMeasurements","scenedl"));
             
-            dse.setSolutionStore(new StateTransitionBasedSolutionStore(100000).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrianMeasurements/vehicleReachesRoadEndWithPedestrianMeasurements","scenedl"));
+            dse.setSolutionStore(new StateTransitionBasedSolutionStore(100000).acceptAnySolutions());
         	
         	
         	//System.out.println("Exploration start:" + startTime);
         	StateTransitionBasedDfsStrategy strat = new StateTransitionBasedDfsStrategy(10000);
+
         	final long startTime = System.nanoTime();
         	dse.startExploration(strat);
         	while(!dse.isDone()) {}
+        	System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
+        	/*
         	if(i>2) {
-        		System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000 + " milliseconds");
+        		System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
         		//System.out.println("Statemachine runtime: " + strat.time + " milliseconds");
+        	}*/
+        	if(i == 0) {
+            	String[] lines = dse.toStringSolutions().split("\r\n|\r|\n");
+    	        String[] result = dse.toStringSolutions().split("\n", 2);
+    	        String[] splited = result[0].split("\\s+");
+    	        int numberOfSollutions = Integer.parseInt(splited[splited.length-1]);
+                System.out.println(result[0]);
+                System.out.println("Trajectorys: "+ (lines.length-1-numberOfSollutions));
         	}
+        	//System.out.println(dse.toStringSolutions());
         	i++;
         	System.gc();
         	System.gc();

@@ -9,10 +9,15 @@
       <query-specification fqn="event.driven.scenario.dse.queries.vehicleAccelerates"/>
       <query-specification fqn="event.driven.scenario.dse.queries.vehicleMoves"/>
       <query-specification fqn="event.driven.scenario.dse.queries.pedestrianMoves"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.danger"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.speedLimit"/>
       <query-specification fqn="event.driven.scenario.dse.queries.vehicleSlowsDownMeasurements"/>
       <query-specification fqn="event.driven.scenario.dse.queries.vehicleAcceleratesMeasurements"/>
       <query-specification fqn="event.driven.scenario.dse.queries.vehicleMovesMeasurements"/>
       <query-specification fqn="event.driven.scenario.dse.queries.randomVehicleMovesMeasurements"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleSlowsDownTEST"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleAcceleratesTEST"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleMovesTEST"/>
       <query-specification fqn="event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrian"/>
       <query-specification fqn="event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrianMeasurement"/>
     </group>

@@ -54,6 +54,12 @@
         condition="vehicleCanMove"
         name="randomVehicleMovesWhenAccelerates"
         ruleBasedActions="randomVehicleMoves"/>
+    <outTransitions
+        targetState="Slows"
+        featureBasedActions="vehicleSlowsDownFB"
+        condition="danger"
+        name="Danger"
+        ruleBasedActions="vehicleSlowsDown"/>
   </states>
   <states name="Moves">
     <outTransitions
@@ -121,5 +127,6 @@
         name="randomVehicleMoves"/>
   </dictionary>
   <runtimestate
-      actualState="Accelerates"/>
+      actualState="Accelerates"
+      actor="ego"/>
 </edsdl:StateMachine>

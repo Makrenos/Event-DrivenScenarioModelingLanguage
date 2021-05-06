@@ -23,6 +23,7 @@ import edsdl.EdsdlPackage;
 import edsdl.StateMachine;
 import event.driven.scenario.dse.queries.EgoReachesRoadEndWithPedestrian;
 import event.driven.scenario.dse.rules.EdsdlDseRules;
+import event.driven.scenario.dse.rules.EdsdlDseRulesTEST;
 import event.driven.scenario.dse.source.StateTransitionBasedDfsStrategy;
 import event.driven.scenario.dse.source.StateTransitionBasedDfsStrategyTEST;
 import event.driven.scenario.dse.source.StateTransitionBasedConstraintsObjective;
@@ -33,7 +34,7 @@ import scenedl.Scene;
 import scenedl.ScenedlFactory;
 import scenedl.ScenedlPackage;
 
-public class SceneDseRunner_TEST {
+public class SceneDseRunner_measurements_setupWithRuntimeStates {
 
     public static void main(String[] args) throws ViatraQueryException {
     	
@@ -88,7 +89,7 @@ public class SceneDseRunner_TEST {
     	
     	//Read in XMI resource if there is any
     	try {
-    		File source = new File("./models/oneVehicleWithPedestrianSceneTEST.scenedl");
+    		File source = new File("./models/oneVehicleWithPedestrianScene6Lanes.scenedl");
         	try {
         		sceneResource.load( new FileInputStream(source.getAbsolutePath()), new HashMap<Object,Object>());
 			} catch (FileNotFoundException e) {
@@ -109,43 +110,70 @@ public class SceneDseRunner_TEST {
     		s = init.initScene("oneVehicleWithPedestrian", m);    		
     	}
 
+    	
+    	s.setStateMachine(m);
         //DSE
         DesignSpaceExplorer.turnOnLoggingWithBasicConfig(DseLoggingLevel.WARN);
+        int i = 0;
+        while(i < 13) {
+	        StateTransitionBasedDesignSpaceExplorer dse = new StateTransitionBasedDesignSpaceExplorer();
+	
+	        dse.setInitialModel(s);
+	        dse.addMetaModelPackage(ScenedlPackage.eINSTANCE);
+	        
+	        dse.setStateCoderFactory(new SceneStateCoderFactory());
+	
+	        EdsdlDseRulesTEST rules = new EdsdlDseRulesTEST();
+	        dse.addTransformationRule(rules.vehicleMovesTEST);
+	        dse.addTransformationRule(rules.vehicleAcceleratesTEST);
+	        dse.addTransformationRule(rules.vehicleSlowsDownTEST);
+	        dse.addTransformationRule(rules.pedestrianMoves);
+	        
+	        dse.addObjective(
+	                new StateTransitionBasedConstraintsObjective()
+	                		//.withHardConstraint(NoCollision.instance())
+	                        .withHardConstraint(EgoReachesRoadEndWithPedestrian.instance(),ModelQueryType.MUST_HAVE_MATCH)
+	                        .withComparator(Comparators.HIGHER_IS_BETTER));
+	        //global constraint -> eldobja ha illeszkedés van
+	
+	        //save found instance models
+	        //dse.setSolutionStore(new StateTransitionBasedSolutionStore(10).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrianTEST/vehicleReachesRoadEndWithPedestrian","scenedl"));
+	        dse.setSolutionStore(new StateTransitionBasedSolutionStore(100000).acceptAnySolutions());
+	        StateTransitionBasedDfsStrategyTEST strategy = new StateTransitionBasedDfsStrategyTEST(10000);
+	    	//System.out.println("Exploration start");
+	    	final long startTime = System.nanoTime();
+	    	
+	        dse.startExploration(strategy);
+	        System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
+	        System.out.println("Statemachine runtime: " + (strategy.time+rules.time) + " seconds");
+	        /*
+	        while(!dse.isDone()) {}
+        	if(i>2) {
+        		System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
+        		System.out.println("Statemachine runtime: " + strategy.time + " seconds");
+        	}
+        	*/
+        	if(i == 0) {
+            	String[] lines = dse.toStringSolutions().split("\r\n|\r|\n");
+    	        String[] result = dse.toStringSolutions().split("\n", 2);
+    	        String[] splited = result[0].split("\\s+");
+    	        int numberOfSollutions = Integer.parseInt(splited[splited.length-1]);
+                System.out.println(result[0]);
+                System.out.println("Trajectorys: "+ (lines.length-1-numberOfSollutions));
+        	}
 
-        StateTransitionBasedDesignSpaceExplorer dse = new StateTransitionBasedDesignSpaceExplorer();
-
-        dse.setInitialModel(s);
-        dse.addMetaModelPackage(ScenedlPackage.eINSTANCE);
-        
-        dse.setStateCoderFactory(new SceneStateCoderFactory());
-
-        EdsdlDseRules rules = new EdsdlDseRules();
-        dse.addTransformationRule(rules.vehicleMoves);
-        dse.addTransformationRule(rules.vehicleAccelerates);
-        dse.addTransformationRule(rules.vehicleSlowsDown);
-        dse.addTransformationRule(rules.pedestrianMoves);
-        dse.addTransformationRule(rules.randomVehicleMovesMeasurements);
-        
-        dse.addObjective(
-                new StateTransitionBasedConstraintsObjective()
-                		//.withHardConstraint(NoCollision.instance())
-                        .withHardConstraint(EgoReachesRoadEndWithPedestrian.instance(),ModelQueryType.MUST_HAVE_MATCH)
-                        .withComparator(Comparators.HIGHER_IS_BETTER));
-        //global constraint -> eldobja ha illeszkedés van
-
-        //save found instance models
-        dse.setSolutionStore(new StateTransitionBasedSolutionStore(10000).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrian/vehicleReachesRoadEndWithPedestrian","scenedl"));
-
-    	System.out.println("Exploration start");
-    	//final long startTime = System.nanoTime();
-    	StateTransitionBasedDfsStrategyTEST strategy = new StateTransitionBasedDfsStrategyTEST(1000);
-        dse.startExploration(strategy);
-        
-        
-        //System.out.println("Exploration start runtime: " + ((float)(System.nanoTime()-startTime))/1000 + " microseconds");
-        //System.out.println(strategy.time);
-        
-        System.out.println(dse.toStringSolutions());
+        	//System.out.println(dse.toStringSolutions());
+        	i++;
+        	System.gc();
+        	System.gc();
+        	System.gc();
+        	try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
     	
     }
 }

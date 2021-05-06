@@ -31,6 +31,7 @@ import org.eclipse.viatra.query.runtime.matchers.psystem.PBody;
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter;
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativePatternCall;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.PositivePatternCall;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint;
@@ -49,6 +50,8 @@ import scenedl.Scene;
  * <p>Original source:
  *         <code><pre>
  *         pattern vehicleMoves(scene: Scene, vehicle: DynamicEntity){
+ *         	find speedLimit(vehicle,2);
+ *         	neg find danger(vehicle);
  *         	find inScene(vehicle,scene);
  *         	Scene.elements(scene,vehicle);
  *         	DynamicEntity.name(vehicle,"ego");
@@ -265,6 +268,8 @@ public final class VehicleMoves extends BaseGeneratedEMFQuerySpecification<Vehic
    * <p>Original source:
    * <code><pre>
    * pattern vehicleMoves(scene: Scene, vehicle: DynamicEntity){
+   * 	find speedLimit(vehicle,2);
+   * 	neg find danger(vehicle);
    * 	find inScene(vehicle,scene);
    * 	Scene.elements(scene,vehicle);
    * 	DynamicEntity.name(vehicle,"ego");
@@ -699,25 +704,35 @@ public final class VehicleMoves extends BaseGeneratedEMFQuerySpecification<Vehic
              new ExportedParameter(body, var_scene, parameter_scene),
              new ExportedParameter(body, var_vehicle, parameter_vehicle)
           ));
+          // 	find speedLimit(vehicle,2)
+          PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
+          new ConstantValue(body, var__virtual_0_, 2);
+          new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle, var__virtual_0_), SpeedLimit.instance().getInternalQueryRepresentation());
+          // 	neg find danger(vehicle)
+          new NegativePatternCall(body, Tuples.flatTupleOf(var_vehicle), Danger.instance().getInternalQueryRepresentation());
           // 	find inScene(vehicle,scene)
           new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle, var_scene), InScene.instance().getInternalQueryRepresentation());
           // 	Scene.elements(scene,vehicle)
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
-          PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_scene, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene", "elements")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_0_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Element")));
-          new Equality(body, var__virtual_0_, var_vehicle);
-          // 	DynamicEntity.name(vehicle,"ego")
           PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
-          new ConstantValue(body, var__virtual_1_, "ego");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var_scene, var__virtual_1_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene", "elements")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_1_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Element")));
+          new Equality(body, var__virtual_1_, var_vehicle);
+          // 	DynamicEntity.name(vehicle,"ego")
           PVariable var__virtual_2_ = body.getOrCreateVariableByName(".virtual{2}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle, var__virtual_2_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Element", "name")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_2_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EString")));
-          new Equality(body, var__virtual_2_, var__virtual_1_);
+          new ConstantValue(body, var__virtual_2_, "ego");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+          PVariable var__virtual_3_ = body.getOrCreateVariableByName(".virtual{3}");
+          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle, var__virtual_3_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Element", "name")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_3_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EString")));
+          new Equality(body, var__virtual_3_, var__virtual_2_);
           bodies.add(body);
       }
       return bodies;
     }
+  }
+  
+  private static int evaluateExpression_1_1() {
+    return 2;
   }
 }

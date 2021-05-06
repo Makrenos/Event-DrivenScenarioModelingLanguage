@@ -51,6 +51,8 @@ import scenedl.Scene;
  * <p>Original source:
  *         <code><pre>
  *         pattern vehicleSlowsDown(scene: Scene, vehicle: DynamicEntity, by : java Integer){
+ *         	find danger(vehicle);
+ *         	
  *         	find inScene(vehicle,scene);
  *         	Scene.elements(scene,vehicle);
  *         	DynamicEntity.name(vehicle,"ego");
@@ -289,6 +291,8 @@ public final class VehicleSlowsDown extends BaseGeneratedEMFQuerySpecification<V
    * <p>Original source:
    * <code><pre>
    * pattern vehicleSlowsDown(scene: Scene, vehicle: DynamicEntity, by : java Integer){
+   * 	find danger(vehicle);
+   * 	
    * 	find inScene(vehicle,scene);
    * 	Scene.elements(scene,vehicle);
    * 	DynamicEntity.name(vehicle,"ego");
@@ -811,7 +815,9 @@ public final class VehicleSlowsDown extends BaseGeneratedEMFQuerySpecification<V
              new ExportedParameter(body, var_vehicle, parameter_vehicle),
              new ExportedParameter(body, var_by, parameter_by)
           ));
-          // 	find inScene(vehicle,scene)
+          // 	find danger(vehicle)
+          new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle), Danger.instance().getInternalQueryRepresentation());
+          // 		find inScene(vehicle,scene)
           new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle, var_scene), InScene.instance().getInternalQueryRepresentation());
           // 	Scene.elements(scene,vehicle)
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));

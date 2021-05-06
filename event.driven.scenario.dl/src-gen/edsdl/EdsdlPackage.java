@@ -443,13 +443,22 @@ public interface EdsdlPackage extends EPackage {
 	int RUNTIME_STATE__ACTUAL_STATE = 0;
 
 	/**
+	 * The feature id for the '<em><b>Actor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RUNTIME_STATE__ACTOR = 1;
+
+	/**
 	 * The number of structural features of the '<em>Runtime State</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RUNTIME_STATE_FEATURE_COUNT = 1;
+	int RUNTIME_STATE_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Runtime State</em>' class.
@@ -750,6 +759,17 @@ public interface EdsdlPackage extends EPackage {
 	EReference getRuntimeState_ActualState();
 
 	/**
+	 * Returns the meta object for the attribute '{@link edsdl.RuntimeState#getActor <em>Actor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Actor</em>'.
+	 * @see edsdl.RuntimeState#getActor()
+	 * @see #getRuntimeState()
+	 * @generated
+	 */
+	EAttribute getRuntimeState_Actor();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1003,6 +1023,14 @@ public interface EdsdlPackage extends EPackage {
 		 * @generated
 		 */
 		EReference RUNTIME_STATE__ACTUAL_STATE = eINSTANCE.getRuntimeState_ActualState();
+
+		/**
+		 * The meta object literal for the '<em><b>Actor</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RUNTIME_STATE__ACTOR = eINSTANCE.getRuntimeState_Actor();
 
 	}
 

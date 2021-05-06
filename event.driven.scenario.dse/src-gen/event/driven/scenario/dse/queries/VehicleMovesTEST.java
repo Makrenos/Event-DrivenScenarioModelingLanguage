@@ -5,6 +5,7 @@ package event.driven.scenario.dse.queries;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
@@ -27,13 +28,11 @@ import org.eclipse.viatra.query.runtime.emf.types.EClassTransitiveInstancesKey;
 import org.eclipse.viatra.query.runtime.emf.types.EDataTypeInSlotsKey;
 import org.eclipse.viatra.query.runtime.emf.types.EStructuralFeatureInstancesKey;
 import org.eclipse.viatra.query.runtime.matchers.backend.QueryEvaluationHint;
-import org.eclipse.viatra.query.runtime.matchers.context.common.JavaTransitiveInstancesKey;
 import org.eclipse.viatra.query.runtime.matchers.psystem.PBody;
 import org.eclipse.viatra.query.runtime.matchers.psystem.PVariable;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.NegativePatternCall;
-import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.TypeFilterConstraint;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.ConstantValue;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.PositivePatternCall;
 import org.eclipse.viatra.query.runtime.matchers.psystem.basicenumerables.TypeConstraint;
@@ -51,13 +50,12 @@ import scenedl.Scene;
  * 
  * <p>Original source:
  *         <code><pre>
- *         pattern vehicleAccelerates(scene: Scene, vehicle: DynamicEntity, by : java Integer){
- *         	neg find speedLimit(vehicle,2);
+ *         pattern vehicleMovesTEST(scene: Scene, vehicle: DynamicEntity){
+ *         	neg DynamicEntity.name(vehicle,"pedestrian");
  *         	neg find danger(vehicle);
+ *         	find speedLimit(vehicle,2);
  *         	find inScene(vehicle,scene);
  *         	Scene.elements(scene,vehicle);
- *         	DynamicEntity.name(vehicle,"ego");
- *         	by == 1;
  *         }
  * </pre></code>
  * 
@@ -66,9 +64,9 @@ import scenedl.Scene;
  * 
  */
 @SuppressWarnings("all")
-public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification<VehicleAccelerates.Matcher> {
+public final class VehicleMovesTEST extends BaseGeneratedEMFQuerySpecification<VehicleMovesTEST.Matcher> {
   /**
-   * Pattern-specific match representation of the event.driven.scenario.dse.queries.vehicleAccelerates pattern,
+   * Pattern-specific match representation of the event.driven.scenario.dse.queries.vehicleMovesTEST pattern,
    * to be used in conjunction with {@link Matcher}.
    * 
    * <p>Class fields correspond to parameters of the pattern. Fields with value null are considered unassigned.
@@ -84,14 +82,11 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
     
     private DynamicEntity fVehicle;
     
-    private Integer fBy;
+    private static List<String> parameterNames = makeImmutableList("scene", "vehicle");
     
-    private static List<String> parameterNames = makeImmutableList("scene", "vehicle", "by");
-    
-    private Match(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
+    private Match(final Scene pScene, final DynamicEntity pVehicle) {
       this.fScene = pScene;
       this.fVehicle = pVehicle;
-      this.fBy = pBy;
     }
     
     @Override
@@ -99,7 +94,6 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
       switch(parameterName) {
           case "scene": return this.fScene;
           case "vehicle": return this.fVehicle;
-          case "by": return this.fBy;
           default: return null;
       }
     }
@@ -109,7 +103,6 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
       switch(index) {
           case 0: return this.fScene;
           case 1: return this.fVehicle;
-          case 2: return this.fBy;
           default: return null;
       }
     }
@@ -122,10 +115,6 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
       return this.fVehicle;
     }
     
-    public Integer getBy() {
-      return this.fBy;
-    }
-    
     @Override
     public boolean set(final String parameterName, final Object newValue) {
       if (!isMutable()) throw new java.lang.UnsupportedOperationException();
@@ -135,10 +124,6 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
       }
       if ("vehicle".equals(parameterName) ) {
           this.fVehicle = (DynamicEntity) newValue;
-          return true;
-      }
-      if ("by".equals(parameterName) ) {
-          this.fBy = (Integer) newValue;
           return true;
       }
       return false;
@@ -154,43 +139,37 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
       this.fVehicle = pVehicle;
     }
     
-    public void setBy(final Integer pBy) {
-      if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-      this.fBy = pBy;
-    }
-    
     @Override
     public String patternName() {
-      return "event.driven.scenario.dse.queries.vehicleAccelerates";
+      return "event.driven.scenario.dse.queries.vehicleMovesTEST";
     }
     
     @Override
     public List<String> parameterNames() {
-      return VehicleAccelerates.Match.parameterNames;
+      return VehicleMovesTEST.Match.parameterNames;
     }
     
     @Override
     public Object[] toArray() {
-      return new Object[]{fScene, fVehicle, fBy};
+      return new Object[]{fScene, fVehicle};
     }
     
     @Override
-    public VehicleAccelerates.Match toImmutable() {
-      return isMutable() ? newMatch(fScene, fVehicle, fBy) : this;
+    public VehicleMovesTEST.Match toImmutable() {
+      return isMutable() ? newMatch(fScene, fVehicle) : this;
     }
     
     @Override
     public String prettyPrint() {
       StringBuilder result = new StringBuilder();
       result.append("\"scene\"=" + prettyPrintValue(fScene) + ", ");
-      result.append("\"vehicle\"=" + prettyPrintValue(fVehicle) + ", ");
-      result.append("\"by\"=" + prettyPrintValue(fBy));
+      result.append("\"vehicle\"=" + prettyPrintValue(fVehicle));
       return result.toString();
     }
     
     @Override
     public int hashCode() {
-      return Objects.hash(fScene, fVehicle, fBy);
+      return Objects.hash(fScene, fVehicle);
     }
     
     @Override
@@ -200,9 +179,9 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
       if (obj == null) {
           return false;
       }
-      if ((obj instanceof VehicleAccelerates.Match)) {
-          VehicleAccelerates.Match other = (VehicleAccelerates.Match) obj;
-          return Objects.equals(fScene, other.fScene) && Objects.equals(fVehicle, other.fVehicle) && Objects.equals(fBy, other.fBy);
+      if ((obj instanceof VehicleMovesTEST.Match)) {
+          VehicleMovesTEST.Match other = (VehicleMovesTEST.Match) obj;
+          return Objects.equals(fScene, other.fScene) && Objects.equals(fVehicle, other.fVehicle);
       } else {
           // this should be infrequent
           if (!(obj instanceof IPatternMatch)) {
@@ -214,8 +193,8 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
     }
     
     @Override
-    public VehicleAccelerates specification() {
-      return VehicleAccelerates.instance();
+    public VehicleMovesTEST specification() {
+      return VehicleMovesTEST.instance();
     }
     
     /**
@@ -225,8 +204,8 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @return the empty match.
      * 
      */
-    public static VehicleAccelerates.Match newEmptyMatch() {
-      return new Mutable(null, null, null);
+    public static VehicleMovesTEST.Match newEmptyMatch() {
+      return new Mutable(null, null);
     }
     
     /**
@@ -235,12 +214,11 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * 
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
-     * @param pBy the fixed value of pattern parameter by, or null if not bound.
      * @return the new, mutable (partial) match object.
      * 
      */
-    public static VehicleAccelerates.Match newMutableMatch(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-      return new Mutable(pScene, pVehicle, pBy);
+    public static VehicleMovesTEST.Match newMutableMatch(final Scene pScene, final DynamicEntity pVehicle) {
+      return new Mutable(pScene, pVehicle);
     }
     
     /**
@@ -249,17 +227,16 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
-     * @param pBy the fixed value of pattern parameter by, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public static VehicleAccelerates.Match newMatch(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-      return new Immutable(pScene, pVehicle, pBy);
+    public static VehicleMovesTEST.Match newMatch(final Scene pScene, final DynamicEntity pVehicle) {
+      return new Immutable(pScene, pVehicle);
     }
     
-    private static final class Mutable extends VehicleAccelerates.Match {
-      Mutable(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-        super(pScene, pVehicle, pBy);
+    private static final class Mutable extends VehicleMovesTEST.Match {
+      Mutable(final Scene pScene, final DynamicEntity pVehicle) {
+        super(pScene, pVehicle);
       }
       
       @Override
@@ -268,9 +245,9 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
       }
     }
     
-    private static final class Immutable extends VehicleAccelerates.Match {
-      Immutable(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-        super(pScene, pVehicle, pBy);
+    private static final class Immutable extends VehicleMovesTEST.Match {
+      Immutable(final Scene pScene, final DynamicEntity pVehicle) {
+        super(pScene, pVehicle);
       }
       
       @Override
@@ -281,7 +258,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
   }
   
   /**
-   * Generated pattern matcher API of the event.driven.scenario.dse.queries.vehicleAccelerates pattern,
+   * Generated pattern matcher API of the event.driven.scenario.dse.queries.vehicleMovesTEST pattern,
    * providing pattern-specific query methods.
    * 
    * <p>Use the pattern matcher on a given model via {@link #on(ViatraQueryEngine)},
@@ -291,21 +268,20 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
    * 
    * <p>Original source:
    * <code><pre>
-   * pattern vehicleAccelerates(scene: Scene, vehicle: DynamicEntity, by : java Integer){
-   * 	neg find speedLimit(vehicle,2);
+   * pattern vehicleMovesTEST(scene: Scene, vehicle: DynamicEntity){
+   * 	neg DynamicEntity.name(vehicle,"pedestrian");
    * 	neg find danger(vehicle);
+   * 	find speedLimit(vehicle,2);
    * 	find inScene(vehicle,scene);
    * 	Scene.elements(scene,vehicle);
-   * 	DynamicEntity.name(vehicle,"ego");
-   * 	by == 1;
    * }
    * </pre></code>
    * 
    * @see Match
-   * @see VehicleAccelerates
+   * @see VehicleMovesTEST
    * 
    */
-  public static class Matcher extends BaseMatcher<VehicleAccelerates.Match> {
+  public static class Matcher extends BaseMatcher<VehicleMovesTEST.Match> {
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
      * If the pattern matcher is already constructed in the engine, only a light-weight reference is returned.
@@ -314,7 +290,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @throws ViatraQueryRuntimeException if an error occurs during pattern matcher creation
      * 
      */
-    public static VehicleAccelerates.Matcher on(final ViatraQueryEngine engine) {
+    public static VehicleMovesTEST.Matcher on(final ViatraQueryEngine engine) {
       // check if matcher already exists
       Matcher matcher = engine.getExistingMatcher(querySpecification());
       if (matcher == null) {
@@ -329,7 +305,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @noreference This method is for internal matcher initialization by the framework, do not call it manually.
      * 
      */
-    public static VehicleAccelerates.Matcher create() {
+    public static VehicleMovesTEST.Matcher create() {
       return new Matcher();
     }
     
@@ -337,9 +313,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
     
     private static final int POSITION_VEHICLE = 1;
     
-    private static final int POSITION_BY = 2;
-    
-    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(VehicleAccelerates.Matcher.class);
+    private static final Logger LOGGER = ViatraQueryLoggingUtil.getLogger(VehicleMovesTEST.Matcher.class);
     
     /**
      * Initializes the pattern matcher within an existing VIATRA Query engine.
@@ -357,12 +331,11 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
-     * @param pBy the fixed value of pattern parameter by, or null if not bound.
      * @return matches represented as a Match object.
      * 
      */
-    public Collection<VehicleAccelerates.Match> getAllMatches(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-      return rawStreamAllMatches(new Object[]{pScene, pVehicle, pBy}).collect(Collectors.toSet());
+    public Collection<VehicleMovesTEST.Match> getAllMatches(final Scene pScene, final DynamicEntity pVehicle) {
+      return rawStreamAllMatches(new Object[]{pScene, pVehicle}).collect(Collectors.toSet());
     }
     
     /**
@@ -373,12 +346,11 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * In such cases, either rely on {@link #getAllMatches()} or collect the results of the stream in end-user code.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
-     * @param pBy the fixed value of pattern parameter by, or null if not bound.
      * @return a stream of matches represented as a Match object.
      * 
      */
-    public Stream<VehicleAccelerates.Match> streamAllMatches(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-      return rawStreamAllMatches(new Object[]{pScene, pVehicle, pBy});
+    public Stream<VehicleMovesTEST.Match> streamAllMatches(final Scene pScene, final DynamicEntity pVehicle) {
+      return rawStreamAllMatches(new Object[]{pScene, pVehicle});
     }
     
     /**
@@ -386,12 +358,11 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * Neither determinism nor randomness of selection is guaranteed.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
-     * @param pBy the fixed value of pattern parameter by, or null if not bound.
      * @return a match represented as a Match object, or null if no match is found.
      * 
      */
-    public Optional<VehicleAccelerates.Match> getOneArbitraryMatch(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-      return rawGetOneArbitraryMatch(new Object[]{pScene, pVehicle, pBy});
+    public Optional<VehicleMovesTEST.Match> getOneArbitraryMatch(final Scene pScene, final DynamicEntity pVehicle) {
+      return rawGetOneArbitraryMatch(new Object[]{pScene, pVehicle});
     }
     
     /**
@@ -399,24 +370,22 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * under any possible substitution of the unspecified parameters (if any).
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
-     * @param pBy the fixed value of pattern parameter by, or null if not bound.
      * @return true if the input is a valid (partial) match of the pattern.
      * 
      */
-    public boolean hasMatch(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-      return rawHasMatch(new Object[]{pScene, pVehicle, pBy});
+    public boolean hasMatch(final Scene pScene, final DynamicEntity pVehicle) {
+      return rawHasMatch(new Object[]{pScene, pVehicle});
     }
     
     /**
      * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
-     * @param pBy the fixed value of pattern parameter by, or null if not bound.
      * @return the number of pattern matches found.
      * 
      */
-    public int countMatches(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-      return rawCountMatches(new Object[]{pScene, pVehicle, pBy});
+    public int countMatches(final Scene pScene, final DynamicEntity pVehicle) {
+      return rawCountMatches(new Object[]{pScene, pVehicle});
     }
     
     /**
@@ -424,13 +393,12 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * Neither determinism nor randomness of selection is guaranteed.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
-     * @param pBy the fixed value of pattern parameter by, or null if not bound.
      * @param processor the action that will process the selected match.
      * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
      * 
      */
-    public boolean forOneArbitraryMatch(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy, final Consumer<? super VehicleAccelerates.Match> processor) {
-      return rawForOneArbitraryMatch(new Object[]{pScene, pVehicle, pBy}, processor);
+    public boolean forOneArbitraryMatch(final Scene pScene, final DynamicEntity pVehicle, final Consumer<? super VehicleMovesTEST.Match> processor) {
+      return rawForOneArbitraryMatch(new Object[]{pScene, pVehicle}, processor);
     }
     
     /**
@@ -439,12 +407,11 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
      * @param pScene the fixed value of pattern parameter scene, or null if not bound.
      * @param pVehicle the fixed value of pattern parameter vehicle, or null if not bound.
-     * @param pBy the fixed value of pattern parameter by, or null if not bound.
      * @return the (partial) match object.
      * 
      */
-    public VehicleAccelerates.Match newMatch(final Scene pScene, final DynamicEntity pVehicle, final Integer pBy) {
-      return VehicleAccelerates.Match.newMatch(pScene, pVehicle, pBy);
+    public VehicleMovesTEST.Match newMatch(final Scene pScene, final DynamicEntity pVehicle) {
+      return VehicleMovesTEST.Match.newMatch(pScene, pVehicle);
     }
     
     /**
@@ -484,7 +451,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<Scene> streamAllValuesOfscene(final VehicleAccelerates.Match partialMatch) {
+    public Stream<Scene> streamAllValuesOfscene(final VehicleMovesTEST.Match partialMatch) {
       return rawStreamAllValuesOfscene(partialMatch.toArray());
     }
     
@@ -498,8 +465,8 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<Scene> streamAllValuesOfscene(final DynamicEntity pVehicle, final Integer pBy) {
-      return rawStreamAllValuesOfscene(new Object[]{null, pVehicle, pBy});
+    public Stream<Scene> streamAllValuesOfscene(final DynamicEntity pVehicle) {
+      return rawStreamAllValuesOfscene(new Object[]{null, pVehicle});
     }
     
     /**
@@ -507,7 +474,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<Scene> getAllValuesOfscene(final VehicleAccelerates.Match partialMatch) {
+    public Set<Scene> getAllValuesOfscene(final VehicleMovesTEST.Match partialMatch) {
       return rawStreamAllValuesOfscene(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
@@ -516,8 +483,8 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<Scene> getAllValuesOfscene(final DynamicEntity pVehicle, final Integer pBy) {
-      return rawStreamAllValuesOfscene(new Object[]{null, pVehicle, pBy}).collect(Collectors.toSet());
+    public Set<Scene> getAllValuesOfscene(final DynamicEntity pVehicle) {
+      return rawStreamAllValuesOfscene(new Object[]{null, pVehicle}).collect(Collectors.toSet());
     }
     
     /**
@@ -557,7 +524,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfvehicle(final VehicleAccelerates.Match partialMatch) {
+    public Stream<DynamicEntity> streamAllValuesOfvehicle(final VehicleMovesTEST.Match partialMatch) {
       return rawStreamAllValuesOfvehicle(partialMatch.toArray());
     }
     
@@ -571,8 +538,8 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @return the Stream of all values or empty set if there are no matches
      * 
      */
-    public Stream<DynamicEntity> streamAllValuesOfvehicle(final Scene pScene, final Integer pBy) {
-      return rawStreamAllValuesOfvehicle(new Object[]{pScene, null, pBy});
+    public Stream<DynamicEntity> streamAllValuesOfvehicle(final Scene pScene) {
+      return rawStreamAllValuesOfvehicle(new Object[]{pScene, null});
     }
     
     /**
@@ -580,7 +547,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfvehicle(final VehicleAccelerates.Match partialMatch) {
+    public Set<DynamicEntity> getAllValuesOfvehicle(final VehicleMovesTEST.Match partialMatch) {
       return rawStreamAllValuesOfvehicle(partialMatch.toArray()).collect(Collectors.toSet());
     }
     
@@ -589,87 +556,14 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @return the Set of all values or empty set if there are no matches
      * 
      */
-    public Set<DynamicEntity> getAllValuesOfvehicle(final Scene pScene, final Integer pBy) {
-      return rawStreamAllValuesOfvehicle(new Object[]{pScene, null, pBy}).collect(Collectors.toSet());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for by.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    protected Stream<Integer> rawStreamAllValuesOfby(final Object[] parameters) {
-      return rawStreamAllValues(POSITION_BY, parameters).map(Integer.class::cast);
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for by.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    public Set<Integer> getAllValuesOfby() {
-      return rawStreamAllValuesOfby(emptyArray()).collect(Collectors.toSet());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for by.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    public Stream<Integer> streamAllValuesOfby() {
-      return rawStreamAllValuesOfby(emptyArray());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for by.
-     * </p>
-     * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
-     * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
-     * In such cases, either rely on {@link #getAllMatches()} or collect the results of the stream in end-user code.
-     *      
-     * @return the Stream of all values or empty set if there are no matches
-     * 
-     */
-    public Stream<Integer> streamAllValuesOfby(final VehicleAccelerates.Match partialMatch) {
-      return rawStreamAllValuesOfby(partialMatch.toArray());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for by.
-     * </p>
-     * <strong>NOTE</strong>: It is important not to modify the source model while the stream is being processed.
-     * If the match set of the pattern changes during processing, the contents of the stream is <strong>undefined</strong>.
-     * In such cases, either rely on {@link #getAllMatches()} or collect the results of the stream in end-user code.
-     *      
-     * @return the Stream of all values or empty set if there are no matches
-     * 
-     */
-    public Stream<Integer> streamAllValuesOfby(final Scene pScene, final DynamicEntity pVehicle) {
-      return rawStreamAllValuesOfby(new Object[]{pScene, pVehicle, null});
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for by.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    public Set<Integer> getAllValuesOfby(final VehicleAccelerates.Match partialMatch) {
-      return rawStreamAllValuesOfby(partialMatch.toArray()).collect(Collectors.toSet());
-    }
-    
-    /**
-     * Retrieve the set of values that occur in matches for by.
-     * @return the Set of all values or empty set if there are no matches
-     * 
-     */
-    public Set<Integer> getAllValuesOfby(final Scene pScene, final DynamicEntity pVehicle) {
-      return rawStreamAllValuesOfby(new Object[]{pScene, pVehicle, null}).collect(Collectors.toSet());
+    public Set<DynamicEntity> getAllValuesOfvehicle(final Scene pScene) {
+      return rawStreamAllValuesOfvehicle(new Object[]{pScene, null}).collect(Collectors.toSet());
     }
     
     @Override
-    protected VehicleAccelerates.Match tupleToMatch(final Tuple t) {
+    protected VehicleMovesTEST.Match tupleToMatch(final Tuple t) {
       try {
-          return VehicleAccelerates.Match.newMatch((Scene) t.get(POSITION_SCENE), (DynamicEntity) t.get(POSITION_VEHICLE), (Integer) t.get(POSITION_BY));
+          return VehicleMovesTEST.Match.newMatch((Scene) t.get(POSITION_SCENE), (DynamicEntity) t.get(POSITION_VEHICLE));
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in tuple not properly typed!",e);
           return null;
@@ -677,9 +571,9 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
     }
     
     @Override
-    protected VehicleAccelerates.Match arrayToMatch(final Object[] match) {
+    protected VehicleMovesTEST.Match arrayToMatch(final Object[] match) {
       try {
-          return VehicleAccelerates.Match.newMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_VEHICLE], (Integer) match[POSITION_BY]);
+          return VehicleMovesTEST.Match.newMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_VEHICLE]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -687,9 +581,9 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
     }
     
     @Override
-    protected VehicleAccelerates.Match arrayToMatchMutable(final Object[] match) {
+    protected VehicleMovesTEST.Match arrayToMatchMutable(final Object[] match) {
       try {
-          return VehicleAccelerates.Match.newMutableMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_VEHICLE], (Integer) match[POSITION_BY]);
+          return VehicleMovesTEST.Match.newMutableMatch((Scene) match[POSITION_SCENE], (DynamicEntity) match[POSITION_VEHICLE]);
       } catch(ClassCastException e) {
           LOGGER.error("Element(s) in array not properly typed!",e);
           return null;
@@ -701,12 +595,12 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
      * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
      * 
      */
-    public static IQuerySpecification<VehicleAccelerates.Matcher> querySpecification() {
-      return VehicleAccelerates.instance();
+    public static IQuerySpecification<VehicleMovesTEST.Matcher> querySpecification() {
+      return VehicleMovesTEST.instance();
     }
   }
   
-  private VehicleAccelerates() {
+  private VehicleMovesTEST() {
     super(GeneratedPQuery.INSTANCE);
   }
   
@@ -715,7 +609,7 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
    * @throws ViatraQueryRuntimeException if the pattern definition could not be loaded
    * 
    */
-  public static VehicleAccelerates instance() {
+  public static VehicleMovesTEST instance() {
     try{
         return LazyHolder.INSTANCE;
     } catch (ExceptionInInitializerError err) {
@@ -724,35 +618,35 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
   }
   
   @Override
-  protected VehicleAccelerates.Matcher instantiate(final ViatraQueryEngine engine) {
-    return VehicleAccelerates.Matcher.on(engine);
+  protected VehicleMovesTEST.Matcher instantiate(final ViatraQueryEngine engine) {
+    return VehicleMovesTEST.Matcher.on(engine);
   }
   
   @Override
-  public VehicleAccelerates.Matcher instantiate() {
-    return VehicleAccelerates.Matcher.create();
+  public VehicleMovesTEST.Matcher instantiate() {
+    return VehicleMovesTEST.Matcher.create();
   }
   
   @Override
-  public VehicleAccelerates.Match newEmptyMatch() {
-    return VehicleAccelerates.Match.newEmptyMatch();
+  public VehicleMovesTEST.Match newEmptyMatch() {
+    return VehicleMovesTEST.Match.newEmptyMatch();
   }
   
   @Override
-  public VehicleAccelerates.Match newMatch(final Object... parameters) {
-    return VehicleAccelerates.Match.newMatch((scenedl.Scene) parameters[0], (scenedl.DynamicEntity) parameters[1], (java.lang.Integer) parameters[2]);
+  public VehicleMovesTEST.Match newMatch(final Object... parameters) {
+    return VehicleMovesTEST.Match.newMatch((scenedl.Scene) parameters[0], (scenedl.DynamicEntity) parameters[1]);
   }
   
   /**
-   * Inner class allowing the singleton instance of {@link VehicleAccelerates} to be created 
+   * Inner class allowing the singleton instance of {@link VehicleMovesTEST} to be created 
    *     <b>not</b> at the class load time of the outer class, 
-   *     but rather at the first call to {@link VehicleAccelerates#instance()}.
+   *     but rather at the first call to {@link VehicleMovesTEST#instance()}.
    * 
    * <p> This workaround is required e.g. to support recursion.
    * 
    */
   private static class LazyHolder {
-    private static final VehicleAccelerates INSTANCE = new VehicleAccelerates();
+    private static final VehicleMovesTEST INSTANCE = new VehicleMovesTEST();
     
     /**
      * Statically initializes the query specification <b>after</b> the field {@link #INSTANCE} is assigned.
@@ -770,15 +664,53 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
   }
   
   private static class GeneratedPQuery extends BaseGeneratedEMFPQuery {
-    private static final VehicleAccelerates.GeneratedPQuery INSTANCE = new GeneratedPQuery();
+    private static final VehicleMovesTEST.GeneratedPQuery INSTANCE = new GeneratedPQuery();
     
     private final PParameter parameter_scene = new PParameter("scene", "scenedl.Scene", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "Scene")), PParameterDirection.INOUT);
     
     private final PParameter parameter_vehicle = new PParameter("vehicle", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
     
-    private final PParameter parameter_by = new PParameter("by", "java.lang.Integer", new JavaTransitiveInstancesKey(java.lang.Integer.class), PParameterDirection.INOUT);
+    private final List<PParameter> parameters = Arrays.asList(parameter_scene, parameter_vehicle);
     
-    private final List<PParameter> parameters = Arrays.asList(parameter_scene, parameter_vehicle, parameter_by);
+    private class Embedded_1_DynamicEntity_name extends BaseGeneratedEMFPQuery {
+      private final PParameter parameter_p0 = new PParameter("p0", "scenedl.DynamicEntity", new EClassTransitiveInstancesKey((EClass)getClassifierLiteralSafe("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")), PParameterDirection.INOUT);
+      
+      private final PParameter parameter_p1 = new PParameter("p1", "java.lang.String", new EDataTypeInSlotsKey((EDataType)getClassifierLiteralSafe("http://www.eclipse.org/emf/2002/Ecore", "EString")), PParameterDirection.INOUT);
+      
+      private final List<PParameter> embeddedParameters = Arrays.asList(parameter_p0, parameter_p1);
+      
+      public Embedded_1_DynamicEntity_name() {
+        super(PVisibility.EMBEDDED);
+      }
+      
+      @Override
+      public String getFullyQualifiedName() {
+        return GeneratedPQuery.this.getFullyQualifiedName() + "$Embedded_1_DynamicEntity_name";
+      }
+      
+      @Override
+      public List<PParameter> getParameters() {
+        return embeddedParameters;
+      }
+      
+      @Override
+      public Set<PBody> doGetContainedBodies() {
+        PBody body = new PBody(this);
+        PVariable var_p0 = body.getOrCreateVariableByName("p0");
+        PVariable var_p1 = body.getOrCreateVariableByName("p1");
+        body.setSymbolicParameters(Arrays.<ExportedParameter>asList(
+           new ExportedParameter(body, var_p0, parameter_p0),
+           new ExportedParameter(body, var_p1, parameter_p1)
+        ));
+        //  DynamicEntity.name(vehicle,"pedestrian")
+        new TypeConstraint(body, Tuples.flatTupleOf(var_p0), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
+        PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
+        new TypeConstraint(body, Tuples.flatTupleOf(var_p0, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Element", "name")));
+        new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_0_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EString")));
+        new Equality(body, var__virtual_0_, var_p1);
+        return Collections.singleton(body);
+      }
+    }
     
     private GeneratedPQuery() {
       super(PVisibility.PUBLIC);
@@ -786,12 +718,12 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
     
     @Override
     public String getFullyQualifiedName() {
-      return "event.driven.scenario.dse.queries.vehicleAccelerates";
+      return "event.driven.scenario.dse.queries.vehicleMovesTEST";
     }
     
     @Override
     public List<String> getParameterNames() {
-      return Arrays.asList("scene","vehicle","by");
+      return Arrays.asList("scene","vehicle");
     }
     
     @Override
@@ -807,41 +739,30 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
           PBody body = new PBody(this);
           PVariable var_scene = body.getOrCreateVariableByName("scene");
           PVariable var_vehicle = body.getOrCreateVariableByName("vehicle");
-          PVariable var_by = body.getOrCreateVariableByName("by");
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
           new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
-          new TypeFilterConstraint(body, Tuples.flatTupleOf(var_by), new JavaTransitiveInstancesKey(java.lang.Integer.class));
           body.setSymbolicParameters(Arrays.<ExportedParameter>asList(
              new ExportedParameter(body, var_scene, parameter_scene),
-             new ExportedParameter(body, var_vehicle, parameter_vehicle),
-             new ExportedParameter(body, var_by, parameter_by)
+             new ExportedParameter(body, var_vehicle, parameter_vehicle)
           ));
-          // 	neg find speedLimit(vehicle,2)
+          // 	neg DynamicEntity.name(vehicle,"pedestrian")
           PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
-          new ConstantValue(body, var__virtual_0_, 2);
-          new NegativePatternCall(body, Tuples.flatTupleOf(var_vehicle, var__virtual_0_), SpeedLimit.instance().getInternalQueryRepresentation());
+          new ConstantValue(body, var__virtual_0_, "pedestrian");
+          new NegativePatternCall(body, Tuples.flatTupleOf(var_vehicle, var__virtual_0_), new VehicleMovesTEST.GeneratedPQuery.Embedded_1_DynamicEntity_name());
           // 	neg find danger(vehicle)
           new NegativePatternCall(body, Tuples.flatTupleOf(var_vehicle), Danger.instance().getInternalQueryRepresentation());
+          // 	find speedLimit(vehicle,2)
+          PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
+          new ConstantValue(body, var__virtual_1_, 2);
+          new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle, var__virtual_1_), SpeedLimit.instance().getInternalQueryRepresentation());
           // 	find inScene(vehicle,scene)
           new PositivePatternCall(body, Tuples.flatTupleOf(var_vehicle, var_scene), InScene.instance().getInternalQueryRepresentation());
           // 	Scene.elements(scene,vehicle)
           new TypeConstraint(body, Tuples.flatTupleOf(var_scene), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene")));
-          PVariable var__virtual_1_ = body.getOrCreateVariableByName(".virtual{1}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_scene, var__virtual_1_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene", "elements")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_1_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Element")));
-          new Equality(body, var__virtual_1_, var_vehicle);
-          // 	DynamicEntity.name(vehicle,"ego")
           PVariable var__virtual_2_ = body.getOrCreateVariableByName(".virtual{2}");
-          new ConstantValue(body, var__virtual_2_, "ego");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "DynamicEntity")));
-          PVariable var__virtual_3_ = body.getOrCreateVariableByName(".virtual{3}");
-          new TypeConstraint(body, Tuples.flatTupleOf(var_vehicle, var__virtual_3_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Element", "name")));
-          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_3_), new EDataTypeInSlotsKey((EDataType)getClassifierLiteral("http://www.eclipse.org/emf/2002/Ecore", "EString")));
-          new Equality(body, var__virtual_3_, var__virtual_2_);
-          // 	by == 1
-          PVariable var__virtual_4_ = body.getOrCreateVariableByName(".virtual{4}");
-          new ConstantValue(body, var__virtual_4_, 1);
-          new Equality(body, var_by, var__virtual_4_);
+          new TypeConstraint(body, Tuples.flatTupleOf(var_scene, var__virtual_2_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://www.eventDrivenScenario.org/scenedl", "Scene", "elements")));
+          new TypeConstraint(body, Tuples.flatTupleOf(var__virtual_2_), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://www.eventDrivenScenario.org/scenedl", "Element")));
+          new Equality(body, var__virtual_2_, var_vehicle);
           bodies.add(body);
       }
       return bodies;
@@ -850,9 +771,5 @@ public final class VehicleAccelerates extends BaseGeneratedEMFQuerySpecification
   
   private static int evaluateExpression_1_1() {
     return 2;
-  }
-  
-  private static int evaluateExpression_1_2() {
-    return 1;
   }
 }

@@ -36,6 +36,7 @@ import org.eclipse.viatra.transformation.evm.specific.RuleEngines;
 import org.eclipse.viatra.transformation.runtime.emf.rules.batch.BatchTransformationRule;
 
 import edsdl.Action;
+import edsdl.RuntimeState;
 import edsdl.StateMachine;
 import edsdl.Transition;
 import scenedl.Scene;
@@ -524,6 +525,32 @@ public class StateTransitionBasedThreadContext implements StateTransitionBasedID
         this.dseConflictSet.changeActivationOrderingConflictSetBack();
     }
 
+    
+    public Collection<Object> getUntraversedActivationIdsOLD() {
+    	Collection<Object> notFilteredActivationIds;
+    	Collection<Object> activationIds = new ArrayList<Object>();
+    	notFilteredActivationIds = designSpaceManager.getUntraversedTransitionsFromCurrentState();
+    	//It would be more elegant, to extend the Notifier interface with a getStateMachine function, and the model has to implement the extended Notifier. (getModel().getStateMachine())
+    	Scene s = (Scene)getModel();
+    	boolean found = false;
+    	//System.out.println(notFilteredActivationIds);
+        for(Object o : notFilteredActivationIds) {
+        	found = false;
+        	for(RuntimeState r : s.getStateMachine().getRuntimestate())
+	        	for(Transition t : r.getActualState().getOutTransitions()) {	
+	        		for(Action a : t.getRuleBasedActions()) {
+	                	if (o.toString().contains(a.getName())) {
+	                		found = true;
+	                	}
+	        		}
+	        	}
+        	if(found) {
+        		activationIds.add(o);
+        	}
+        }
+        //System.out.println(notFilteredActivationIds);
+        return activationIds;
+    }
     @Override
     public Collection<Object> getUntraversedActivationIds() {
     	Collection<Object> notFilteredActivationIds;
@@ -532,16 +559,17 @@ public class StateTransitionBasedThreadContext implements StateTransitionBasedID
     	//It would be more elegant, to extend the Notifier interface with a getStateMachine function, and the model has to implement the extended Notifier. (getModel().getStateMachine())
     	Scene s = (Scene)getModel();
     	boolean found = false;
-    	System.out.println(notFilteredActivationIds);
+    	//System.out.println(notFilteredActivationIds);
         for(Object o : notFilteredActivationIds) {
         	found = false;
-        	for(Transition t : s.getStateMachine().getRuntimestate().get(0).getActualState().getOutTransitions()) {	
-        		for(Action a : t.getRuleBasedActions()) {
-                	if (o.toString().contains(a.getName())) {
-                		found = true;
-                	}
-        		}
-        	}
+        	for(RuntimeState r : s.getStateMachine().getRuntimestate())
+	        	for(Transition t : r.getActualState().getOutTransitions()) {	
+	        		for(Action a : t.getRuleBasedActions()) {
+	                	if (o.toString().contains(a.getName()) && o.toString().contains(r.getActor())) {
+	                		found = true;
+	                	}
+	        		}
+	        	}
         	if(found) {
         		activationIds.add(o);
         	}

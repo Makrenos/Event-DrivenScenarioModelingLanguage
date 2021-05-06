@@ -11,24 +11,19 @@
         featureBasedActions="vehicleAcceleratesFB"
         condition="!danger"
         name="NoDanger"
-        ruleBasedActions="vehicleAccelerates"/>
+        ruleBasedActions="vehicleAcceleratesTEST"/>
     <outTransitions
         targetState="Slows"
         featureBasedActions="vehicleSlowsDownFB"
         condition="danger"
         name="Danger"
-        ruleBasedActions="vehicleSlowsDown"/>
+        ruleBasedActions="vehicleSlowsDownTEST"/>
     <outTransitions
         targetState="Slows"
         featureBasedActions="pedestrianMovesFB"
         condition="pedestrianCanMove"
         name="pedestrianMovesWhenSlowing"
         ruleBasedActions="pedestrianMoves"/>
-    <outTransitions
-        targetState="Slows"
-        condition="vehicleCanMove"
-        name="randomVehicleMovesWhenSlowing"
-        ruleBasedActions="randomVehicleMoves"/>
   </states>
   <states name="Accelerates">
     <outTransitions
@@ -36,13 +31,13 @@
         featureBasedActions="vehicleMovesFB vehicleAcceleratesFB"
         condition="!speedLimit"
         name="NoSpeedLimit"
-        ruleBasedActions="vehicleAccelerates"/>
+        ruleBasedActions="vehicleAcceleratesTEST"/>
     <outTransitions
         targetState="Moves"
         featureBasedActions="vehicleMovesFB"
         condition="speedLimit"
         name="SpeedLimit"
-        ruleBasedActions="vehicleMoves"/>
+        ruleBasedActions="vehicleMovesTEST"/>
     <outTransitions
         targetState="Accelerates"
         featureBasedActions="pedestrianMovesFB"
@@ -50,10 +45,11 @@
         name="pedestrianMovesWhenAccelerates"
         ruleBasedActions="pedestrianMoves"/>
     <outTransitions
-        targetState="Accelerates"
-        condition="vehicleCanMove"
-        name="randomVehicleMovesWhenAccelerates"
-        ruleBasedActions="randomVehicleMoves"/>
+        targetState="Slows"
+        featureBasedActions="vehicleSlowsDownFB"
+        condition="danger"
+        name="Danger"
+        ruleBasedActions="vehicleSlowsDownTEST"/>
   </states>
   <states name="Moves">
     <outTransitions
@@ -61,24 +57,19 @@
         featureBasedActions="vehicleMovesFB"
         condition="!danger"
         name="NoDanger"
-        ruleBasedActions="vehicleMoves"/>
+        ruleBasedActions="vehicleMovesTEST"/>
     <outTransitions
         targetState="Slows"
         featureBasedActions="vehicleSlowsDownFB"
         condition="danger"
         name="Danger"
-        ruleBasedActions="vehicleSlowsDown"/>
+        ruleBasedActions="vehicleSlowsDownTEST"/>
     <outTransitions
         targetState="Moves"
         featureBasedActions="pedestrianMovesFB"
         condition="pedestrianCanMove"
         name="pedestrianMovesWhenVehicleMoves"
         ruleBasedActions="pedestrianMoves"/>
-    <outTransitions
-        targetState="Moves"
-        condition="vehicleCanMove"
-        name="randomVehicleMovesWhenMoves"
-        ruleBasedActions="randomVehicleMoves"/>
   </states>
   <dictionary>
     <featureBasedActions
@@ -110,18 +101,45 @@
     <conditions
         pattern="vehicleCanMove"/>
     <ruleBasedActions
-        name="vehicleSlowsDown"/>
+        name="vehicleSlowsDownTEST"/>
     <ruleBasedActions
-        name="vehicleAccelerates"/>
+        name="vehicleAcceleratesTEST"/>
     <ruleBasedActions
-        name="vehicleMoves"/>
+        name="vehicleMovesTEST"/>
     <ruleBasedActions
         name="pedestrianMoves"/>
-    <ruleBasedActions
-        name="randomVehicleMoves"/>
   </dictionary>
   <runtimestate
-      actualState="Accelerates"/>
+      actualState="Accelerates"
+      actor="ego"/>
   <runtimestate
-      actualState="Accelerates"/>
+      actualState="Accelerates"
+      actor="car1"/>
+  <runtimestate
+      actualState="Accelerates"
+      actor="pedestrian"/>
+  <runtimestate
+      actualState="Accelerates"
+      actor="car2"/>
+  <runtimestate
+      actualState="Accelerates"
+      actor="car3"/>
+  <runtimestate
+      actualState="Accelerates"
+      actor="car4"/>
+  <runtimestate
+      actualState="Accelerates"
+      actor="car5"/>
+  <runtimestate
+      actualState="Accelerates"
+      actor="car6"/>
+  <runtimestate
+      actualState="Accelerates"
+      actor="car7"/>
+  <runtimestate
+      actualState="Accelerates"
+      actor="car8"/>
+  <runtimestate
+      actualState="Accelerates"
+      actor="car9"/>
 </edsdl:StateMachine>

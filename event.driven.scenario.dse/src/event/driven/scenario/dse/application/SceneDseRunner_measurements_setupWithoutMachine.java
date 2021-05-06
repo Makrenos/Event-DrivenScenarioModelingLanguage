@@ -30,6 +30,8 @@ import event.driven.scenario.dse.queries.EgoReachesRoadEndWithPedestrian;
 import event.driven.scenario.dse.queries.EgoReachesRoadEndWithPedestrianMeasurement;
 import event.driven.scenario.dse.queries.InScene;
 import event.driven.scenario.dse.rules.EdsdlDseRules;
+import event.driven.scenario.dse.rules.EdsdlDseRulesTEST;
+import event.driven.scenario.dse.rules.EdsdlDseRulesWithoutMachine;
 import event.driven.scenario.dse.source.StateTransitionBasedDfsStrategy;
 import event.driven.scenario.dse.source.StateTransitionBasedConstraintsObjective;
 import event.driven.scenario.dse.source.StateTransitionBasedDesignSpaceExplorer;
@@ -67,7 +69,7 @@ public class SceneDseRunner_measurements_setupWithoutMachine {
     	//Read in XMI resource if there is any
     	try {
     		
-    		File source = new File("./models/vehicleMovesStateMachineMeasurement.edsdl");
+    		File source = new File("./models/vehicleMovesStateMachineTEST.edsdl");
         	try {
 				resource.load( new FileInputStream(source.getAbsolutePath()), new HashMap<Object,Object>());
 			} catch (FileNotFoundException e) {
@@ -127,11 +129,10 @@ public class SceneDseRunner_measurements_setupWithoutMachine {
 	        
 	        dse.setStateCoderFactory(new SceneStateCoderFactory());
 	
-	        EdsdlDseRules rules = new EdsdlDseRules();
-	        dse.addTransformationRule(rules.randomVehicleMovesMeasurements);
-	        dse.addTransformationRule(rules.vehicleMoves);
-	        dse.addTransformationRule(rules.vehicleAccelerates);
-	        dse.addTransformationRule(rules.vehicleSlowsDown);
+	        EdsdlDseRulesWithoutMachine rules = new EdsdlDseRulesWithoutMachine();
+	        dse.addTransformationRule(rules.vehicleMovesTEST);
+	        dse.addTransformationRule(rules.vehicleAcceleratesTEST);
+	        dse.addTransformationRule(rules.vehicleSlowsDownTEST);
 	        dse.addTransformationRule(rules.pedestrianMoves);
 	        
 	        dse.addObjective(
@@ -142,15 +143,30 @@ public class SceneDseRunner_measurements_setupWithoutMachine {
 	        //global constraint -> eldobja ha illeszkedés van
 	
 	        //save found instance models
-	        dse.setSolutionStore(new SolutionStore(100000).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrianMeasurements/vehicleReachesRoadEndWithPedestrianMeasurements","scenedl"));
-	
+	        dse.setSolutionStore(new SolutionStore(100000).acceptAnySolutions());
+	        DepthFirstStrategy strat = new DepthFirstStrategy(10000);
 	    	//System.out.println("Exploration start");
 	    	final long startTime = System.nanoTime();
 	    	
-	        dse.startExploration(new DepthFirstStrategy(10000));
+	        dse.startExploration(strat);
+	        System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
+	        System.out.println("Statemachine runtime: " + (rules.time) + " seconds");
+	        /*
+	        while(!dse.isDone()) {}
 	        if(i>2) {
-	        	System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000 + " milliseconds");
+	        	System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
 	        }
+	        */
+	        //System.out.println(dse.toStringSolutions());
+	        
+        	if(i == 0) {
+            	String[] lines = dse.toStringSolutions().split("\r\n|\r|\n");
+    	        String[] result = dse.toStringSolutions().split("\n", 2);
+    	        String[] splited = result[0].split("\\s+");
+    	        int numberOfSollutions = Integer.parseInt(splited[splited.length-1]);
+                System.out.println(result[0]);
+                System.out.println("Trajectorys: "+ (lines.length-1-numberOfSollutions));
+        	}
 	        i++;
         	System.gc();
         	System.gc();

@@ -47,6 +47,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="RuntimeState">
     <eStructuralFeatures xsi:type="ecore:EReference" name="actualState" lowerBound="1"
         eType="#//State"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actor" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Action">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
