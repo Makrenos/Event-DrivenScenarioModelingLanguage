@@ -6,10 +6,13 @@ import event.driven.scenario.dse.queries.PedestrianMoves;
 import event.driven.scenario.dse.queries.RandomVehicleMovesMeasurements;
 import event.driven.scenario.dse.queries.VehicleAccelerates;
 import event.driven.scenario.dse.queries.VehicleAcceleratesMeasurements;
+import event.driven.scenario.dse.queries.VehicleAcceleratesTEST;
 import event.driven.scenario.dse.queries.VehicleMoves;
 import event.driven.scenario.dse.queries.VehicleMovesMeasurements;
+import event.driven.scenario.dse.queries.VehicleMovesTEST;
 import event.driven.scenario.dse.queries.VehicleSlowsDown;
 import event.driven.scenario.dse.queries.VehicleSlowsDownMeasurements;
+import event.driven.scenario.dse.queries.VehicleSlowsDownTEST;
 import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.viatra.dse.api.DSEException;
@@ -44,6 +47,14 @@ public class EdsdlDseRules {
   public BatchTransformationRule<?, ?> vehicleAcceleratesMeasurements;
   
   public BatchTransformationRule<?, ?> randomVehicleMovesMeasurements;
+  
+  public BatchTransformationRule<?, ?> vehicleMovesTEST;
+  
+  public BatchTransformationRule<?, ?> vehicleSlowsDownTEST;
+  
+  public BatchTransformationRule<?, ?> vehicleAcceleratesTEST;
+  
+  public float time;
   
   /**
    * def int getSpeed(DynamicEntity e){
@@ -101,16 +112,25 @@ public class EdsdlDseRules {
     if (outOfFeatureZone) {
       de.setOn(null);
     }
-    EList<Transition> _outTransitions = de.getContainedIn().getStateMachine().getRuntimestate().get(0).getActualState().getOutTransitions();
-    for (final Transition t : _outTransitions) {
-      EList<Action> _ruleBasedActions = t.getRuleBasedActions();
-      for (final Action a_1 : _ruleBasedActions) {
-        boolean _contains = a_1.getName().contains(rule);
-        if (_contains) {
-          de.getContainedIn().getStateMachine().getRuntimestate().get(0).setActualState(t.getTargetState());
+    long startTime = System.nanoTime();
+    boolean _equals_1 = de.getName().equals("ego");
+    if (_equals_1) {
+      EList<Transition> _outTransitions = de.getContainedIn().getStateMachine().getRuntimestate().get(0).getActualState().getOutTransitions();
+      for (final Transition t : _outTransitions) {
+        EList<Action> _ruleBasedActions = t.getRuleBasedActions();
+        for (final Action a_1 : _ruleBasedActions) {
+          boolean _equals_2 = a_1.getName().equals(rule);
+          if (_equals_2) {
+            de.getContainedIn().getStateMachine().getRuntimestate().get(0).setActualState(t.getTargetState());
+          }
         }
       }
     }
+    float _time = this.time;
+    long _nanoTime = System.nanoTime();
+    long _minus = (_nanoTime - startTime);
+    float _divide = (((float) _minus) / 1000000000);
+    this.time = (_time + _divide);
   }
   
   public EdsdlDseRules() {
@@ -247,6 +267,58 @@ public class EdsdlDseRules {
         this.actuateModel(it.getVehicle(), this.vehicleAccelerates.getName());
       };
       this.vehicleAcceleratesMeasurements = this.factory.<VehicleAcceleratesMeasurements.Match, VehicleAcceleratesMeasurements.Matcher>createRule(VehicleAcceleratesMeasurements.instance()).name("vehicleAccelerates").action(_function_7).build();
+      final Consumer<VehicleMovesTEST.Match> _function_8 = (VehicleMovesTEST.Match it) -> {
+        PositionAttribute _position = it.getVehicle().getPosition();
+        int _x = it.getVehicle().getPosition().getX();
+        int _x_1 = it.getVehicle().getSpeed().getX();
+        int _plus = (_x + _x_1);
+        _position.setX(_plus);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_1 = (_y + _y_1);
+        _position_1.setY(_plus_1);
+        this.actuateModel(it.getVehicle(), this.vehicleMoves.getName());
+      };
+      this.vehicleMovesTEST = this.factory.<VehicleMovesTEST.Match, VehicleMovesTEST.Matcher>createRule(VehicleMovesTEST.instance()).name("vehicleMoves").action(_function_8).build();
+      final Consumer<VehicleSlowsDownTEST.Match> _function_9 = (VehicleSlowsDownTEST.Match it) -> {
+        PositionAttribute _speed = it.getVehicle().getSpeed();
+        int _x = it.getVehicle().getSpeed().getX();
+        Integer _by = it.getBy();
+        int _plus = (_x + (_by).intValue());
+        _speed.setX(_plus);
+        PositionAttribute _position = it.getVehicle().getPosition();
+        int _x_1 = it.getVehicle().getPosition().getX();
+        int _x_2 = it.getVehicle().getSpeed().getX();
+        int _plus_1 = (_x_1 + _x_2);
+        _position.setX(_plus_1);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_2 = (_y + _y_1);
+        _position_1.setY(_plus_2);
+        this.actuateModel(it.getVehicle(), this.vehicleSlowsDown.getName());
+      };
+      this.vehicleSlowsDownTEST = this.factory.<VehicleSlowsDownTEST.Match, VehicleSlowsDownTEST.Matcher>createRule(VehicleSlowsDownTEST.instance()).name("vehicleSlowsDown").action(_function_9).build();
+      final Consumer<VehicleAcceleratesTEST.Match> _function_10 = (VehicleAcceleratesTEST.Match it) -> {
+        PositionAttribute _speed = it.getVehicle().getSpeed();
+        int _x = it.getVehicle().getSpeed().getX();
+        Integer _by = it.getBy();
+        int _plus = (_x + (_by).intValue());
+        _speed.setX(_plus);
+        PositionAttribute _position = it.getVehicle().getPosition();
+        int _x_1 = it.getVehicle().getPosition().getX();
+        int _x_2 = it.getVehicle().getSpeed().getX();
+        int _plus_1 = (_x_1 + _x_2);
+        _position.setX(_plus_1);
+        PositionAttribute _position_1 = it.getVehicle().getPosition();
+        int _y = it.getVehicle().getPosition().getY();
+        int _y_1 = it.getVehicle().getSpeed().getY();
+        int _plus_2 = (_y + _y_1);
+        _position_1.setY(_plus_2);
+        this.actuateModel(it.getVehicle(), this.vehicleAccelerates.getName());
+      };
+      this.vehicleAcceleratesTEST = this.factory.<VehicleAcceleratesTEST.Match, VehicleAcceleratesTEST.Matcher>createRule(VehicleAcceleratesTEST.instance()).name("vehicleAccelerates").action(_function_10).build();
     } catch (final Throwable _t) {
       if (_t instanceof ViatraQueryException) {
         final ViatraQueryException e = (ViatraQueryException)_t;

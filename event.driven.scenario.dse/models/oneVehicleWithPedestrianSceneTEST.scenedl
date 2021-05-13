@@ -41,7 +41,7 @@
           x="1"
           y="2"/>
       <endingPosition
-          x="7"
+          x="9"
           y="2"/>
     </lanes>
     <lanes id="1">
@@ -49,7 +49,7 @@
           x="1"
           y="3"/>
       <endingPosition
-          x="7"
+          x="9"
           y="3"/>
     </lanes>
   </elements>

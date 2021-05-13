@@ -20,15 +20,19 @@
         ruleBasedActions="vehicleSlowsDown"/>
     <outTransitions
         targetState="Slows"
-        featureBasedActions="pedestrianMovesFB"
-        condition="pedestrianCanMove"
-        name="pedestrianMovesWhenSlowing"
-        ruleBasedActions="pedestrianMoves"/>
+        condition="vehicleCanMove"
+        name="randomVehicleMovesWhenSlowing"
+        ruleBasedActions="vehicleSlowsDownMeasurements"/>
     <outTransitions
         targetState="Slows"
         condition="vehicleCanMove"
         name="randomVehicleMovesWhenSlowing"
-        ruleBasedActions="randomVehicleMoves"/>
+        ruleBasedActions="vehicleAcceleratesMeasurements"/>
+    <outTransitions
+        targetState="Slows"
+        condition="vehicleCanMove"
+        name="randomVehicleMovesWhenSlowing"
+        ruleBasedActions="vehicleMovesMeasurements"/>
   </states>
   <states name="Accelerates">
     <outTransitions
@@ -44,22 +48,26 @@
         name="SpeedLimit"
         ruleBasedActions="vehicleMoves"/>
     <outTransitions
-        targetState="Accelerates"
-        featureBasedActions="pedestrianMovesFB"
-        condition="pedestrianCanMove"
-        name="pedestrianMovesWhenAccelerates"
-        ruleBasedActions="pedestrianMoves"/>
-    <outTransitions
-        targetState="Accelerates"
-        condition="vehicleCanMove"
-        name="randomVehicleMovesWhenAccelerates"
-        ruleBasedActions="randomVehicleMoves"/>
-    <outTransitions
         targetState="Slows"
         featureBasedActions="vehicleSlowsDownFB"
         condition="danger"
         name="Danger"
         ruleBasedActions="vehicleSlowsDown"/>
+    <outTransitions
+        targetState="Accelerates"
+        condition="vehicleCanMove"
+        name="randomVehicleMovesWhenSlowing"
+        ruleBasedActions="vehicleSlowsDownMeasurements"/>
+    <outTransitions
+        targetState="Accelerates"
+        condition="vehicleCanMove"
+        name="randomVehicleMovesWhenSlowing"
+        ruleBasedActions="vehicleAcceleratesMeasurements"/>
+    <outTransitions
+        targetState="Accelerates"
+        condition="vehicleCanMove"
+        name="randomVehicleMovesWhenSlowing"
+        ruleBasedActions="vehicleMovesMeasurements"/>
   </states>
   <states name="Moves">
     <outTransitions
@@ -76,15 +84,25 @@
         ruleBasedActions="vehicleSlowsDown"/>
     <outTransitions
         targetState="Moves"
-        featureBasedActions="pedestrianMovesFB"
-        condition="pedestrianCanMove"
-        name="pedestrianMovesWhenVehicleMoves"
-        ruleBasedActions="pedestrianMoves"/>
+        condition="vehicleCanMove"
+        name="randomVehicleMovesWhenSlowing"
+        ruleBasedActions="vehicleSlowsDownMeasurements"/>
     <outTransitions
         targetState="Moves"
         condition="vehicleCanMove"
-        name="randomVehicleMovesWhenMoves"
-        ruleBasedActions="randomVehicleMoves"/>
+        name="randomVehicleMovesWhenSlowing"
+        ruleBasedActions="vehicleAcceleratesMeasurements"/>
+    <outTransitions
+        targetState="Moves"
+        condition="vehicleCanMove"
+        name="randomVehicleMovesWhenSlowing"
+        ruleBasedActions="vehicleMovesMeasurements"/>
+    <outTransitions
+        targetState="Moves"
+        featureBasedActions="pedestrianMovesFB"
+        condition="pedestrianCanMove"
+        name="pedestrianMovesWhenAccelerates"
+        ruleBasedActions="pedestrianMoves"/>
   </states>
   <dictionary>
     <featureBasedActions
@@ -124,7 +142,13 @@
     <ruleBasedActions
         name="pedestrianMoves"/>
     <ruleBasedActions
-        name="randomVehicleMoves"/>
+        name="randomVehicleMovesMeasurements"/>
+    <ruleBasedActions
+        name="vehicleSlowsDownMeasurements"/>
+    <ruleBasedActions
+        name="vehicleAcceleratesMeasurements"/>
+    <ruleBasedActions
+        name="vehicleMovesMeasurements"/>
   </dictionary>
   <runtimestate
       actualState="Accelerates"

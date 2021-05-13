@@ -23,6 +23,7 @@ import edsdl.EdsdlPackage;
 import edsdl.StateMachine;
 import event.driven.scenario.dse.queries.EgoReachesRoadEndWithPedestrian;
 import event.driven.scenario.dse.rules.EdsdlDseRules;
+import event.driven.scenario.dse.rules.EdsdlDseRulesTEST;
 import event.driven.scenario.dse.source.StateTransitionBasedDfsStrategy;
 import event.driven.scenario.dse.source.StateTransitionBasedConstraintsObjective;
 import event.driven.scenario.dse.source.StateTransitionBasedDesignSpaceExplorer;
@@ -87,7 +88,7 @@ public class SceneDseRunner_vehicle_with_pedestrian {
     	
     	//Read in XMI resource if there is any
     	try {
-    		File source = new File("./models/oneVehicleWithPedestrianScene.scenedl");
+    		File source = new File("./models/oneVehicleWithPedestrianSceneTEST.scenedl");
         	try {
         		sceneResource.load( new FileInputStream(source.getAbsolutePath()), new HashMap<Object,Object>());
 			} catch (FileNotFoundException e) {
@@ -108,6 +109,8 @@ public class SceneDseRunner_vehicle_with_pedestrian {
     		s = init.initScene("oneVehicleWithPedestrian", m);    		
     	}
 
+    	
+    	s.setStateMachine(m);
         //DSE
         DesignSpaceExplorer.turnOnLoggingWithBasicConfig(DseLoggingLevel.WARN);
 
@@ -118,10 +121,10 @@ public class SceneDseRunner_vehicle_with_pedestrian {
         
         dse.setStateCoderFactory(new SceneStateCoderFactory());
 
-        EdsdlDseRules rules = new EdsdlDseRules();
-        dse.addTransformationRule(rules.vehicleMoves);
-        dse.addTransformationRule(rules.vehicleAccelerates);
-        dse.addTransformationRule(rules.vehicleSlowsDown);
+        EdsdlDseRulesTEST rules = new EdsdlDseRulesTEST();
+        dse.addTransformationRule(rules.vehicleMovesTEST);
+        dse.addTransformationRule(rules.vehicleAcceleratesTEST);
+        dse.addTransformationRule(rules.vehicleSlowsDownTEST);
         dse.addTransformationRule(rules.pedestrianMoves);
         
         dse.addObjective(
@@ -132,11 +135,11 @@ public class SceneDseRunner_vehicle_with_pedestrian {
         //global constraint -> eldobja ha illeszkedés van
 
         //save found instance models
-        dse.setSolutionStore(new StateTransitionBasedSolutionStore(10000).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrian/vehicleReachesRoadEndWithPedestrian","scenedl"));
+        dse.setSolutionStore(new StateTransitionBasedSolutionStore(100000).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrian/vehicleReachesRoadEndWithPedestrian","scenedl"));
 
     	System.out.println("Exploration start");
     	//final long startTime = System.nanoTime();
-    	StateTransitionBasedDfsStrategy strategy = new StateTransitionBasedDfsStrategy(1000);
+    	StateTransitionBasedDfsStrategy strategy = new StateTransitionBasedDfsStrategy(10000);
         dse.startExploration(strategy);
         
         

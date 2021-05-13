@@ -23,6 +23,9 @@ import event.driven.scenario.dse.queries.VehicleSlowsDownTEST
 import event.driven.scenario.dse.queries.VehicleMovesTEST
 import event.driven.scenario.dse.queries.VehicleAcceleratesTEST
 import edsdl.RuntimeState
+import event.driven.scenario.dse.queries.VehicleMovesWOM
+import event.driven.scenario.dse.queries.VehicleSlowsDownWOM
+import event.driven.scenario.dse.queries.VehicleAcceleratesWOM
 
 class EdsdlDseRulesWithoutMachine {
     extension BatchTransformationRuleFactory factory = new BatchTransformationRuleFactory
@@ -44,7 +47,12 @@ class EdsdlDseRulesWithoutMachine {
     //rules
     public BatchTransformationRule<?, ?> vehicleMovesTEST
     public BatchTransformationRule<?, ?> vehicleSlowsDownTEST
-    public BatchTransformationRule<?, ?> vehicleAcceleratesTEST    
+    public BatchTransformationRule<?, ?> vehicleAcceleratesTEST
+    
+    //WOM
+    public BatchTransformationRule<?, ?> vehicleMovesWOM
+    public BatchTransformationRule<?, ?> vehicleSlowsDownWOM
+    public BatchTransformationRule<?, ?> vehicleAcceleratesWOM
 
 	/*
 	def int getSpeed(DynamicEntity e){
@@ -220,6 +228,41 @@ class EdsdlDseRulesWithoutMachine {
                 .build
                 
             vehicleAcceleratesTEST = createRule(VehicleAcceleratesTEST.instance())
+                .name("vehicleAccelerates")
+                .action[            	
+					vehicle.speed.x = vehicle.speed.x + by 
+                	vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+                	vehicle.actuateModel(vehicleAccelerates.name)                	    
+                ]
+                .build
+                
+            //WOM
+            vehicleMovesWOM = createRule(VehicleMovesWOM.instance())
+                .name("vehicleMoves")
+                .action[						
+					vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+					vehicle.actuateModel(vehicleMoves.name) 	    
+                ]
+                .build
+                
+            vehicleSlowsDownWOM = createRule(VehicleSlowsDownWOM.instance())
+                .name("vehicleSlowsDown")
+                .action[                	
+                	//val featureX = vehiclePos.eClass.EAllStructuralFeatures.filter[it.name.equals("x")].head
+                	//map a by megszerzéséhez
+                	//vehiclePos.eSet(featureX,1);s
+                	//vehicle.position.x
+                	vehicle.speed.x = vehicle.speed.x + by 
+                	vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+					//vehicle.position.x = vehicle.position.x + vehicle.setSpeed(by)
+                	vehicle.actuateModel(vehicleSlowsDown.name)                	    
+                ]
+                .build
+                
+            vehicleAcceleratesWOM = createRule(VehicleAcceleratesWOM.instance())
                 .name("vehicleAccelerates")
                 .action[            	
 					vehicle.speed.x = vehicle.speed.x + by 

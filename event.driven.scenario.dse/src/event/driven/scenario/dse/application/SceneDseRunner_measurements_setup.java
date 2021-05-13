@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
@@ -27,7 +28,10 @@ import event.driven.scenario.dse.queries.EgoReachesRoadEndWithPedestrian;
 import event.driven.scenario.dse.queries.EgoReachesRoadEndWithPedestrianMeasurement;
 import event.driven.scenario.dse.queries.InScene;
 import event.driven.scenario.dse.rules.EdsdlDseRules;
+import event.driven.scenario.dse.rules.EdsdlDseRulesTEST;
+import event.driven.scenario.dse.rules.EdsdlDseRulesWithoutMachine;
 import event.driven.scenario.dse.source.StateTransitionBasedDfsStrategy;
+import event.driven.scenario.dse.source.StateTransitionBasedBfsStrategy;
 import event.driven.scenario.dse.source.StateTransitionBasedConstraintsObjective;
 import event.driven.scenario.dse.source.StateTransitionBasedDesignSpaceExplorer;
 import event.driven.scenario.dse.source.StateTransitionBasedSolutionStore;
@@ -91,7 +95,7 @@ public class SceneDseRunner_measurements_setup {
     	
     	//Read in XMI resource if there is any
     	try {
-    		File source = new File("./models/oneVehicleWithPedestrianScene4Lanes.scenedl");
+    		File source = new File("./models/oneVehicleWithPedestrianScene6Lanes.scenedl");
         	try {
         		sceneResource.load( new FileInputStream(source.getAbsolutePath()), new HashMap<Object,Object>());
 			} catch (FileNotFoundException e) {
@@ -115,7 +119,8 @@ public class SceneDseRunner_measurements_setup {
     	s.setStateMachine(m);
         //DSE
         DesignSpaceExplorer.turnOnLoggingWithBasicConfig(DseLoggingLevel.WARN);
-
+        String[] totalRuntime = new String[10];
+        String[] machineRuntime = new String[10];
         int i = 0;
         while(i < 13) {
         	
@@ -127,11 +132,15 @@ public class SceneDseRunner_measurements_setup {
             dse.setStateCoderFactory(new SceneStateCoderFactory());
 
             EdsdlDseRules rules = new EdsdlDseRules();
-            dse.addTransformationRule(rules.randomVehicleMovesMeasurements);
-            dse.addTransformationRule(rules.vehicleMoves);
-            dse.addTransformationRule(rules.vehicleAccelerates);
-            dse.addTransformationRule(rules.vehicleSlowsDown);
-            dse.addTransformationRule(rules.pedestrianMoves);
+	        dse.addTransformationRule(rules.vehicleMoves);
+	        dse.addTransformationRule(rules.vehicleAccelerates);
+	        dse.addTransformationRule(rules.vehicleSlowsDown);
+	        
+	        dse.addTransformationRule(rules.vehicleMovesMeasurements);
+	        dse.addTransformationRule(rules.vehicleAcceleratesMeasurements);
+	        dse.addTransformationRule(rules.vehicleSlowsDownMeasurements);
+	        
+	        dse.addTransformationRule(rules.pedestrianMoves);
             
             dse.addObjective(
                     new StateTransitionBasedConstraintsObjective()
@@ -148,17 +157,20 @@ public class SceneDseRunner_measurements_setup {
         	
         	
         	//System.out.println("Exploration start:" + startTime);
-        	StateTransitionBasedDfsStrategy strat = new StateTransitionBasedDfsStrategy(10000);
+            StateTransitionBasedBfsStrategy strat = new StateTransitionBasedBfsStrategy(10000);
 
         	final long startTime = System.nanoTime();
         	dse.startExploration(strat);
-        	while(!dse.isDone()) {}
-        	System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
-        	/*
+        	//while(!dse.isDone()) {}
+        	//System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
+        	
         	if(i>2) {
+        		totalRuntime[i-3] = String.valueOf(((float)(System.nanoTime()-startTime))/1000000000);
+        		machineRuntime[i-3] = String.valueOf((strat.time+rules.time));
         		System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
-        		//System.out.println("Statemachine runtime: " + strat.time + " milliseconds");
-        	}*/
+        		//System.out.println("Statemachine runtime: " + (strat.time+rules.time) + " seconds");
+        	}
+        	
         	if(i == 0) {
             	String[] lines = dse.toStringSolutions().split("\r\n|\r|\n");
     	        String[] result = dse.toStringSolutions().split("\n", 2);
@@ -167,6 +179,7 @@ public class SceneDseRunner_measurements_setup {
                 System.out.println(result[0]);
                 System.out.println("Trajectorys: "+ (lines.length-1-numberOfSollutions));
         	}
+        	
         	//System.out.println(dse.toStringSolutions());
         	i++;
         	System.gc();
@@ -180,7 +193,8 @@ public class SceneDseRunner_measurements_setup {
 			}
         }
         
-        
+        System.out.println(Arrays.toString(totalRuntime));
+        System.out.println(Arrays.toString(machineRuntime));
         //System.out.println(dse.toStringSolutions());
         /*
 		try {

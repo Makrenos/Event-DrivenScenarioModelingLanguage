@@ -19,6 +19,9 @@ import event.driven.scenario.dse.queries.VehicleMovesMeasurements
 import event.driven.scenario.dse.queries.VehicleSlowsDownMeasurements
 import event.driven.scenario.dse.queries.VehicleAcceleratesMeasurements
 import event.driven.scenario.dse.queries.RandomVehicleMovesMeasurements
+import event.driven.scenario.dse.queries.VehicleAcceleratesTEST
+import event.driven.scenario.dse.queries.VehicleSlowsDownTEST
+import event.driven.scenario.dse.queries.VehicleMovesTEST
 
 class EdsdlDseRules {
     extension BatchTransformationRuleFactory factory = new BatchTransformationRuleFactory
@@ -34,7 +37,14 @@ class EdsdlDseRules {
     public BatchTransformationRule<?, ?> vehicleSlowsDownMeasurements
     public BatchTransformationRule<?, ?> vehicleAcceleratesMeasurements
     public BatchTransformationRule<?, ?> randomVehicleMovesMeasurements
+    
+        //rules
+    public BatchTransformationRule<?, ?> vehicleMovesTEST
+    public BatchTransformationRule<?, ?> vehicleSlowsDownTEST
+    public BatchTransformationRule<?, ?> vehicleAcceleratesTEST
 
+
+public float time;
 	/*
 	def int getSpeed(DynamicEntity e){
 		for(RegularAttribute a : e.attributes){
@@ -83,21 +93,30 @@ class EdsdlDseRules {
         	de.on = null;
         }
         
-        //Actutate state        
-        for(Transition t : de.containedIn.getStateMachine().getRuntimestate().get(0).getActualState().getOutTransitions()) {
+        var startTime = System.nanoTime();
+        //Actutate state
+        if(de.name.equals("ego")){
+        	
+        	for(Transition t : de.containedIn.getStateMachine().getRuntimestate().get(0).getActualState().getOutTransitions()) {
     		for(Action a : t.getRuleBasedActions()) {
-            	if (a.getName().contains(rule)) {
+            	if (a.getName().equals(rule)) {
+            		//System.out.println(de.name+t.getTargetState().name);		
             		de.containedIn.getStateMachine().getRuntimestate().get(0).setActualState(t.getTargetState());
+            		//System.out.println(de.containedIn.getStateMachine().getRuntimestate().get(0).actualState.name);
             	}
     		}
-    	} 
+    		}
+        }
+        time += ((System.nanoTime()-startTime) as float)/1000000000 ;
+         
 	}
 	
     new() {
         try {
 			vehicleMoves = createRule(VehicleMoves.instance())
                 .name("vehicleMoves")
-                .action[						
+                .action[
+                	//System.out.println(vehicle.containedIn.stateMachine.runtimestate.get(0).actualState.name);						
 					vehicle.position.x = vehicle.position.x + vehicle.speed.x
 					vehicle.position.y = vehicle.position.y + vehicle.speed.y
 					vehicle.actuateModel(vehicleMoves.name) 	    
@@ -111,6 +130,7 @@ class EdsdlDseRules {
                 	//map a by megszerzéséhez
                 	//vehiclePos.eSet(featureX,1);s
                 	//vehicle.position.x
+                	//System.out.println(vehicle.containedIn.stateMachine.runtimestate.get(0).actualState.name);		
                 	vehicle.speed.x = vehicle.speed.x + by 
                 	vehicle.position.x = vehicle.position.x + vehicle.speed.x
 					vehicle.position.y = vehicle.position.y + vehicle.speed.y
@@ -121,7 +141,8 @@ class EdsdlDseRules {
                 
             vehicleAccelerates = createRule(VehicleAccelerates.instance())
                 .name("vehicleAccelerates")
-                .action[            	
+                .action[    
+                	//System.out.println(vehicle.containedIn.stateMachine.runtimestate.get(0).actualState.name);		        	
 					vehicle.speed.x = vehicle.speed.x + by 
                 	vehicle.position.x = vehicle.position.x + vehicle.speed.x
 					vehicle.position.y = vehicle.position.y + vehicle.speed.y
@@ -180,6 +201,41 @@ class EdsdlDseRules {
                 .name("vehicleAccelerates")
                 .action[
                 	//System.out.println(vehicle.name);            	
+					vehicle.speed.x = vehicle.speed.x + by 
+                	vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+                	vehicle.actuateModel(vehicleAccelerates.name)                	    
+                ]
+                .build
+                
+             //TEST
+            vehicleMovesTEST = createRule(VehicleMovesTEST.instance())
+                .name("vehicleMoves")
+                .action[						
+					vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+					vehicle.actuateModel(vehicleMoves.name) 	    
+                ]
+                .build
+                
+            vehicleSlowsDownTEST = createRule(VehicleSlowsDownTEST.instance())
+                .name("vehicleSlowsDown")
+                .action[                	
+                	//val featureX = vehiclePos.eClass.EAllStructuralFeatures.filter[it.name.equals("x")].head
+                	//map a by megszerzéséhez
+                	//vehiclePos.eSet(featureX,1);s
+                	//vehicle.position.x
+                	vehicle.speed.x = vehicle.speed.x + by 
+                	vehicle.position.x = vehicle.position.x + vehicle.speed.x
+					vehicle.position.y = vehicle.position.y + vehicle.speed.y
+					//vehicle.position.x = vehicle.position.x + vehicle.setSpeed(by)
+                	vehicle.actuateModel(vehicleSlowsDown.name)                	    
+                ]
+                .build
+                
+            vehicleAcceleratesTEST = createRule(VehicleAcceleratesTEST.instance())
+                .name("vehicleAccelerates")
+                .action[            	
 					vehicle.speed.x = vehicle.speed.x + by 
                 	vehicle.position.x = vehicle.position.x + vehicle.speed.x
 					vehicle.position.y = vehicle.position.y + vehicle.speed.y

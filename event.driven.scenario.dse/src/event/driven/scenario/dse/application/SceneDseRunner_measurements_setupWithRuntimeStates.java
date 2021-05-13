@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
@@ -89,7 +90,7 @@ public class SceneDseRunner_measurements_setupWithRuntimeStates {
     	
     	//Read in XMI resource if there is any
     	try {
-    		File source = new File("./models/oneVehicleWithPedestrianScene6Lanes.scenedl");
+    		File source = new File("./models/oneVehicleWithPedestrianSceneTEST.scenedl");
         	try {
         		sceneResource.load( new FileInputStream(source.getAbsolutePath()), new HashMap<Object,Object>());
 			} catch (FileNotFoundException e) {
@@ -114,6 +115,8 @@ public class SceneDseRunner_measurements_setupWithRuntimeStates {
     	s.setStateMachine(m);
         //DSE
         DesignSpaceExplorer.turnOnLoggingWithBasicConfig(DseLoggingLevel.WARN);
+        String[] totalRuntime = new String[10];
+        String[] machineRuntime = new String[10];
         int i = 0;
         while(i < 13) {
 	        StateTransitionBasedDesignSpaceExplorer dse = new StateTransitionBasedDesignSpaceExplorer();
@@ -144,15 +147,19 @@ public class SceneDseRunner_measurements_setupWithRuntimeStates {
 	    	final long startTime = System.nanoTime();
 	    	
 	        dse.startExploration(strategy);
+	        /*
 	        System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
 	        System.out.println("Statemachine runtime: " + (strategy.time+rules.time) + " seconds");
-	        /*
+	        
 	        while(!dse.isDone()) {}
+	        */
         	if(i>2) {
+        		totalRuntime[i-3] = String.valueOf(((float)(System.nanoTime()-startTime))/1000000000);
+        		machineRuntime[i-3] = String.valueOf((strategy.time+rules.time));
         		System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
-        		System.out.println("Statemachine runtime: " + strategy.time + " seconds");
+        		System.out.println("Statemachine runtime: " + (strategy.time+rules.time) + " seconds");
         	}
-        	*/
+        	
         	if(i == 0) {
             	String[] lines = dse.toStringSolutions().split("\r\n|\r|\n");
     	        String[] result = dse.toStringSolutions().split("\n", 2);
@@ -162,7 +169,7 @@ public class SceneDseRunner_measurements_setupWithRuntimeStates {
                 System.out.println("Trajectorys: "+ (lines.length-1-numberOfSollutions));
         	}
 
-        	//System.out.println(dse.toStringSolutions());
+        	System.out.println(dse.toStringSolutions());
         	i++;
         	System.gc();
         	System.gc();
@@ -174,6 +181,9 @@ public class SceneDseRunner_measurements_setupWithRuntimeStates {
 				e.printStackTrace();
 			}
         }
+        
+        System.out.println(Arrays.toString(totalRuntime));
+        System.out.println(Arrays.toString(machineRuntime));
     	
     }
 }

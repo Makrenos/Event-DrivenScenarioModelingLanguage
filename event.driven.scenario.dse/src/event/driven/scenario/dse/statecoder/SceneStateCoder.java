@@ -34,7 +34,7 @@ public class SceneStateCoder implements IStateCoder {
     @Override
     public Object createStateCode() {
         
-    	State currState = s.getStateMachine().getRuntimestate().get(0).getActualState();
+    	//State currState = s.getStateMachine().getRuntimestate().get(0).getActualState();
         EList<Element> elements = s.getElements();
         int numOfDynElements=0;
         for (Element element : elements) {
@@ -116,6 +116,7 @@ public class SceneStateCoder implements IStateCoder {
     	}
     	for(RuntimeState r : this.s.getStateMachine().getRuntimestate()) {
     		if(r.getActor().equals(actorName)) {
+    			//
     			sb.add(actorName + "'s current state: " + r.getActualState().getName());
     		}
     	}

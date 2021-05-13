@@ -6,11 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.viatra.dse.api.DesignSpaceExplorer;
 import org.eclipse.viatra.dse.api.DesignSpaceExplorer.DseLoggingLevel;
+import org.eclipse.viatra.dse.api.strategy.impl.BreadthFirstStrategy;
 import org.eclipse.viatra.dse.api.strategy.impl.DepthFirstStrategy;
 import org.eclipse.viatra.dse.objectives.Comparators;
 import org.eclipse.viatra.dse.objectives.impl.ConstraintsObjective;
@@ -120,6 +122,8 @@ public class SceneDseRunner_measurements_setupWithoutMachine {
     	s.setStateMachine(m);
         //DSE
         DesignSpaceExplorer.turnOnLoggingWithBasicConfig(DseLoggingLevel.WARN);
+        String[] totalRuntime = new String[10];
+        //String[] machineRuntime = new String[10];
         int i = 0;
         while(i < 13) {
 	        DesignSpaceExplorer dse = new DesignSpaceExplorer();
@@ -130,9 +134,9 @@ public class SceneDseRunner_measurements_setupWithoutMachine {
 	        dse.setStateCoderFactory(new SceneStateCoderFactory());
 	
 	        EdsdlDseRulesWithoutMachine rules = new EdsdlDseRulesWithoutMachine();
-	        dse.addTransformationRule(rules.vehicleMovesTEST);
-	        dse.addTransformationRule(rules.vehicleAcceleratesTEST);
-	        dse.addTransformationRule(rules.vehicleSlowsDownTEST);
+	        dse.addTransformationRule(rules.vehicleMovesWOM);
+	        dse.addTransformationRule(rules.vehicleAcceleratesWOM);
+	        dse.addTransformationRule(rules.vehicleSlowsDownWOM);
 	        dse.addTransformationRule(rules.pedestrianMoves);
 	        
 	        dse.addObjective(
@@ -143,20 +147,23 @@ public class SceneDseRunner_measurements_setupWithoutMachine {
 	        //global constraint -> eldobja ha illeszkedés van
 	
 	        //save found instance models
-	        dse.setSolutionStore(new SolutionStore(100000).acceptAnySolutions());
-	        DepthFirstStrategy strat = new DepthFirstStrategy(10000);
+	        dse.setSolutionStore(new SolutionStore(100).acceptAnySolutions());
+	        BreadthFirstStrategy strat = new BreadthFirstStrategy(10000);
 	    	//System.out.println("Exploration start");
 	    	final long startTime = System.nanoTime();
 	    	
 	        dse.startExploration(strat);
-	        System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
-	        System.out.println("Statemachine runtime: " + (rules.time) + " seconds");
+	        //System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
+	        //System.out.println("Statemachine runtime: " + (rules.time) + " seconds");
 	        /*
 	        while(!dse.isDone()) {}
+	        */
 	        if(i>2) {
 	        	System.out.println("Exploration runtime: " + ((float)(System.nanoTime()-startTime))/1000000000 + " seconds");
+	        	totalRuntime[i-3] = String.valueOf(((float)(System.nanoTime()-startTime))/1000000000);
+        		//machineRuntime[i-3] = String.valueOf((strat.time+rules.time));
 	        }
-	        */
+	        
 	        //System.out.println(dse.toStringSolutions());
 	        
         	if(i == 0) {
@@ -178,6 +185,7 @@ public class SceneDseRunner_measurements_setupWithoutMachine {
 				e.printStackTrace();
 			}
         }
+        System.out.println(Arrays.toString(totalRuntime));
         /*
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("vehicleReachesRoadEndWithPedestrianMeasurementsSollutionsWithoutMachine.txt"));

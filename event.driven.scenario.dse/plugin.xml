@@ -18,6 +18,9 @@
       <query-specification fqn="event.driven.scenario.dse.queries.vehicleSlowsDownTEST"/>
       <query-specification fqn="event.driven.scenario.dse.queries.vehicleAcceleratesTEST"/>
       <query-specification fqn="event.driven.scenario.dse.queries.vehicleMovesTEST"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleSlowsDownWOM"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleAcceleratesWOM"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.vehicleMovesWOM"/>
       <query-specification fqn="event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrian"/>
       <query-specification fqn="event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrianMeasurement"/>
     </group>

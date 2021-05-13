@@ -29,3 +29,6 @@
 /.VehicleSlowsDownTEST.java._trace
 /.Danger.java._trace
 /.SpeedLimit.java._trace
+/.VehicleAcceleratesWOM.java._trace
+/.VehicleMovesWOM.java._trace
+/.VehicleSlowsDownWOM.java._trace

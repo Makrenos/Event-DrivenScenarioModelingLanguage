@@ -128,10 +128,10 @@ public class StateTransitionBasedDfsStrategy implements StateTransitionBasedIStr
             	//Scene s = (Scene)context.getModel();
             	
             	//System.out.println("Statemachine-based filtering start");
-            	//long startTime = System.nanoTime();
+            	long startTime = System.nanoTime();
             	//activationIds = context.getUntraversedActivationIds(s.getStateMachine());
             	activationIds = context.getUntraversedActivationIdsOLD();
-            	//time += ((float)(System.nanoTime()-startTime))/1000000 ;
+            	time += ((float)(System.nanoTime()-startTime))/1000000000 ;
             	//System.out.println("Statemachine-based filtering runtime: " + ((float)(System.nanoTime()-startTime))/1000 + " microseconds");
             	//System.out.println("Statemachine-based filtering runtime:" + System.nanoTime());
                 if (activationIds.isEmpty()) {

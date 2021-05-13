@@ -36,6 +36,7 @@ import org.eclipse.viatra.transformation.evm.specific.RuleEngines;
 import org.eclipse.viatra.transformation.runtime.emf.rules.batch.BatchTransformationRule;
 
 import edsdl.Action;
+import edsdl.Condition;
 import edsdl.RuntimeState;
 import edsdl.StateMachine;
 import edsdl.Transition;
@@ -409,11 +410,6 @@ public class StateTransitionBasedThreadContext implements StateTransitionBasedID
     }
 
     @Override
-    public Collection<Object> getCurrentActivationIds() {
-        return designSpaceManager.getTransitionsFromCurrentState();
-    }
-
-    @Override
     public void executeAcitvationId(Object activationId) {
         designSpaceManager.fireActivation(activationId);
     }
@@ -536,19 +532,20 @@ public class StateTransitionBasedThreadContext implements StateTransitionBasedID
     	//System.out.println(notFilteredActivationIds);
         for(Object o : notFilteredActivationIds) {
         	found = false;
-        	for(RuntimeState r : s.getStateMachine().getRuntimestate())
-	        	for(Transition t : r.getActualState().getOutTransitions()) {	
+        	
+	        	for(Transition t : s.getStateMachine().getRuntimestate().get(0).getActualState().getOutTransitions()) {	
 	        		for(Action a : t.getRuleBasedActions()) {
 	                	if (o.toString().contains(a.getName())) {
 	                		found = true;
 	                	}
 	        		}
 	        	}
+        	
         	if(found) {
         		activationIds.add(o);
         	}
         }
-        //System.out.println(notFilteredActivationIds);
+        //System.out.println(activationIds);
         return activationIds;
     }
     @Override
@@ -562,20 +559,103 @@ public class StateTransitionBasedThreadContext implements StateTransitionBasedID
     	//System.out.println(notFilteredActivationIds);
         for(Object o : notFilteredActivationIds) {
         	found = false;
-        	for(RuntimeState r : s.getStateMachine().getRuntimestate())
-	        	for(Transition t : r.getActualState().getOutTransitions()) {	
-	        		for(Action a : t.getRuleBasedActions()) {
-	                	if (o.toString().contains(a.getName()) && o.toString().contains(r.getActor())) {
-	                		found = true;
-	                	}
-	        		}
+        	for(RuntimeState r : s.getStateMachine().getRuntimestate()) {
+	        	for(Transition t : r.getActualState().getOutTransitions()) {
+	        		//if(conditions(t.getCondition().getPattern())) {
+		        		for(Action a : t.getRuleBasedActions()) {
+		                	if ((o.toString().contains(a.getName()) && o.toString().contains(r.getActor())) || o.toString().contains("pedestrian") && r.getActualState().getName().equals("Moves")) {
+		                		found = true;
+		                	}
+		        		}
+	        		//}
 	        	}
+        	}
         	if(found) {
         		activationIds.add(o);
         	}
         }
         
         return activationIds;
+    }
+    
+    public Collection<Object> getCurrentActivationIdsOLD() {
+    	Collection<Object> notFilteredActivationIds;
+    	Collection<Object> activationIds = new ArrayList<Object>();
+    	notFilteredActivationIds = designSpaceManager.getUntraversedTransitionsFromCurrentState();
+    	//It would be more elegant, to extend the Notifier interface with a getStateMachine function, and the model has to implement the extended Notifier. (getModel().getStateMachine())
+    	Scene s = (Scene)getModel();
+    	boolean found = false;
+    	//System.out.println(notFilteredActivationIds);
+        for(Object o : notFilteredActivationIds) {
+        	found = false;
+        	
+	        	for(Transition t : s.getStateMachine().getRuntimestate().get(0).getActualState().getOutTransitions()) {	
+	        		for(Action a : t.getRuleBasedActions()) {
+	                	if (o.toString().contains(a.getName())) {
+	                		found = true;
+	                	}
+	        		}
+	        	}
+        	
+        	if(found) {
+        		activationIds.add(o);
+        	}
+        }
+        //System.out.println(activationIds);
+        return activationIds;
+    }
+    @Override
+    public Collection<Object> getCurrentActivationIds() {
+    	Collection<Object> notFilteredActivationIds;
+    	Collection<Object> activationIds = new ArrayList<Object>();
+    	notFilteredActivationIds = designSpaceManager.getUntraversedTransitionsFromCurrentState();
+    	//It would be more elegant, to extend the Notifier interface with a getStateMachine function, and the model has to implement the extended Notifier. (getModel().getStateMachine())
+    	Scene s = (Scene)getModel();
+    	boolean found = false;
+    	//System.out.println(notFilteredActivationIds);
+        for(Object o : notFilteredActivationIds) {
+        	found = false;
+        	for(RuntimeState r : s.getStateMachine().getRuntimestate()) {
+	        	for(Transition t : r.getActualState().getOutTransitions()) {
+	        		//if(conditions(t.getCondition().getPattern())) {
+		        		for(Action a : t.getRuleBasedActions()) {
+		                	if ((o.toString().contains(a.getName()) && o.toString().contains(r.getActor())) || o.toString().contains("pedestrian") && r.getActualState().getName().equals("Moves")) {
+		                		found = true;
+		                	}
+		        		}
+	        		//}
+	        	}
+        	}
+        	if(found) {
+        		activationIds.add(o);
+        	}
+        }
+        
+        return activationIds;
+    }
+    
+    public boolean conditions(String c) {
+    	boolean o = false;
+    	switch (c) {
+		case "speedLimit":
+			
+			break;
+		case "!peedLimit":
+			
+			break;
+		case "danger":
+			
+			break;
+		case "!danger":
+			
+			break;
+		case "pedestrianCanMove":
+			o =true;
+			break;
+		default:
+			break;
+		}
+    	return o;
     }
     
     public Collection<Object> getUntraversedActivationIds(StateMachine s) {

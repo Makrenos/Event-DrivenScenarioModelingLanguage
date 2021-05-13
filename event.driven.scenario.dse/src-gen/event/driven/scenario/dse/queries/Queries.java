@@ -31,6 +31,9 @@ import org.eclipse.viatra.query.runtime.api.impl.BaseGeneratedPatternGroup;
  * <li>vehicleSlowsDownTEST</li>
  * <li>vehicleAcceleratesTEST</li>
  * <li>vehicleMovesTEST</li>
+ * <li>vehicleSlowsDownWOM</li>
+ * <li>vehicleAcceleratesWOM</li>
+ * <li>vehicleMovesWOM</li>
  * <li>egoReachesRoadEndWithPedestrian</li>
  * <li>egoReachesRoadEndWithPedestrianMeasurement</li>
  * </ul>
@@ -74,6 +77,9 @@ public final class Queries extends BaseGeneratedPatternGroup {
     querySpecifications.add(VehicleSlowsDownTEST.instance());
     querySpecifications.add(VehicleAcceleratesTEST.instance());
     querySpecifications.add(VehicleMovesTEST.instance());
+    querySpecifications.add(VehicleSlowsDownWOM.instance());
+    querySpecifications.add(VehicleAcceleratesWOM.instance());
+    querySpecifications.add(VehicleMovesWOM.instance());
     querySpecifications.add(EgoReachesRoadEndWithPedestrian.instance());
     querySpecifications.add(EgoReachesRoadEndWithPedestrianMeasurement.instance());
   }
@@ -212,6 +218,30 @@ public final class Queries extends BaseGeneratedPatternGroup {
   
   public VehicleMovesTEST.Matcher getVehicleMovesTEST(final ViatraQueryEngine engine) {
     return VehicleMovesTEST.Matcher.on(engine);
+  }
+  
+  public VehicleSlowsDownWOM getVehicleSlowsDownWOM() {
+    return VehicleSlowsDownWOM.instance();
+  }
+  
+  public VehicleSlowsDownWOM.Matcher getVehicleSlowsDownWOM(final ViatraQueryEngine engine) {
+    return VehicleSlowsDownWOM.Matcher.on(engine);
+  }
+  
+  public VehicleAcceleratesWOM getVehicleAcceleratesWOM() {
+    return VehicleAcceleratesWOM.instance();
+  }
+  
+  public VehicleAcceleratesWOM.Matcher getVehicleAcceleratesWOM(final ViatraQueryEngine engine) {
+    return VehicleAcceleratesWOM.Matcher.on(engine);
+  }
+  
+  public VehicleMovesWOM getVehicleMovesWOM() {
+    return VehicleMovesWOM.instance();
+  }
+  
+  public VehicleMovesWOM.Matcher getVehicleMovesWOM(final ViatraQueryEngine engine) {
+    return VehicleMovesWOM.Matcher.on(engine);
   }
   
   public EgoReachesRoadEndWithPedestrian getEgoReachesRoadEndWithPedestrian() {

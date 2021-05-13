@@ -18,12 +18,6 @@
         condition="danger"
         name="Danger"
         ruleBasedActions="vehicleSlowsDownTEST"/>
-    <outTransitions
-        targetState="Slows"
-        featureBasedActions="pedestrianMovesFB"
-        condition="pedestrianCanMove"
-        name="pedestrianMovesWhenSlowing"
-        ruleBasedActions="pedestrianMoves"/>
   </states>
   <states name="Accelerates">
     <outTransitions
@@ -38,12 +32,6 @@
         condition="speedLimit"
         name="SpeedLimit"
         ruleBasedActions="vehicleMovesTEST"/>
-    <outTransitions
-        targetState="Accelerates"
-        featureBasedActions="pedestrianMovesFB"
-        condition="pedestrianCanMove"
-        name="pedestrianMovesWhenAccelerates"
-        ruleBasedActions="pedestrianMoves"/>
     <outTransitions
         targetState="Slows"
         featureBasedActions="vehicleSlowsDownFB"
@@ -68,7 +56,7 @@
         targetState="Moves"
         featureBasedActions="pedestrianMovesFB"
         condition="pedestrianCanMove"
-        name="pedestrianMovesWhenVehicleMoves"
+        name="pedestrianMovesWhenSlows"
         ruleBasedActions="pedestrianMoves"/>
   </states>
   <dictionary>
@@ -98,8 +86,6 @@
         pattern="speedLimit"/>
     <conditions
         pattern="pedestrianCanMove"/>
-    <conditions
-        pattern="vehicleCanMove"/>
     <ruleBasedActions
         name="vehicleSlowsDownTEST"/>
     <ruleBasedActions
@@ -115,9 +101,6 @@
   <runtimestate
       actualState="Accelerates"
       actor="car1"/>
-  <runtimestate
-      actualState="Accelerates"
-      actor="pedestrian"/>
   <runtimestate
       actualState="Accelerates"
       actor="car2"/>

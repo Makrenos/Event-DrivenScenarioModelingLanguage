@@ -71,7 +71,9 @@ pattern getPossibleTransitions(stateMachine : StateMachine,actualState: State,t 
 
 pattern vehicleSlowsDown(scene: Scene, vehicle: DynamicEntity, by : java Integer){
 	find danger(vehicle);
-	
+	DynamicEntity.speed(vehicle,speed);
+	PositionAttribute.x(speed,speedX);
+	check(speedX>0);
 	find inScene(vehicle,scene);
 	Scene.elements(scene,vehicle);
 	DynamicEntity.name(vehicle,"ego");
@@ -144,7 +146,9 @@ pattern speedLimit(vehicle: DynamicEntity, limit : java Integer){
 
 pattern vehicleSlowsDownMeasurements(scene: Scene, vehicle: DynamicEntity, by : java Integer){
 	find danger(vehicle);
-	
+	DynamicEntity.speed(vehicle,speed);
+	PositionAttribute.x(speed,speedX);
+	check(speedX>0);
 	neg DynamicEntity.name(vehicle,"pedestrian");
 	neg DynamicEntity.name(vehicle,"ego");
 	find inScene(vehicle,scene);
@@ -163,6 +167,8 @@ pattern vehicleAcceleratesMeasurements(scene: Scene, vehicle: DynamicEntity, by 
 }
 
 pattern vehicleMovesMeasurements(scene: Scene, vehicle: DynamicEntity){
+	neg find danger(vehicle);
+	find speedLimit(vehicle,2);
 	neg DynamicEntity.name(vehicle,"pedestrian");
 	neg DynamicEntity.name(vehicle,"ego");
 	find inScene(vehicle,scene);
@@ -170,8 +176,8 @@ pattern vehicleMovesMeasurements(scene: Scene, vehicle: DynamicEntity){
 }
 
 pattern randomVehicleMovesMeasurements(scene: Scene, vehicle: DynamicEntity){
-	//neg find danger(vehicle);
-	//find speedLimit(vehicle,2);
+	neg find danger(vehicle);
+	find speedLimit(vehicle,2);
 	neg DynamicEntity.name(vehicle,"pedestrian");
 	neg DynamicEntity.name(vehicle,"ego");
 	find inScene(vehicle,scene);
@@ -206,6 +212,34 @@ pattern vehicleMovesTEST(scene: Scene, vehicle: DynamicEntity){
 	neg DynamicEntity.name(vehicle,"pedestrian");
 	neg find danger(vehicle);
 	find speedLimit(vehicle,2);
+	find inScene(vehicle,scene);
+	Scene.elements(scene,vehicle);
+}
+
+//WOM
+pattern vehicleSlowsDownWOM(scene: Scene, vehicle: DynamicEntity, by : java Integer){
+	
+	DynamicEntity.speed(vehicle,speed);
+	PositionAttribute.x(speed,speedX);
+	check(speedX>0);
+	neg DynamicEntity.name(vehicle,"pedestrian");
+	find inScene(vehicle,scene);
+	Scene.elements(scene,vehicle);
+	
+	by == -1;
+}
+
+pattern vehicleAcceleratesWOM(scene: Scene, vehicle: DynamicEntity, by : java Integer){
+	neg DynamicEntity.name(vehicle,"pedestrian");
+	
+	find inScene(vehicle,scene);
+	Scene.elements(scene,vehicle);
+
+	by == 1;
+}
+
+pattern vehicleMovesWOM(scene: Scene, vehicle: DynamicEntity){
+	neg DynamicEntity.name(vehicle,"pedestrian");
 	find inScene(vehicle,scene);
 	Scene.elements(scene,vehicle);
 }
