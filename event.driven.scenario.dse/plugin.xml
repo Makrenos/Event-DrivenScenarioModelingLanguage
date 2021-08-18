@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><plugin>
-  <extension id="event.driven.scenario.dse.queries.Queries" point="org.eclipse.viatra.query.runtime.queryspecification">
-    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:event.driven.scenario.dse.queries.Queries" id="event.driven.scenario.dse.queries.Queries">
-      <query-specification fqn="event.driven.scenario.dse.queries.inScene"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.egoOnRoad"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.collision"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.getPossibleTransitions"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleSlowsDown"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleAccelerates"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleMoves"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.pedestrianMoves"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.danger"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.speedLimit"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleSlowsDownMeasurements"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleAcceleratesMeasurements"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleMovesMeasurements"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.randomVehicleMovesMeasurements"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleSlowsDownTEST"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleAcceleratesTEST"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleMovesTEST"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleSlowsDownWOM"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleAcceleratesWOM"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.vehicleMovesWOM"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrian"/>
-      <query-specification fqn="event.driven.scenario.dse.queries.egoReachesRoadEndWithPedestrianMeasurement"/>
+  <extension id="event.driven.scenario.dse.queries.Scenic_queries" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:event.driven.scenario.dse.queries.Scenic_queries" id="event.driven.scenario.dse.queries.Scenic_queries">
+      <query-specification fqn="event.driven.scenario.dse.queries.followLaneBehavior"/>
+      <query-specification fqn="event.driven.scenario.dse.queries.hasTwoBehavior"/>
     </group>
   </extension>
 </plugin>

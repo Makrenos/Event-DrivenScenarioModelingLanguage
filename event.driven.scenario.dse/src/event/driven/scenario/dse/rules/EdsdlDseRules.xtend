@@ -9,7 +9,6 @@ import event.driven.scenario.dse.queries.PedestrianMoves
 import edsdl.Transition
 import edsdl.Action
 import event.driven.scenario.dse.queries.VehicleSlowsDown
-import scenedl.RegularAttribute
 import event.driven.scenario.dse.queries.VehicleAccelerates
 import scenedl.DynamicEntity
 import scenedl.Element
@@ -42,6 +41,9 @@ class EdsdlDseRules {
     public BatchTransformationRule<?, ?> vehicleMovesTEST
     public BatchTransformationRule<?, ?> vehicleSlowsDownTEST
     public BatchTransformationRule<?, ?> vehicleAcceleratesTEST
+    
+    //public BatchTransformationRule<?, ?> vehicleSlowsDownTEST
+    //public BatchTransformationRule<?, ?> vehicleAcceleratesTEST
 
 
 public float time;
@@ -181,6 +183,7 @@ public float time;
 					vehicle.actuateModel(vehicleMoves.name) 	    
                 ]
                 .build
+                
                 
             vehicleSlowsDownMeasurements = createRule(VehicleSlowsDownMeasurements.instance())
                 .name("vehicleSlowsDown")

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/event.driven.scenario.dl/src" modelPluginID="event.driven.scenario.dl"
+    modelName="Behavior" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    usedGenPackages="../../ca.mcgill.ecse.scenario.model/model/trafficSituation.genmodel#//trafficSituation"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>behavior.ecore</foreignModel>
+  <genPackages prefix="Behavior" disposableProviderFactory="true" ecorePackage="behavior.ecore#/">
+    <genClasses ecoreClass="behavior.ecore#//Behavior">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute behavior.ecore#//Behavior/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference behavior.ecore#//Behavior/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="behavior.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute behavior.ecore#//Parameter/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute behavior.ecore#//Parameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="behavior.ecore#//ListOfBehaviors">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference behavior.ecore#//ListOfBehaviors/behaviors"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference behavior.ecore#//ListOfBehaviors/actor"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,52 @@
+package event.driven.scenario.dse.queries
+
+import "ca.mcgill.ecse.scenario"
+import "http://www.eventDrivenScenario.org/behavior"
+
+//Constraints
+
+/*
+pattern inScene(entity: DynamicEntity,scene : Scene){
+	Scene.elements(scene,entity);
+	
+	Scene.boundry(scene,boundryPos);
+	PositionAttribute.x(boundryPos,boundryPosX);
+	PositionAttribute.y(boundryPos,boundryPosY);
+	
+	DynamicEntity.speed(entity,entitySpeed);
+	PositionAttribute.x(entitySpeed,speedX);
+	PositionAttribute.y(entitySpeed,speedY);
+	
+	DynamicEntity.position(entity,entityPos);
+	PositionAttribute.x(entityPos,posX);
+	PositionAttribute.y(entityPos,posY);
+	
+	check(posX <= boundryPosX && posY <= boundryPosY && posX >= 0 && posY >= 0);
+}
+*/
+
+//Rules
+
+pattern followLaneBehavior(s: Scenario, staticComponent: Path){
+	Scenario.dynamicComponents(s,dc);
+	DynamicComponent.instances(dc,dci);
+	AbstractDynamicInstance.relations(dci,relations);
+	IsPlacedOn.target(relations,staticComponent);
+	
+}
+
+
+//Conditions
+
+//Objectives
+
+//All actors have at least 2 behavior
+pattern hasTwoBehavior(scenario: Scenario, l: ListsOfBehaviors){
+	Scenario.firstScene(scenario,s);
+	Scene.abstractDynamicInstances(s,actualActor);
+	ListsOfBehaviors.listsOfBehaviors(l,allActorsBehaviors);
+	BehaviorList.actor(allActorsBehaviors, actorBehaviors);
+	actualActor == actorBehaviors;
+	BehaviorList.numberOfBehaviors(allActorsBehaviors,num);
+	check(num > 1);	
+}

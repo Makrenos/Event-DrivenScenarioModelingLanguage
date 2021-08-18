@@ -31,4 +31,12 @@
             genModel="model/edsdl.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated behavior -->
+      <package
+            uri="http://www.eventDrivenScenario.org/behavior"
+            class="behavior.BehaviorPackage"
+            genModel="model/behavior.genmodel"/>
+   </extension>
+
 </plugin>

@@ -15,8 +15,12 @@ Export-Package: edsdl,
  scenedl.util,
  event.driven.scenario.dl.edsdl,
  event.driven.scenario.dl.edsdl.impl,
- event.driven.scenario.dl.edsdl.util
+ event.driven.scenario.dl.edsdl.util,
+ behavior,
+ behavior.impl,
+ behavior.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
+ ca.mcgill.ecse.scenario.model;visibility:=reexport,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-15
