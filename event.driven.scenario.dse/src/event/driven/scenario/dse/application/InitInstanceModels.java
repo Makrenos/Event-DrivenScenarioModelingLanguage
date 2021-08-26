@@ -11,6 +11,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import behavior.Behavior;
+import behavior.BehaviorFactory;
+import behavior.BehaviorList;
+import behavior.BehaviorPackage;
+import behavior.ListsOfBehaviors;
+import behavior.Parameter;
 import edsdl.Action;
 import edsdl.Condition;
 import edsdl.Dictionary;
@@ -29,11 +35,14 @@ import scenedl.Scene;
 import scenedl.ScenedlFactory;
 import scenedl.ScenedlPackage;
 import scenedl.StaticEntity;
+import trafficSituation.DynamicComponent;
+import trafficSituation.Scenario;
 
 public class InitInstanceModels {
 	
 	private EdsdlFactory edsdlFactory;
 	private ScenedlFactory sceneFactory;
+	private BehaviorFactory behaviorFactory;
 	private Resource.Factory.Registry reg;
 	private Map<String, Object> mo;
 	private ResourceSet resSet;
@@ -46,11 +55,21 @@ public class InitInstanceModels {
     	ScenedlPackage.eINSTANCE.eClass();
     	this.sceneFactory = ScenedlFactory.eINSTANCE;
     	
+    	BehaviorPackage.eINSTANCE.eClass();
+    	this.behaviorFactory = BehaviorFactory.eINSTANCE;
+    	
     	this.reg = Resource.Factory.Registry.INSTANCE;
     	this.mo  = reg.getExtensionToFactoryMap();
     	this.resSet = new ResourceSetImpl(); 
 	}
 	
+	public ListsOfBehaviors initBehaviors(String name,Scenario s) {
+		if(name.equals("scenicBehaviors")) {
+			return scenicBehaviors(s);
+		}
+		return null;
+	}
+
 	public StateMachine initStateMachine(String name) {
 		if(name.equals("vehicleMoves")) {
 			return vehicleMoves();
@@ -63,6 +82,83 @@ public class InitInstanceModels {
 			return oneVehicleWithPedestrian(m);
 		}
 		return null;
+	}
+	
+	private ListsOfBehaviors scenicBehaviors(Scenario s) {
+		ListsOfBehaviors b = behaviorFactory.createListsOfBehaviors();
+		//Init begaviors:
+    	Behavior followLaneBehavior = behaviorFactory.createBehavior();
+    	Behavior turnBehavior = behaviorFactory.createBehavior();
+    	Behavior laneChangeBehavior = behaviorFactory.createBehavior();
+    	
+    	followLaneBehavior.setName("FollowLaneBehavior");
+    	turnBehavior.setName("TurnBehavior");
+    	laneChangeBehavior.setName("LaneChangeBehavior");
+    	//Init params:
+    	Parameter target_speed = behaviorFactory.createParameter();
+    	Parameter laneToFollow = behaviorFactory.createParameter();
+    	Parameter is_oppositeTraffic = behaviorFactory.createParameter();
+    	
+    	Parameter trajectory = behaviorFactory.createParameter();
+    	
+    	Parameter laneSectionToSwitch = behaviorFactory.createParameter();
+    	
+    	target_speed.setName("target_speed");
+    	target_speed.setType("int");
+    	//This value can correspond for the actual Scenic default parameter.
+    	target_speed.setValue("5");
+    	
+    	laneToFollow.setName("laneToFollow");
+    	//In Scenic this is called Lane.
+    	laneToFollow.setType("Path");
+    	laneToFollow.setValue(null);
+    	
+    	is_oppositeTraffic.setName("is_oppositeTraffic");
+    	is_oppositeTraffic.setType("boolean");
+    	is_oppositeTraffic.setValue("False");
+    	
+    	trajectory.setName("trajectory");
+    	trajectory.setType("Trajectory");
+    	trajectory.setValue(null);
+    	
+    	laneSectionToSwitch.setName("laneSectionToSwitch");
+    	laneSectionToSwitch.setType("LaneSegment");
+    	laneSectionToSwitch.setValue(null);
+    	
+    	//Add params to behaviors:
+    	Parameter target_speed_followLane = target_speed;
+    	Parameter is_oppositeTraffic_followLane = target_speed;
+    	Parameter laneToFollow_followLane = laneToFollow;
+    	followLaneBehavior.getParameters().add(target_speed_followLane);
+    	followLaneBehavior.getParameters().add(laneToFollow_followLane);
+    	followLaneBehavior.getParameters().add(is_oppositeTraffic_followLane);
+    	
+    	Parameter target_speed_turnBehavior = target_speed;
+    	Parameter trajectory_turnBehavior = trajectory;
+    	turnBehavior.getParameters().add(trajectory_turnBehavior);
+    	turnBehavior.getParameters().add(target_speed_turnBehavior);
+    	
+    	Parameter laneSectionToSwitch_laneChangeBehavior = laneSectionToSwitch;
+    	Parameter is_oppositeTraffic_laneChangeBehavior = is_oppositeTraffic;
+    	Parameter target_speed_laneChangeBehavior = target_speed;
+    	laneChangeBehavior.getParameters().add(laneSectionToSwitch_laneChangeBehavior);
+    	laneChangeBehavior.getParameters().add(is_oppositeTraffic_laneChangeBehavior);
+    	laneChangeBehavior.getParameters().add(target_speed_laneChangeBehavior);
+    	
+    	b.getAllBehaviors().add(laneChangeBehavior);
+    	b.getAllBehaviors().add(turnBehavior);
+    	b.getAllBehaviors().add(followLaneBehavior);
+    	
+    	
+    	for (DynamicComponent dc : s.getDynamicComponents()) {
+			BehaviorList temp = behaviorFactory.createBehaviorList();
+			temp.setActor(dc);
+			b.getBehaviorLists().add(temp);
+		}    	
+    	b.setScenario(s);
+    	saveStateMachine(b,"behaviors","behavior");
+    	
+    	return b;
 	}
 	
 	public Scene oneVehicleWithPedestrian(StateMachine m) {
@@ -367,14 +463,14 @@ public class InitInstanceModels {
 	private void saveStateMachine(EObject model,String name,String extension) {    	
     	mo.put(XMIResource.OPTION_SCHEMA_LOCATION, true);
     	mo.put(extension, new XMIResourceFactoryImpl());
-    	
+		//System.out.println((ListsOfBehaviors)model);
     	resourceSave = resSet.createResource(URI.createFileURI("./models/"+name+"."+extension));
     	resourceSave.getContents().add(model);
     	try {
+    		
     		resourceSave.save(mo);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("bad");
 		}
     	mo.clear();
 	}

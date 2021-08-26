@@ -27,26 +27,34 @@ pattern inScene(entity: DynamicEntity,scene : Scene){
 
 //Rules
 
-pattern followLaneBehavior(s: Scenario, staticComponent: Path){
+
+
+
+pattern laneChangeBehavior(s: Scenario,dc: DynamicComponent,sc: LaneSegment,adc : AbstractDynamicInstance){
 	Scenario.dynamicComponents(s,dc);
-	DynamicComponent.instances(dc,dci);
-	AbstractDynamicInstance.relations(dci,relations);
-	IsPlacedOn.target(relations,staticComponent);
-	
+	Scenario.firstScene(s,fs);
+	Scene.abstractDynamicInstances(fs,adc);
+	AbstractDynamicInstance.actor(adc,dc);
+	AbstractDynamicInstance.relations(adc,isPlacedOn);
+	IsPlacedOn.source(isPlacedOn,adc);
+	IsPlacedOn.target(isPlacedOn,sc);
 }
 
 
-//Conditions
 
-//Objectives
+pattern notEnoughBehavior(l: BehaviorList){
+	BehaviorList.numberOfBehaviors(l,num);
+	check(num < 2);
+}
+
 
 //All actors have at least 2 behavior
-pattern hasTwoBehavior(scenario: Scenario, l: ListsOfBehaviors){
-	Scenario.firstScene(scenario,s);
-	Scene.abstractDynamicInstances(s,actualActor);
-	ListsOfBehaviors.listsOfBehaviors(l,allActorsBehaviors);
-	BehaviorList.actor(allActorsBehaviors, actorBehaviors);
-	actualActor == actorBehaviors;
-	BehaviorList.numberOfBehaviors(allActorsBehaviors,num);
-	check(num > 1);	
+/*
+pattern hasTwoBehavior(s: Scenario,l: ListsOfBehaviors){
+	Scenario.dynamicComponents(s,dcs);
+	ListsOfBehaviors.behaviorLists(l,bl);
+	BehaviorList.actor(bl,ac);
+	ac==dcs;
+	neg find notEnoughBehavior(bl);
 }
+*/

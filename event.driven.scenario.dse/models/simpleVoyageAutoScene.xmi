@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ca.mcgill.ecse.scenario:Scenario
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ca.mcgill.ecse.scenario="ca.mcgill.ecse.scenario"
+    xsi:schemaLocation="ca.mcgill.ecse.scenario ../model/trafficSituation.ecore"
+    firstScene="//@scenes.0">
+  <scenery>
+    <roads name="r1">
+      <lanes
+          name="l0"
+          rightLane="//@scenery/@roads.0/@lanes.1"
+          oppDirLaneInSec="//@scenery/@roads.0/@lanes.1"/>
+      <lanes
+          name="l1"
+          laneId="1"
+          leftLane="//@scenery/@roads.0/@lanes.0"
+          oppDirLaneInSec="//@scenery/@roads.0/@lanes.0"/>
+      <contains
+          xsi:type="ca.mcgill.ecse.scenario:Crosswalk"
+          name="c1"/>
+    </roads>
+  </scenery>
+  <dynamicComponents
+      xsi:type="ca.mcgill.ecse.scenario:Pedestrian"
+      name="p1"
+      instances="//@scenes.0/@abstractDynamicInstances.0"/>
+  <dynamicComponents
+      xsi:type="ca.mcgill.ecse.scenario:Car"
+      name="c2"
+      instances="//@scenes.0/@abstractDynamicInstances.1"/>
+  <scenes name="initialScene">
+    <abstractDynamicInstances
+        name="s0-p1"
+        speed="AroundLimit"
+        actor="//@dynamicComponents.0">
+      <relations
+          xsi:type="ca.mcgill.ecse.scenario:IsPlacedOn"
+          target="//@scenery/@roads.0/@contains.0"/>
+    </abstractDynamicInstances>
+    <abstractDynamicInstances
+        name="s0-c2"
+        speed="AroundLimit"
+        actor="//@dynamicComponents.1">
+      <relations
+          xsi:type="ca.mcgill.ecse.scenario:IsPlacedOn"
+          target="//@scenery/@roads.0/@lanes.1"/>
+      <relations
+          xsi:type="ca.mcgill.ecse.scenario:HasInFront"
+          target="//@scenery/@roads.0/@contains.0"/>
+      <relations
+          xsi:type="ca.mcgill.ecse.scenario:IsFarFrom"
+          target="//@dynamicComponents.0"/>
+      <relations
+          xsi:type="ca.mcgill.ecse.scenario:HasToItsLeft"
+          target="//@dynamicComponents.0"/>
+    </abstractDynamicInstances>
+  </scenes>
+</ca.mcgill.ecse.scenario:Scenario>

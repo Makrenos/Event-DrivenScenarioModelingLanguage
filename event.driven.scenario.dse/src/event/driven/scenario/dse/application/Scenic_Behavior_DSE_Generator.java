@@ -23,17 +23,18 @@ import org.eclipse.viatra.query.runtime.rete.matcher.ReteEngine;
 import behavior.BehaviorFactory;
 import behavior.BehaviorList;
 import behavior.BehaviorPackage;
+import behavior.ListsOfBehaviors;
+import behavior.Parameter;
 import edsdl.StateMachine;
-import behavior.Behavior;
-
-
-
-import event.driven.scenario.dse.rules.EdsdlDseRules;
-import event.driven.scenario.dse.source.StateTransitionBasedDfsStrategy;
 import event.driven.scenario.dse.source.StateTransitionBasedConstraintsObjective;
 import event.driven.scenario.dse.source.StateTransitionBasedDesignSpaceExplorer;
+import event.driven.scenario.dse.source.StateTransitionBasedDfsStrategy;
 import event.driven.scenario.dse.source.StateTransitionBasedSolutionStore;
 import event.driven.scenario.dse.statecoder.SceneStateCoderFactory;
+import behavior.Behavior;
+import scenedl.Scene;
+import scenedl.ScenedlPackage;
+import trafficSituation.Scenario;
 import trafficSituation.TrafficSituationFactory;
 import trafficSituation.TrafficSituationPackage;
 
@@ -41,7 +42,7 @@ public class Scenic_Behavior_DSE_Generator {
 
     public static void main(String[] args) throws ViatraQueryException {
     	
-    	//InitInstanceModels init = new InitInstanceModels();
+    	InitInstanceModels init = new InitInstanceModels();
     	
     	//Initialization
     	ViatraQueryEngineOptions.setSystemDefaultBackends(ReteBackendFactory.INSTANCE, ReteBackendFactory.INSTANCE, LocalSearchGenericBackendFactory.INSTANCE);
@@ -54,15 +55,15 @@ public class Scenic_Behavior_DSE_Generator {
     	TrafficSituationFactory trafficSituationFactory = TrafficSituationFactory.eINSTANCE;
     	
 
-    	BehaviorList b = behaviorFactory.createBehaviorList();
+    	ListsOfBehaviors b = behaviorFactory.createListsOfBehaviors();
+    	Scenario s = trafficSituationFactory.createScenario();
     	
     	XMIResourceImpl resource = new XMIResourceImpl();
-    	
     	
     	//TODO:
     	try {
     		
-    		File source = new File("./models/vehicleMovesStateMachine.edsdl");
+    		File source = new File("./models/simpleVoyageAutoScene.xmi");
         	try {
 				resource.load( new FileInputStream(source.getAbsolutePath()), new HashMap<Object,Object>());
 			} catch (FileNotFoundException e) {
@@ -73,15 +74,77 @@ public class Scenic_Behavior_DSE_Generator {
 				//e.printStackTrace();
 			}
     		if (resource != null) {
-    	    	m = (StateMachine)resource.getContents().get(0);	
+    	    	s = (Scenario)resource.getContents().get(0);	
     		}
     	}catch (RuntimeException e){}
     		
     	//Create instance model if there is no valid XMI resource to load
-    	if (m.getStates().size() == 0){
-    		System.out.println("New state machine init");
-    		m = init.initStateMachine("vehicleMoves");    	
+    	if (s.getScenes().size() == 0){
+    		System.out.println("Not loading");    	
     	}
-    	//end of TODO
+    	
+    	//XMI Resource initialization	
+    	XMIResourceImpl behaviorResource = new XMIResourceImpl();
+    	
+    	//Read in XMI resource if there is any
+    	try {
+    		File source = new File("./models/behaviors.behavior");
+        	try {
+        		behaviorResource.load( new FileInputStream(source.getAbsolutePath()), new HashMap<Object,Object>());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
+    		if (behaviorResource != null)
+    	    	b = (ListsOfBehaviors)behaviorResource.getContents().get(0);
+    		}catch (RuntimeException e){
+    		}
+    		
+    	//Create instance model if there is no valid XMI resource to load
+    	if (b.getAllBehaviors().size() == 0){
+    		System.out.println("New BehaviorList init");
+    		//In order for the references to the actors the model Must contain the Scenario in it.
+    		b = init.initBehaviors("scenicBehaviors",s);    		
+    	}
+    	System.out.println(b.getAllBehaviors().get(0).getName());
+    	
+    	//DSE
+        DesignSpaceExplorer.turnOnLoggingWithBasicConfig(DseLoggingLevel.WARN);
+
+        DesignSpaceExplorer dse = new DesignSpaceExplorer();
+
+        dse.setInitialModel(s);
+        dse.addMetaModelPackage(ScenedlPackage.eINSTANCE);
+        
+        dse.setStateCoderFactory(new SceneStateCoderFactory());
+
+        ScenicDse rules = new ScenicDseRules();
+        dse.addTransformationRule(rules.vehicleMoves);
+        dse.addTransformationRule(rules.vehicleAccelerates);
+        dse.addTransformationRule(rules.vehicleSlowsDown);
+        dse.addTransformationRule(rules.pedestrianMoves);
+        
+        dse.addObjective(
+                new ConstraintsObjective()
+                		//.withHardConstraint(NoCollision.instance())
+                        .withHardConstraint(EgoReachesRoadEndWithPedestrian.instance(),ModelQueryType.MUST_HAVE_MATCH)
+                        .withComparator(Comparators.HIGHER_IS_BETTER));
+        //global constraint -> eldobja ha illeszkedés van
+
+        //save found instance models
+        dse.setSolutionStore(new SolutionStore(10000).acceptAnySolutions().saveModelWhenFound("/vehicleReachesRoadEndWithPedestrian/vehicleReachesRoadEndWithPedestrian","scenedl"));
+
+    	System.out.println("Exploration start");
+    	final long startTime = System.nanoTime();
+    	DepthFirstStrategy strategy = new DepthFirstStrategy(1000);
+        dse.startExploration(strategy);
+        
+        System.out.println("Exploration start runtime: " + ((float)(System.nanoTime()-startTime))/1000 + " microseconds");
+        //System.out.println(strategy.time);
+        
+        System.out.println(dse.toStringSolutions());
     }
 }

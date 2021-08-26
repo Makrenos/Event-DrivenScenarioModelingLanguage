@@ -11,38 +11,18 @@ import scenedl.DynamicEntity
 import scenedl.Element
 import scenedl.Lane
 import scenedl.StaticEntity
-import event.driven.scenario.dse.queries.FollowLaneBehavior
-import event.driven.scenario.dse.queries.HasTwoBehavior
+import trafficSituation.IsPlacedOn
+import event.driven.scenario.dse.queries.LaneChangeBehavior
 
-class EdsdlDseRules {
+class ScenicDseTransformations {
     extension BatchTransformationRuleFactory factory = new BatchTransformationRuleFactory
 
 	//rules
     public BatchTransformationRule<?, ?> followLaneBehavior
-    public BatchTransformationRule<?, ?> hasTwoBehavior
+    public BatchTransformationRule<?, ?> laneChangeBehavior
 
 public float time;
-	/*
-	def int getSpeed(DynamicEntity e){
-		for(RegularAttribute a : e.attributes){
-			if(a.name.equals("speed")){
-				
-				return a.value;
-			}
-		}
-		return 0
-	}
-	
-	def int setSpeed(DynamicEntity e,int by){
-		for(RegularAttribute a : e.attributes){
-			if(a.name.equals("speed")){
-				a.value = a.value+by
-				return a.value
-			}
-		}
-		return 0
-	}
-	*/
+
 	
 	def void actuateModel(DynamicEntity de,String rule){
 		//Actutate "on" reference
@@ -90,13 +70,22 @@ public float time;
 	
     new() {
         try {
-            
+			laneChangeBehavior = createRule(LaneChangeBehavior.instance())
+                .name("laneChangeBehavior")
+                .action[
+                	
+                	if(sc.leftLane !== null){
+                		adc.relations
+                	}
+                	//add behavior to the actor
+                	//behavior parameters with lane name
+                	//modify model like a hypotetical model -> actorhoz letezik egy isPlacedOn -> ekkor keruljon at a Path->followingPath-ra
+                ]
+                .build
                 
             followLaneBehavior = createRule(FollowLaneBehavior.instance())
                 .name("followLaneBehavior")
                 .action[
-                	
-                	System.out.println(staticComponent.name);
                 	//add behavior to the actor
                 	//behavior parameters with lane name
                 	//modify model like a hypotetical model -> actorhoz letezik egy isPlacedOn -> ekkor keruljon at a Path->followingPath-ra

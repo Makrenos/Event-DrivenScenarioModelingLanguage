@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ASCII"?>
+<behavior:ListsOfBehaviors
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:behavior="http://www.eventDrivenScenario.org/behavior"
+    xsi:schemaLocation="http://www.eventDrivenScenario.org/behavior ../../event.driven.scenario.dl/model/behavior.ecore">
+  <allBehaviors
+      name="followLaneBehavior">
+    <parameters
+        type="int"
+        value="10"
+        name="target_speed"/>
+    <parameters
+        type="Path"
+        value="None"
+        name="laneToFollow"/>
+    <parameters
+        type="boolean"
+        value="False"
+        name="is_oppositeTraffic"/>
+  </allBehaviors>
+  <allBehaviors
+      name="turnBehavior">
+    <parameters
+        type="Trajectory"
+        name="trajectory"/>
+    <parameters
+        type="int"
+        value="6"
+        name="target_speed"/>
+  </allBehaviors>
+  <allBehaviors
+      name="laneChangeBehavior">
+    <parameters
+        type="LaneSegment"
+        name="laneSectionToSwitch"/>
+    <parameters
+        type="boolean"
+        value="False"
+        name="is_oppositeTraffic"/>
+    <parameters
+        type="int"
+        value="10"
+        name="target_speed"/>
+  </allBehaviors>
+</behavior:ListsOfBehaviors>
